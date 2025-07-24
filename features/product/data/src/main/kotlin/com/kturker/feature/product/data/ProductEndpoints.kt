@@ -4,4 +4,6 @@ internal object ProductEndpoints {
 
     const val GetAllProduct = "/api/products"
 
+    const val GetAllSuggestedProduct = "/api/suggestedProducts"
+
 }
