@@ -47,6 +47,8 @@ android {
 }
 
 dependencies {
+    implementation(project(mapOf("path" to ":core:di")))
+    implementation(project(mapOf("path" to ":navigation")))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
