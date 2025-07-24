@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.kturker.language"
+    namespace = "com.kturker.network"
     compileSdk = AppConfig.compileSdkVersion
 
     defaultConfig {
@@ -38,10 +38,12 @@ android {
 }
 
 dependencies {
+    implementation(project(mapOf("path" to ":contract")))
+
+    api(libs.bundles.network)
 
     //Dagger - Hilt
     implementation(libs.hilt.android)
-    implementation(libs.androidx.hilt.navigation.compose)
     ksp(libs.hilt.android.compiler)
     ksp(libs.androidx.hilt.compiler)
 }
