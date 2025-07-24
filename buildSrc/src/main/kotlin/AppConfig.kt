@@ -1,4 +1,5 @@
 import org.gradle.api.JavaVersion
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 object AppConfig {
     const val applicationId = "com.kturker.getircasestudy"
@@ -22,6 +23,6 @@ object AppConfig {
 
     object CompileOptions {
         val javaSourceCompatibility = JavaVersion.VERSION_11
-        val kotlinJvmTarget: String = JavaVersion.VERSION_11.toString()
+        val kotlinJvmTarget: JvmTarget = JvmTarget.JVM_11
     }
 }

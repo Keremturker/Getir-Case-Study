@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.hilt.android)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -33,8 +35,11 @@ android {
         sourceCompatibility = AppConfig.CompileOptions.javaSourceCompatibility
         targetCompatibility = AppConfig.CompileOptions.javaSourceCompatibility
     }
-    kotlinOptions {
-        jvmTarget = AppConfig.CompileOptions.kotlinJvmTarget
+
+    kotlin {
+        compilerOptions {
+            jvmTarget = AppConfig.CompileOptions.kotlinJvmTarget
+        }
     }
     buildFeatures {
         compose = true
@@ -58,4 +63,10 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    //Dagger - Hilt
+    implementation(libs.hilt.android)
+    implementation(libs.androidx.hilt.navigation.compose)
+    ksp(libs.hilt.android.compiler)
+    ksp(libs.androidx.hilt.compiler)
 }
