@@ -5,17 +5,19 @@ plugins {
 }
 
 android {
-    namespace = "com.kturker.getircasestudy"
-    compileSdk = 36
+    namespace = AppConfig.applicationId
+    compileSdk = AppConfig.compileSdkVersion
 
     defaultConfig {
-        applicationId = "com.kturker.getircasestudy"
-        minSdk = 24
-        targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = AppConfig.applicationId
+        minSdk = AppConfig.minSdkVersion
+        targetSdk = AppConfig.targetSdkVersion
+        versionCode = AppConfig.versionCode
+        versionName = AppConfig.versionName
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = AppConfig.testRunner
+
+        resValue("string", "app_name", AppConfig.name)
     }
 
     buildTypes {
@@ -28,11 +30,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = AppConfig.CompileOptions.javaSourceCompatibility
+        targetCompatibility = AppConfig.CompileOptions.javaSourceCompatibility
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = AppConfig.CompileOptions.kotlinJvmTarget
     }
     buildFeatures {
         compose = true
