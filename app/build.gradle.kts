@@ -31,6 +31,32 @@ android {
             )
         }
     }
+
+    flavorDimensions.add(ProductFlavors.flavorDimensionsApi)
+
+    productFlavors {
+
+        create(ProductFlavors.productFlavorDevelopment) {
+            dimension = ProductFlavors.flavorDimensionsApi
+            applicationIdSuffix = ProductFlavors.productFlavorDevelopmentSuffix
+            versionCode = AppConfig.versionCode
+            versionName = AppConfig.versionName
+
+            resValue("string", "app_name", "Dev - ${AppConfig.name}")
+            buildConfigField("String", "BASE_URL", "\"https://65c38b5339055e7482c12050.mockapi.io\"")
+        }
+
+        create(ProductFlavors.productFlavorProduction) {
+            dimension = ProductFlavors.flavorDimensionsApi
+            applicationIdSuffix = ProductFlavors.productFlavorProductionSuffix
+            versionCode = AppConfig.versionCode
+            versionName = AppConfig.versionName
+
+            resValue("string", "app_name", AppConfig.name)
+            buildConfigField("String", "BASE_URL", "\"https://65c38b5339055e7482c12050.mockapi.io\"")
+        }
+    }
+
     compileOptions {
         sourceCompatibility = AppConfig.CompileOptions.javaSourceCompatibility
         targetCompatibility = AppConfig.CompileOptions.javaSourceCompatibility
@@ -43,13 +69,17 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
 dependencies {
+    implementation(project(mapOf("path" to ":contract")))
+    implementation(project(mapOf("path" to ":core")))
     implementation(project(mapOf("path" to ":core:di")))
     implementation(project(mapOf("path" to ":language")))
     implementation(project(mapOf("path" to ":navigation")))
+    implementation(project(mapOf("path" to ":network")))
     implementation(project(mapOf("path" to ":uikit")))
 
     implementation(libs.androidx.core.ktx)
@@ -73,4 +103,5 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
     ksp(libs.hilt.android.compiler)
     ksp(libs.androidx.hilt.compiler)
+
 }

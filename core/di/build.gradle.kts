@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = AppConfig.applicationId
+    namespace = "com.kturker.core.di"
     compileSdk = AppConfig.compileSdkVersion
 
     defaultConfig {

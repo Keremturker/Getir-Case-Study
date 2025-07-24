@@ -13,3 +13,9 @@ kotlin {
         jvmTarget = AppConfig.CompileOptions.kotlinJvmTarget
     }
 }
+
+dependencies {
+    implementation(project(mapOf("path" to ":contract")))
+
+    implementation(libs.androidx.lifecycle.viewmodel)
+}
