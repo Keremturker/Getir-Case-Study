@@ -43,7 +43,11 @@ android {
             versionName = AppConfig.versionName
 
             resValue("string", "app_name", "Dev - ${AppConfig.name}")
-            buildConfigField("String", "BASE_URL", "\"https://65c38b5339055e7482c12050.mockapi.io\"")
+            buildConfigField(
+                "String",
+                "BASE_URL",
+                "\"https://65c38b5339055e7482c12050.mockapi.io\""
+            )
         }
 
         create(ProductFlavors.productFlavorProduction) {
@@ -53,7 +57,11 @@ android {
             versionName = AppConfig.versionName
 
             resValue("string", "app_name", AppConfig.name)
-            buildConfigField("String", "BASE_URL", "\"https://65c38b5339055e7482c12050.mockapi.io\"")
+            buildConfigField(
+                "String",
+                "BASE_URL",
+                "\"https://65c38b5339055e7482c12050.mockapi.io\""
+            )
         }
     }
 
@@ -74,8 +82,8 @@ android {
 }
 
 dependencies {
-    implementation(project(mapOf("path" to ":features:product:contract")))
-    implementation(project(mapOf("path" to ":features:product:presentation")))
+    includeFeatureModules(":features:product", listOf("contract", "data", "domain", "presentation"))
+
     implementation(project(mapOf("path" to ":contract")))
     implementation(project(mapOf("path" to ":core")))
     implementation(project(mapOf("path" to ":core:di")))
@@ -107,4 +115,10 @@ dependencies {
     ksp(libs.hilt.android.compiler)
     ksp(libs.androidx.hilt.compiler)
 
+}
+
+fun DependencyHandler.includeFeatureModules(basePath: String, modules: List<String>) {
+    modules.forEach { module ->
+        implementation(project(mapOf("path" to "$basePath:$module")))
+    }
 }
