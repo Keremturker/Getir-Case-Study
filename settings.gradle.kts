@@ -21,4 +21,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "Getir Case Study"
 include(":app")
- 
+include(":contract")
+include(":core")
+include(":core:di")
+include(":navigation")
