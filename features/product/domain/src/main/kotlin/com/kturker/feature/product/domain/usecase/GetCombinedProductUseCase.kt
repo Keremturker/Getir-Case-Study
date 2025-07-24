@@ -1,7 +1,7 @@
 package com.kturker.feature.product.domain.usecase
 
 import com.kturker.contract.Dispatchers
-import com.kturker.contract.ResultState
+import com.kturker.contract.ServiceResult
 import com.kturker.feature.product.domain.ProductRepository
 import com.kturker.feature.product.domain.model.CombineAllProduct
 import kotlinx.coroutines.CoroutineDispatcher
@@ -18,8 +18,8 @@ class GetCombinedProductUseCase @Inject constructor(
         val productsDeferred = async { repository.getAllProducts() }
         val suggestedDeferred = async { repository.getAllSuggestedProducts() }
 
-        val products = (productsDeferred.await() as? ResultState.Success)?.data
-        val suggested = (suggestedDeferred.await() as? ResultState.Success)?.data
+        val products = (productsDeferred.await() as? ServiceResult.Success)?.data
+        val suggested = (suggestedDeferred.await() as? ServiceResult.Success)?.data
 
         CombineAllProduct(
             products = products,

@@ -1,5 +1,6 @@
 package com.kturker.network
 
+import com.kturker.contract.ServiceResult
 import retrofit2.Response
 
 inline val <T> Response<T>.asRestResult: ServiceResult<T>

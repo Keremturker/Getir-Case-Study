@@ -1,5 +1,6 @@
 package com.kturker.network
 
+import com.kturker.contract.ServiceResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Response

@@ -1,7 +1,7 @@
 package com.kturker.feature.product.presentation.list
 
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kturker.core.CoreViewModel
 import com.kturker.feature.product.domain.usecase.GetCombinedProductUseCase
 import com.kturker.language.ML
 import com.kturker.language.StringResourceManager
@@ -17,14 +17,13 @@ import javax.inject.Inject
 internal class ProductListViewmodel @Inject constructor(
     private val getAllProducts: GetCombinedProductUseCase,
     private val stringResourceManager: StringResourceManager
-) : CoreViewModel() {
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ProductListUiState())
     val uiState: StateFlow<ProductListUiState> = _uiState.asStateFlow()
 
     init {
         viewModelScope.launch {
-
             getAllProducts.invoke()
 
             _uiState.update {
