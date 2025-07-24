@@ -49,6 +49,7 @@ android {
 dependencies {
     implementation(project(mapOf("path" to ":core:di")))
     implementation(project(mapOf("path" to ":navigation")))
+    implementation(project(mapOf("path" to ":language")))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
