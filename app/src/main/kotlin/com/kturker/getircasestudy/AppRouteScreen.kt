@@ -5,17 +5,22 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import com.kturker.feature.product.contract.ProductListScreenDestination
+import com.kturker.navigation.NavGraphProvider
 import com.kturker.uikit.LocalCustomColorsPalette
 import com.kturker.uikit.OnDarkCustomColorsPalette
 import com.kturker.uikit.OnLightCustomColorsPalette
 
 @Composable
-internal fun AppRouteScreen() {
+internal fun AppRouteScreen(
+    navController: NavHostController,
+    navGraphProviders: Map<String, NavGraphProvider>
+) {
     val isSystemDark =
         if (isSystemInDarkTheme()) OnDarkCustomColorsPalette else OnLightCustomColorsPalette
 
@@ -26,10 +31,16 @@ internal fun AppRouteScreen() {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(paddingValues),
-                contentAlignment = Alignment.Center
+                    .padding(paddingValues)
             ) {
-                Text(text = "Getir Case Study")
+                NavHost(
+                    navController = navController,
+                    startDestination = ProductListScreenDestination
+                ) {
+                    navGraphProviders.forEach {
+                        it.value.registerGraph(navGraphBuilder = this)
+                    }
+                }
             }
         }
     }

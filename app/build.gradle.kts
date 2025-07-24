@@ -74,6 +74,8 @@ android {
 }
 
 dependencies {
+    implementation(project(mapOf("path" to ":features:product:contract")))
+    implementation(project(mapOf("path" to ":features:product:presentation")))
     implementation(project(mapOf("path" to ":contract")))
     implementation(project(mapOf("path" to ":core")))
     implementation(project(mapOf("path" to ":core:di")))
@@ -97,6 +99,7 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    implementation(libs.androidx.navigation.compose)
 
     //Dagger - Hilt
     implementation(libs.hilt.android)
