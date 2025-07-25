@@ -21,7 +21,7 @@ internal class ProductListViewmodel @Inject constructor(
     private val productsUseCase: ProductsUseCase,
     private val suggestedProductUseCase: SuggestedProductUseCase,
     stringResourceManager: StringResourceManager
-) : CoreViewModel(), ProductListUiActions {
+) : CoreViewModel(), ProductListActionHandler {
 
     private val _uiState = MutableStateFlow(
         ProductListUiState(
@@ -55,7 +55,7 @@ internal class ProductListViewmodel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
-    override fun onMinusAction(id: String) {
+/*    fun onMinusActionForSuggestProduct(id: String) {
         _uiState.update { currentState ->
             val updatedProducts = currentState.suggestedProductList.map { product ->
                 if (product.id == id && product.cartCount > 0) {
@@ -69,7 +69,7 @@ internal class ProductListViewmodel @Inject constructor(
         }
     }
 
-    override fun onPlusAction(id: String) {
+    fun onPlusActionForSuggestProduct(id: String) {
         _uiState.update { currentState ->
             val updatedProducts = currentState.suggestedProductList.map { product ->
                 if (product.id == id) {
@@ -80,6 +80,72 @@ internal class ProductListViewmodel @Inject constructor(
             }
 
             currentState.copy(suggestedProductList = updatedProducts)
+        }
+    }
+
+    fun onMinusActionForProduct(id: String) {
+        _uiState.update { currentState ->
+            val updatedProducts = currentState.productList.map { product ->
+                if (product.id == id && product.cartCount > 0) {
+                    product.copy(cartCount = product.cartCount - 1)
+                } else {
+                    product
+                }
+            }
+
+            currentState.copy(productList = updatedProducts)
+        }
+    }
+
+    fun onPlusActionForProduct(id: String) {
+        _uiState.update { currentState ->
+            val updatedProducts = currentState.productList.map { product ->
+                if (product.id == id) {
+                    product.copy(cartCount = product.cartCount + 1)
+                } else {
+                    product
+                }
+            }
+
+            currentState.copy(productList = updatedProducts)
+        }
+    }*/
+
+    override fun onAction(action: ProductListAction) {
+        when (action) {
+            is ProductListAction.Add -> {
+                updateProductList(action.source, action.id) { it + 1 }
+            }
+
+            is ProductListAction.Remove -> {
+                updateProductList(action.source, action.id) { count -> if (count > 0) count - 1 else 0 }
+            }
+        }
+    }
+
+    private fun updateProductList(
+        source: ProductListAction.Source,
+        id: String,
+        updateCount: (Int) -> Int
+    ) {
+        _uiState.update { currentState ->
+            when (source) {
+                ProductListAction.Source.Suggested -> {
+                    val updated = currentState.suggestedProductList.map { product ->
+                        if (product.id == id) product.copy(cartCount = updateCount(product.cartCount))
+                        else product
+                    }
+                    currentState.copy(suggestedProductList = updated)
+                }
+
+                ProductListAction.Source.All -> {
+                    val updated = currentState.productList.map { product ->
+                        if (product.id == id) product.copy(cartCount = updateCount(product.cartCount))
+                        else product
+                    }
+                    currentState.copy(productList = updated)
+                }
+            }
         }
     }
 
