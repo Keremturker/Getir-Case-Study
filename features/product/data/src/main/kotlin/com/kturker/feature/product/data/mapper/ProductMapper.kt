@@ -10,13 +10,13 @@ internal class ProductMapper @Inject constructor() {
     fun mapDtoListToItemList(response: List<ProductItemDto>?) = response?.map { itemDto ->
         ProductEntity(
             id = itemDto.id.orEmpty(),
-            name = itemDto.name.orEmpty(),
-            attribute = itemDto.attribute.orEmpty(),
-            shortDescription = itemDto.shortDescription.orEmpty(),
+            name = itemDto.name.orEmpty().trim(),
+            attribute = itemDto.attribute.orEmpty().trim(),
+            shortDescription = itemDto.shortDescription.orEmpty().trim(),
             thumbnailURL = itemDto.thumbnailURL.orEmpty(),
             imageURL = itemDto.imageURL.orEmpty(),
             price = itemDto.price ?: 0.0,
-            priceText = itemDto.priceText.orEmpty()
+            priceText = itemDto.priceText.orEmpty().trim()
         )
     }.orEmpty()
 
@@ -24,10 +24,8 @@ internal class ProductMapper @Inject constructor() {
         ProductItem(
             id = item.id,
             name = item.name,
-            attribute = item.attribute,
-            shortDescription = item.shortDescription,
-            thumbnailURL = item.thumbnailURL,
-            imageURL = item.imageURL,
+            description = item.attribute.takeIf { it.isNotBlank() } ?: item.shortDescription,
+            imageUrl = item.imageURL.takeIf { it.isNotBlank() } ?: item.thumbnailURL,
             price = item.price,
             priceText = item.priceText
         )

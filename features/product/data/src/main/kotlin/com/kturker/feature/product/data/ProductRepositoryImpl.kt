@@ -9,7 +9,6 @@ import com.kturker.feature.product.data.mapper.ProductMapper
 import com.kturker.feature.product.data.mapper.SuggestedProductMapper
 import com.kturker.feature.product.domain.ProductRepository
 import com.kturker.feature.product.domain.model.ProductItem
-import com.kturker.feature.product.domain.model.SuggestedProductItem
 import com.kturker.network.asRestResult
 import com.kturker.network.mapToResultState
 import kotlinx.coroutines.CoroutineDispatcher
@@ -25,7 +24,7 @@ internal class ProductRepositoryImpl @Inject constructor(
     private val suggestedProductDao: SuggestedProductDao
 ) : ProductRepository {
 
-    override suspend fun getSuggestedProducts(): Flow<ResultState<List<SuggestedProductItem>>> =
+    override suspend fun getSuggestedProducts(): Flow<ResultState<List<ProductItem>>> =
         fetchAndCacheFromRoomAndApi(
             dispatcher = ioDispatcher,
             dbFlow = suggestedProductDao.getSuggestedProductFlow(),

@@ -34,9 +34,22 @@ android {
             jvmTarget = AppConfig.CompileOptions.kotlinJvmTarget
         }
     }
+
+    buildFeatures {
+        compose = true
+    }
 }
 
 dependencies {
     implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.compose.material3.material3)
+    implementation(libs.androidx.compose.ui.ui)
+    implementation(libs.ui.graphics)
+    debugImplementation(libs.ui.tooling)
     implementation(libs.androidx.ui)
+    implementation (libs.androidx.constraintlayout.compose)
+    implementation(libs.coil.compose)
+
 }

@@ -12,5 +12,8 @@ internal fun ProductListRouteScreen(
 
     val uiState by viewmodel.uiState.collectAsStateWithLifecycle()
 
-    ProductListScreen(state = uiState)
+    ProductListScreen(
+        state = uiState,
+        onActions = viewmodel
+    )
 }
