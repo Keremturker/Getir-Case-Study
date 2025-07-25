@@ -14,6 +14,6 @@ internal fun ProductListRouteScreen(
 
     ProductListScreen(
         state = uiState,
-        onActions = viewmodel
+        action = viewmodel
     )
 }

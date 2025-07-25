@@ -10,6 +10,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -26,7 +29,7 @@ import com.kturker.uikit.components.toolbar.KtToolbar
 @Composable
 internal fun ProductListScreen(
     state: ProductListUiState,
-    onActions: ProductListUiActions
+    action: ProductListActionHandler
 ) {
     val color = LocalCustomColorsPalette.current
 
@@ -50,8 +53,12 @@ internal fun ProductListScreen(
 
             SuggestedProductList(
                 items = state.suggestedProductList,
-                onPlusClick = onActions::onPlusAction,
-                onMinusClick = onActions::onMinusAction
+                action = action
+            )
+
+            ProductList(
+                items = state.productList,
+                action = action
             )
         }
     }
@@ -60,8 +67,7 @@ internal fun ProductListScreen(
 @Composable
 private fun SuggestedProductList(
     items: List<ProductItem>,
-    onPlusClick: (id: String) -> Unit,
-    onMinusClick: (id: String) -> Unit
+    action: ProductListActionHandler
 ) {
     val color = LocalCustomColorsPalette.current
 
@@ -86,8 +92,70 @@ private fun SuggestedProductList(
                 ProductItemCompose(
                     modifier = Modifier.width(100.dp),
                     item = item,
-                    onMinusClick = onMinusClick,
-                    onPlusClick = onPlusClick
+                    onMinusClick = {
+                        action.onAction(
+                            action = ProductListAction.Remove(
+                                id = item.id,
+                                source = ProductListAction.Source.Suggested
+                            )
+                        )
+                    },
+                    onPlusClick = {
+                        action.onAction(
+                            action = ProductListAction.Add(
+                                id = item.id,
+                                source = ProductListAction.Source.Suggested
+                            )
+                        )
+                    }
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun ProductList(
+    items: List<ProductItem>,
+    action: ProductListActionHandler
+) {
+    val color = LocalCustomColorsPalette.current
+
+    Box(
+        Modifier
+            .padding(top = 16.dp)
+            .background(color = color.white)
+            .padding(top = 8.dp)
+    ) {
+
+        LazyVerticalGrid(
+            modifier = Modifier.padding(start = 16.dp, end = 8.dp),
+            columns = GridCells.Fixed(3),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            items(
+                items = items,
+                key = { item -> item.id }
+            ) { item ->
+                ProductItemCompose(
+                    item = item,
+                    onMinusClick = {
+                        action.onAction(
+                            action = ProductListAction.Remove(
+                                id = item.id,
+                                source = ProductListAction.Source.All
+                            )
+                        )
+                    },
+                    onPlusClick = {
+                        action.onAction(
+                            action = ProductListAction.Add(
+                                id = item.id,
+                                source = ProductListAction.Source.All
+                            )
+                        )
+                    }
                 )
             }
         }

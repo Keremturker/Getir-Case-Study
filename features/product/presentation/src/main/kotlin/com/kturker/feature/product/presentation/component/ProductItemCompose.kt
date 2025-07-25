@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kturker.feature.product.domain.model.ProductItem
@@ -188,7 +189,7 @@ private fun ActionButton(imageVector: ImageVector?, onClickAction: () -> Unit, s
     Card(
         modifier = Modifier
             .size(32.dp)
-            .noRippleClickable {
+            .noRippleClickable(debounceTime = 0L) {
                 onClickAction.invoke()
             },
         shape = shape,
@@ -223,7 +224,9 @@ private fun ProductInfoSection(name: String, price: String, description: String)
             text = name,
             color = color.textBlack,
             fontWeight = FontWeight.SemiBold,
-            fontSize = 12.sp
+            fontSize = 12.sp,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis
         )
 
         KtText(
