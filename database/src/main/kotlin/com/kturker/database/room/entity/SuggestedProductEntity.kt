@@ -21,8 +21,6 @@ data class SuggestedProductEntity(
     val shortDescription: String = "",
     @ColumnInfo(name = "squareThumbnailURL")
     val squareThumbnailURL: String = "",
-    @ColumnInfo(name = "thumbnailURL")
-    val thumbnailURL: String = "",
     @ColumnInfo(name = "status")
     val status: Int = 0,
     @ColumnInfo(name = "category")

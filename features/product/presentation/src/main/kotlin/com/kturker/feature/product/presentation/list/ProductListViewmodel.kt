@@ -21,7 +21,7 @@ internal class ProductListViewmodel @Inject constructor(
     private val productsUseCase: ProductsUseCase,
     private val suggestedProductUseCase: SuggestedProductUseCase,
     stringResourceManager: StringResourceManager
-) : CoreViewModel() {
+) : CoreViewModel(), ProductListUiActions {
 
     private val _uiState = MutableStateFlow(
         ProductListUiState(
@@ -54,4 +54,33 @@ internal class ProductListViewmodel @Inject constructor(
             val errorMessage = it
         }.launchIn(viewModelScope)
     }
+
+    override fun onMinusAction(id: String) {
+        _uiState.update { currentState ->
+            val updatedProducts = currentState.suggestedProductList.map { product ->
+                if (product.id == id && product.cartCount > 0) {
+                    product.copy(cartCount = product.cartCount - 1)
+                } else {
+                    product
+                }
+            }
+
+            currentState.copy(suggestedProductList = updatedProducts)
+        }
+    }
+
+    override fun onPlusAction(id: String) {
+        _uiState.update { currentState ->
+            val updatedProducts = currentState.suggestedProductList.map { product ->
+                if (product.id == id) {
+                    product.copy(cartCount = product.cartCount + 1)
+                } else {
+                    product
+                }
+            }
+
+            currentState.copy(suggestedProductList = updatedProducts)
+        }
+    }
+
 }
