@@ -1,13 +1,6 @@
 package com.kturker.feature.product.domain.model
 
-data class AllProductModel(
-    val id: String = "",
-    val name: String = "",
-    val productCount: Int = 0,
-    val products: List<Product> = listOf()
-)
-
-data class Product(
+data class ProductItem(
     val id: String = "",
     val name: String = "",
     val attribute: String = "",

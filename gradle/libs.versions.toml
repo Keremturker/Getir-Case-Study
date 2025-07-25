@@ -21,6 +21,7 @@ lifecycleViewmodel = "2.9.2"
 google_gson = "2.13.1"
 serialization = "1.9.0"
 navigationCompose = "2.9.2"
+roomRuntime = "2.7.2"
 
 [libraries]
 androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycleViewmodel" }
@@ -54,6 +55,9 @@ androidx-compose-material3-material3 = { module = "androidx.compose.material3:ma
 androidx-compose-ui-ui = { module = "androidx.compose.ui:ui" }
 ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
 ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
 
 [bundles]
 network = ["network-retrofit", "network-gson-converter", "network-okhttp", "google-gson"]

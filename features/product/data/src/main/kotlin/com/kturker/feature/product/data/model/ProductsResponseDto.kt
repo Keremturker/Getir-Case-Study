@@ -3,7 +3,7 @@ package com.kturker.feature.product.data.model
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-internal data class AllProductsResponseDto(
+internal data class ProductsResponseDto(
     @SerialName("id")
     val id: String? = null,
 

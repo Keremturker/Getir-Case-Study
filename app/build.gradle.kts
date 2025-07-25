@@ -87,6 +87,7 @@ dependencies {
     implementation(project(mapOf("path" to ":contract")))
     implementation(project(mapOf("path" to ":core")))
     implementation(project(mapOf("path" to ":core:di")))
+    implementation(project(mapOf("path" to ":database")))
     implementation(project(mapOf("path" to ":language")))
     implementation(project(mapOf("path" to ":navigation")))
     implementation(project(mapOf("path" to ":network")))

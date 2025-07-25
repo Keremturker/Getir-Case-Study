@@ -1,12 +1,6 @@
 package com.kturker.feature.product.domain.model
 
-data class AllSuggestedProductModel(
-    val id: String = "",
-    val name: String = "",
-    val products: List<SuggestedProduct> = listOf()
-)
-
-data class SuggestedProduct(
+data class SuggestedProductItem(
     val id: String = "",
     val name: String = "",
     val price: Double = 0.0,
