@@ -102,7 +102,11 @@ internal fun ProductListScreen(
                     fontWeight = FontWeight.Bold
                 )
             }, endContent = {
-                AnimatedCartPriceBadge(totalPriceFormatted = state.totalPriceFormatted)
+                AnimatedCartPriceBadge(
+                    totalPriceFormatted = state.totalPriceFormatted,
+                    modifier = Modifier.noRippleClickable {
+                        action.navigateToCartScreen()
+                    })
             })
         },
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
@@ -146,7 +150,7 @@ internal fun ProductListScreen(
                     BottomCartBar(
                         title = state.goToCartButtonTitle,
                         totalPriceFormatted = state.totalPriceFormatted,
-                        onClick = { }
+                        onClick = action::navigateToCartScreen
                     )
                 }
             }

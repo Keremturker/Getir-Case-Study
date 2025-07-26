@@ -105,4 +105,8 @@ internal class ProductDetailViewmodel @Inject constructor(
         }
     }
 
+    override fun navigateToCartScreen() {
+        navigation.navigateToCartScreen()
+    }
+
 }

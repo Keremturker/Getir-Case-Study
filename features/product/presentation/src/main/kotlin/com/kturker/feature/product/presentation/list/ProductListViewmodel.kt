@@ -77,7 +77,11 @@ internal class ProductListViewmodel @Inject constructor(
     }
 
     override fun navigateToDetailScreen(item: ProductItem) {
-        navigation.navigateToDetail(item = item)
+        navigation.navigateToDetailScreen(item = item)
+    }
+
+    override fun navigateToCartScreen() {
+        navigation.navigateToCartScreen()
     }
 
     override fun addToCart(item: ProductItem) {

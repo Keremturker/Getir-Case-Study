@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.kturker.feature.product.presentation"
+    namespace = "com.kturker.feature.cart.presentation"
     compileSdk = AppConfig.compileSdkVersion
 
     defaultConfig {
@@ -43,9 +43,7 @@ dependencies {
     implementation(project(mapOf("path" to ":core:domain")))
     implementation(project(mapOf("path" to ":core:presentation")))
     implementation(project(mapOf("path" to ":features:cart:contract")))
-    implementation(project(mapOf("path" to ":features:product:contract")))
-    implementation(project(mapOf("path" to ":features:product:domain")))
-    implementation(project(mapOf("path" to ":core")))
+    implementation(project(mapOf("path" to ":features:cart:domain")))
     implementation(project(mapOf("path" to ":contract")))
     implementation(project(mapOf("path" to ":language")))
     implementation(project(mapOf("path" to ":navigation")))
@@ -69,8 +67,4 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
     ksp(libs.hilt.android.compiler)
     ksp(libs.androidx.hilt.compiler)
-
-    implementation (libs.androidx.paging.runtime.ktx)
-    implementation (libs.androidx.paging.compose)
-
 }

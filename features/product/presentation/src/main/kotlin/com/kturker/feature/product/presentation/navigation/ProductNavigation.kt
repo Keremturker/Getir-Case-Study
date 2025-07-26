@@ -1,6 +1,7 @@
 package com.kturker.feature.product.presentation.navigation
 
 import com.kturker.core.domain.ProductItem
+import com.kturker.feature.cart.contract.CartScreenDestination
 import com.kturker.feature.product.contract.ProductDetailArgs
 import com.kturker.feature.product.contract.ProductDetailScreenDestination
 import com.kturker.navigation.ComposeNavigatorCommand
@@ -15,7 +16,7 @@ internal class ProductNavigation @Inject constructor(
         navigationManager.navigate(navigationCommand = ComposeNavigatorCommand.NavigateUp)
     }
 
-    fun navigateToDetail(
+    fun navigateToDetailScreen(
         item: ProductItem
     ) {
         navigationManager.navigate(
@@ -30,5 +31,9 @@ internal class ProductNavigation @Inject constructor(
                 )
             )
         )
+    }
+
+    fun navigateToCartScreen() {
+        navigationManager.navigate(navigationCommand = CartScreenDestination)
     }
 }

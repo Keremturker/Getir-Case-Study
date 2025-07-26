@@ -29,12 +29,11 @@ import androidx.compose.ui.unit.sp
 import com.kturker.uikit.LocalCustomColorsPalette
 import com.kturker.uikit.components.icon.KtIcon
 import com.kturker.uikit.components.text.KtText
-import com.kturker.uikit.extension.noRippleClickable
 import com.kturker.uikit.icons.Bucket
 import kotlinx.coroutines.delay
 
 @Composable
-fun AnimatedCartPriceBadge(totalPriceFormatted: String) {
+fun AnimatedCartPriceBadge(totalPriceFormatted: String, modifier: Modifier = Modifier) {
     AnimatedVisibility(
         visible = totalPriceFormatted.isNotEmpty(),
         enter = slideInHorizontally(
@@ -46,14 +45,17 @@ fun AnimatedCartPriceBadge(totalPriceFormatted: String) {
             animationSpec = tween(durationMillis = 300)
         )
     ) {
-        CartPriceBadge(priceText = totalPriceFormatted)
+        CartPriceBadge(
+            modifier = modifier,
+            priceText = totalPriceFormatted
+        )
     }
 }
 
 @Composable
 private fun CartPriceBadge(
-    priceText: String,
-    onClick: () -> Unit = {}
+    modifier: Modifier,
+    priceText: String
 ) {
     val color = LocalCustomColorsPalette.current
 
@@ -69,7 +71,7 @@ private fun CartPriceBadge(
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
+        modifier = modifier
             .border(
                 width = 1.dp,
                 color = color.white,
@@ -77,9 +79,6 @@ private fun CartPriceBadge(
             )
             .height(34.dp)
             .background(color = color.white, shape = RoundedCornerShape(8.dp))
-            .noRippleClickable {
-                onClick.invoke()
-            }
     ) {
 
         Box(

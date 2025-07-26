@@ -4,4 +4,5 @@ internal interface ProductDetailAction {
     fun navigateUp()
     fun addToCart()
     fun removeFromCart()
+    fun navigateToCartScreen()
 }

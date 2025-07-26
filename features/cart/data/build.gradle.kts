@@ -39,6 +39,7 @@ android {
 }
 
 dependencies {
+    implementation(project(mapOf("path" to ":features:cart:domain")))
     implementation(project(mapOf("path" to ":core:domain")))
     implementation(project(mapOf("path" to ":database")))
 

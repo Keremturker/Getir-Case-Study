@@ -7,4 +7,5 @@ internal interface ProductListAction {
     fun removeFromCart(item: ProductItem)
     fun onFetchData(defaultOnLoading: Boolean = true)
     fun navigateToDetailScreen(item: ProductItem)
+    fun navigateToCartScreen()
 }
