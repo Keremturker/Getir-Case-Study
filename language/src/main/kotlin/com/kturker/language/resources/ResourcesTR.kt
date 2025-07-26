@@ -8,6 +8,7 @@ val resourceTR = LanguageUiModel(
     resources = StringResourcesUiModel(
         productListTitle = "Ürünler",
         goToCartButtonTitle = "Sepete Git",
-        emptyListText = "Ürün bulunamadı"
+        emptyListText = "Ürün bulunamadı",
+        productDetailTitle = "Ürün Detayı"
     )
 )

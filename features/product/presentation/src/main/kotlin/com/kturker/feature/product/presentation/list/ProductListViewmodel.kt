@@ -4,8 +4,8 @@ import android.annotation.SuppressLint
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.kturker.contract.ResultState
-import com.kturker.core.CoreViewModel
 import com.kturker.core.domain.ProductItem
+import com.kturker.core.presentation.CoreViewModel
 import com.kturker.feature.product.domain.usecase.AddToCartUseCase
 import com.kturker.feature.product.domain.usecase.GetCartTotalPriceUseCase
 import com.kturker.feature.product.domain.usecase.ProductPagingUseCase
@@ -13,6 +13,7 @@ import com.kturker.feature.product.domain.usecase.ProductsUseCase
 import com.kturker.feature.product.domain.usecase.RemoveFromCartUseCase
 import com.kturker.feature.product.domain.usecase.SuggestedProductPagingUseCase
 import com.kturker.feature.product.domain.usecase.SuggestedProductsUseCase
+import com.kturker.feature.product.presentation.navigation.ProductNavigation
 import com.kturker.language.ML
 import com.kturker.language.StringResourceManager
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -38,6 +39,7 @@ internal class ProductListViewmodel @Inject constructor(
     private val addToCart: AddToCartUseCase,
     private val removeFromCart: RemoveFromCartUseCase,
     private val getCartTotalPrice: GetCartTotalPriceUseCase,
+    private val navigation: ProductNavigation,
     stringResourceManager: StringResourceManager,
     productPagingUseCase: ProductPagingUseCase,
     suggestedProductPagingUseCase: SuggestedProductPagingUseCase,
@@ -76,6 +78,10 @@ internal class ProductListViewmodel @Inject constructor(
     init {
         observeCartTotalPrice()
         onFetchData(defaultOnLoading = false)
+    }
+
+    override fun navigateToDetailScreen(item: ProductItem) {
+        navigation.navigateToDetail(item = item)
     }
 
     override fun addToCart(item: ProductItem) {

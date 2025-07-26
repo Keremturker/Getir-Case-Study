@@ -1,4 +1,4 @@
-package com.kturker.core
+package com.kturker.core.presentation
 
 import androidx.lifecycle.ViewModel
 import com.kturker.contract.ResultState

@@ -1,4 +1,4 @@
-package com.kturker.core
+package com.kturker.core.presentation
 
 import com.kturker.contract.ResultState
 import kotlinx.coroutines.flow.Flow
