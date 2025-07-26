@@ -2,7 +2,9 @@ package com.kturker.feature.product.presentation.list
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -84,7 +86,17 @@ internal fun ProductListScreen(
                     fontWeight = FontWeight.Bold
                 )
             }, endContent = {
-                if (state.totalPriceFormatted.isNotEmpty()) {
+                AnimatedVisibility(
+                    visible = state.totalPriceFormatted.isNotEmpty(),
+                    enter = slideInHorizontally(
+                        initialOffsetX = { fullWidth -> fullWidth },
+                        animationSpec = tween(durationMillis = 300)
+                    ),
+                    exit = slideOutHorizontally(
+                        targetOffsetX = { fullWidth -> fullWidth },
+                        animationSpec = tween(durationMillis = 300)
+                    )
+                ) {
                     CartPriceBadge(priceText = state.totalPriceFormatted)
                 }
             })
