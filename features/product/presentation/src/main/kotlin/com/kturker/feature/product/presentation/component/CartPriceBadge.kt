@@ -1,5 +1,8 @@
 package com.kturker.feature.product.presentation.component
 
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -10,6 +13,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -20,6 +28,7 @@ import com.kturker.uikit.components.icon.KtIcon
 import com.kturker.uikit.components.text.KtText
 import com.kturker.uikit.extension.noRippleClickable
 import com.kturker.uikit.icons.Bucket
+import kotlinx.coroutines.delay
 
 @Composable
 internal fun CartPriceBadge(
@@ -27,6 +36,16 @@ internal fun CartPriceBadge(
     onClick: () -> Unit = {}
 ) {
     val color = LocalCustomColorsPalette.current
+
+    var visiblePrice by remember { mutableStateOf(priceText) }
+
+    LaunchedEffect(key1 = priceText) {
+        if (priceText.isNotEmpty()) {
+            visiblePrice = ""
+            delay(120)
+            visiblePrice = priceText
+        }
+    }
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -61,16 +80,21 @@ internal fun CartPriceBadge(
                     color = color.softBackground,
                     shape = RoundedCornerShape(topEnd = 8.dp, bottomEnd = 8.dp)
                 )
-                .padding(horizontal = 10.dp),
+                .padding(horizontal = 10.dp)
+                .animateContentSize(
+                    animationSpec = tween(
+                        durationMillis = 240,
+                        easing = FastOutSlowInEasing
+                    )
+                ),
             contentAlignment = Alignment.Center
         ) {
             KtText(
-                text = priceText,
+                text = visiblePrice,
                 color = color.textPurple,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Bold
             )
         }
-
     }
 }
