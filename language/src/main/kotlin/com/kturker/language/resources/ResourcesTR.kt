@@ -6,6 +6,7 @@ import com.kturker.language.StringResourcesUiModel
 val resourceTR = LanguageUiModel(
     language = Language.TR,
     resources = StringResourcesUiModel(
-        productListTitle = "Ürünler"
+        productListTitle = "Ürünler",
+        goToCartButtonTitle = "Sepete Git"
     )
 )

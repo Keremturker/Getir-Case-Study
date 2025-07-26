@@ -14,6 +14,7 @@ internal fun ProductListRouteScreen(
 
     ProductListScreen(
         state = uiState,
-        action = viewmodel
+        action = viewmodel,
+        snackbarFlow = viewmodel.snackbarMessage
     )
 }
