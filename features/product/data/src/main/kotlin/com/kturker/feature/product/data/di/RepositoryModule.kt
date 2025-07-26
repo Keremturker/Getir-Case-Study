@@ -1,6 +1,6 @@
 package com.kturker.feature.product.data.di
 
-import com.kturker.feature.product.data.ProductRepositoryImpl
+import com.kturker.feature.product.data.repository.ProductRepositoryImpl
 import com.kturker.feature.product.domain.ProductRepository
 import dagger.Binds
 import dagger.Module
@@ -9,7 +9,7 @@ import dagger.hilt.android.components.ViewModelComponent
 
 @Module
 @InstallIn(ViewModelComponent::class)
-internal interface ProductRepositoryModule {
+internal interface RepositoryModule {
 
     @Binds
     fun bindRepository(repository: ProductRepositoryImpl): ProductRepository

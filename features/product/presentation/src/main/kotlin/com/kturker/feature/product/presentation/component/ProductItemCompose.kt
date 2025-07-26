@@ -31,7 +31,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.kturker.feature.product.domain.model.ProductItem
+import com.kturker.core.domain.ProductItem
 import com.kturker.uikit.LocalCustomColorsPalette
 import com.kturker.uikit.R
 import com.kturker.uikit.components.extension.noRippleClickable

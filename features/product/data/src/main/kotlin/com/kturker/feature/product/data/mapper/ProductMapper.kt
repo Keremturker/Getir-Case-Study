@@ -1,8 +1,8 @@
 package com.kturker.feature.product.data.mapper
 
+import com.kturker.core.domain.ProductItem
 import com.kturker.database.room.entity.ProductEntity
 import com.kturker.feature.product.data.model.ProductItemDto
-import com.kturker.feature.product.domain.model.ProductItem
 import javax.inject.Inject
 
 internal class ProductMapper @Inject constructor() {

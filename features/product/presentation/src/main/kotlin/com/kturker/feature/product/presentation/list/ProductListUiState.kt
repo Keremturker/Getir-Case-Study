@@ -1,6 +1,6 @@
 package com.kturker.feature.product.presentation.list
 
-import com.kturker.feature.product.domain.model.ProductItem
+import com.kturker.core.domain.ProductItem
 
 internal data class ProductListUiState(
     val title: String = "",

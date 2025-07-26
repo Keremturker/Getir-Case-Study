@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.kturker.feature.product.data"
+    namespace = "com.kturker.feature.cart.data"
     compileSdk = AppConfig.compileSdkVersion
 
     defaultConfig {
@@ -39,19 +39,12 @@ android {
 }
 
 dependencies {
-    implementation(project(mapOf("path" to ":features:product:domain")))
-    implementation(project(mapOf("path" to ":contract")))
     implementation(project(mapOf("path" to ":core:domain")))
     implementation(project(mapOf("path" to ":database")))
-    implementation(project(mapOf("path" to ":network")))
 
     //Dagger - Hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
     ksp(libs.androidx.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
-
-    implementation(libs.kotlin.serialization.json)
-
-    testImplementation(libs.junit)
 }
