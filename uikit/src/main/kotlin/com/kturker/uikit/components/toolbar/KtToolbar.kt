@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.kturker.uikit.LocalCustomColorsPalette
-import com.kturker.uikit.components.extension.noRippleClickable
+import com.kturker.uikit.extension.noRippleClickable
 
 val AppBarHeight = 44.dp
 private val ComponentSize = AppBarHeight

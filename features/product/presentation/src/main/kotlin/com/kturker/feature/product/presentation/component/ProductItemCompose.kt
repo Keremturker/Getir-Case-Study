@@ -34,10 +34,10 @@ import androidx.compose.ui.unit.sp
 import com.kturker.core.domain.ProductItem
 import com.kturker.uikit.LocalCustomColorsPalette
 import com.kturker.uikit.R
-import com.kturker.uikit.components.extension.noRippleClickable
 import com.kturker.uikit.components.icon.KtIcon
 import com.kturker.uikit.components.image.KtAsyncImage
 import com.kturker.uikit.components.text.KtText
+import com.kturker.uikit.extension.noRippleClickable
 import com.kturker.uikit.icons.Minus
 import com.kturker.uikit.icons.Plus
 import com.kturker.uikit.icons.Trash

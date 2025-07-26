@@ -16,9 +16,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kturker.uikit.LocalCustomColorsPalette
-import com.kturker.uikit.components.extension.noRippleClickable
 import com.kturker.uikit.components.icon.KtIcon
 import com.kturker.uikit.components.text.KtText
+import com.kturker.uikit.extension.noRippleClickable
 import com.kturker.uikit.icons.Bucket
 
 @Composable

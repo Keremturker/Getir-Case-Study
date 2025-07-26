@@ -81,7 +81,7 @@ internal class ProductListViewmodel @Inject constructor(
     }
 
     override fun onFetchData(defaultOnLoading: Boolean) {
-        _uiState.update { it.copy(isRefreshing = defaultOnLoading) }
+        _uiState.update { it.copy(isRefreshing = defaultOnLoading, isLoading = true) }
 
         viewModelScope.launch {
             refreshProducts().collect { result ->
@@ -91,18 +91,18 @@ internal class ProductListViewmodel @Inject constructor(
                             it.copy(
                                 productList = result.products.orEmpty(),
                                 suggestedProductList = result.suggestedProducts.orEmpty(),
-                                isRefreshing = false
+                                isRefreshing = false,
+                                isLoading = false
                             )
                         }
 
                         result.errorMessage?.let { errorMessage ->
                             sendSnackbar(errorMessage)
                         }
-
                     }
 
                     is RefreshResult.Error -> {
-                        _uiState.update { it.copy(isRefreshing = false) }
+                        _uiState.update { it.copy(isRefreshing = false, isLoading = false) }
 
                         sendSnackbar(result.message)
                     }
@@ -130,7 +130,7 @@ internal class ProductListViewmodel @Inject constructor(
                     RefreshResult.PartialSuccess(
                         products = products,
                         suggestedProducts = suggested,
-                        errorMessage = combinedErrorMessage
+                        errorMessage = combinedErrorMessage.ifBlank { null }
                     )
                 }
 
