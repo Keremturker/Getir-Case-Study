@@ -2,13 +2,16 @@ package com.kturker.feature.product.presentation.list
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import com.kturker.contract.ResultState
 import com.kturker.core.CoreViewModel
 import com.kturker.core.domain.ProductItem
 import com.kturker.feature.product.domain.usecase.AddToCartUseCase
 import com.kturker.feature.product.domain.usecase.GetCartTotalPriceUseCase
+import com.kturker.feature.product.domain.usecase.ProductPagingUseCase
 import com.kturker.feature.product.domain.usecase.ProductsUseCase
 import com.kturker.feature.product.domain.usecase.RemoveFromCartUseCase
+import com.kturker.feature.product.domain.usecase.SuggestedProductPagingUseCase
 import com.kturker.feature.product.domain.usecase.SuggestedProductsUseCase
 import com.kturker.language.ML
 import com.kturker.language.StringResourceManager
@@ -35,7 +38,9 @@ internal class ProductListViewmodel @Inject constructor(
     private val addToCart: AddToCartUseCase,
     private val removeFromCart: RemoveFromCartUseCase,
     private val getCartTotalPrice: GetCartTotalPriceUseCase,
-    stringResourceManager: StringResourceManager
+    stringResourceManager: StringResourceManager,
+    productPagingUseCase: ProductPagingUseCase,
+    suggestedProductPagingUseCase: SuggestedProductPagingUseCase,
 ) : CoreViewModel(), ProductListAction {
 
     private val _uiState = MutableStateFlow(
@@ -49,6 +54,10 @@ internal class ProductListViewmodel @Inject constructor(
 
     private val _snackbarMessage = MutableSharedFlow<String>()
     val snackbarMessage: SharedFlow<String> = _snackbarMessage.asSharedFlow()
+
+    val productList = productPagingUseCase().cachedIn(viewModelScope)
+
+    val suggestedProductList = suggestedProductPagingUseCase().cachedIn(viewModelScope)
 
     @SuppressLint("DefaultLocale")
     private fun observeCartTotalPrice() {
@@ -86,33 +95,16 @@ internal class ProductListViewmodel @Inject constructor(
 
         viewModelScope.launch {
             refreshProducts().collect { result ->
-                when (result) {
-                    is RefreshResult.PartialSuccess -> {
-                        _uiState.update {
-                            it.copy(
-                                productList = result.products.orEmpty(),
-                                suggestedProductList = result.suggestedProducts.orEmpty(),
-                                isRefreshing = false,
-                                isLoading = false
-                            )
-                        }
+                _uiState.update { it.copy(isRefreshing = false, isLoading = false) }
 
-                        result.errorMessage?.let { errorMessage ->
-                            sendSnackbar(errorMessage)
-                        }
-                    }
-
-                    is RefreshResult.Error -> {
-                        _uiState.update { it.copy(isRefreshing = false, isLoading = false) }
-
-                        sendSnackbar(result.message)
-                    }
+                result?.let {
+                    sendSnackbar(result)
                 }
             }
         }
     }
 
-    private fun refreshProducts(): Flow<RefreshResult> {
+    private suspend fun refreshProducts(): Flow<String?> {
         return combine(
             flow = fetchProducts(),
             flow2 = fetchSuggestedProducts()
@@ -128,17 +120,11 @@ internal class ProductListViewmodel @Inject constructor(
                 products != null || suggested != null -> {
                     val combinedErrorMessage =
                         listOfNotNull(allProductsError, suggestedError).joinToString(" & ")
-                    RefreshResult.PartialSuccess(
-                        products = products,
-                        suggestedProducts = suggested,
-                        errorMessage = combinedErrorMessage.ifBlank { null }
-                    )
+                    combinedErrorMessage.ifBlank { null }
                 }
 
                 else -> {
-                    RefreshResult.Error(
-                        message = allProductsError ?: suggestedError ?: "Unknown error"
-                    )
+                    allProductsError ?: suggestedError ?: "Unknown error"
                 }
             }
         }

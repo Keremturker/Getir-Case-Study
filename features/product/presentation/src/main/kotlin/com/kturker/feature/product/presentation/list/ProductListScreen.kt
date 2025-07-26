@@ -22,8 +22,6 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -42,6 +40,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.paging.LoadState
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.itemKey
 import com.kturker.core.domain.ProductItem
 import com.kturker.feature.product.presentation.component.BottomCartBar
 import com.kturker.feature.product.presentation.component.CartPriceBadge
@@ -59,7 +60,9 @@ import kotlinx.coroutines.flow.collectLatest
 internal fun ProductListScreen(
     state: ProductListUiState,
     action: ProductListAction,
-    snackbarFlow: Flow<String>
+    snackbarFlow: Flow<String>,
+    products: LazyPagingItems<ProductItem>,
+    suggestedProducts: LazyPagingItems<ProductItem>,
 ) {
     val color = LocalCustomColorsPalette.current
     val snackbarHostState = remember { SnackbarHostState() }
@@ -70,9 +73,18 @@ internal fun ProductListScreen(
         }
     }
 
-    val isEmptyState by remember(key1 = state.productList, key2 = state.suggestedProductList) {
+    val isEmptyState by remember(
+        key1 = products,
+        key2 = suggestedProducts
+    ) {
         derivedStateOf {
-            state.productList.isEmpty() && state.suggestedProductList.isEmpty()
+            val isProductLoaded = products.loadState.refresh !is LoadState.Loading
+            val isSuggestedLoaded = suggestedProducts.loadState.refresh !is LoadState.Loading
+
+            isProductLoaded &&
+                    isSuggestedLoaded &&
+                    products.itemCount == 0 &&
+                    suggestedProducts.itemCount == 0
         }
     }
 
@@ -120,8 +132,8 @@ internal fun ProductListScreen(
                         EmptyListState(emptyText = state.emptyListText)
                     } else {
                         ProductList(
-                            items = state.productList,
-                            suggestedProductList = state.suggestedProductList,
+                            products = products,
+                            suggestedProducts = suggestedProducts,
                             action = action
                         )
                     }
@@ -152,7 +164,7 @@ internal fun ProductListScreen(
 
 @Composable
 private fun SuggestedProductList(
-    items: List<ProductItem>,
+    suggestedProducts: LazyPagingItems<ProductItem>,
     action: ProductListAction
 ) {
     val color = LocalCustomColorsPalette.current
@@ -165,20 +177,27 @@ private fun SuggestedProductList(
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            itemsIndexed(items, key = { _, item -> item.id }) { index, item ->
-                ProductItemCompose(
-                    modifier = Modifier
-                        .padding(start = if (index == 0) 16.dp else 0.dp)
-                        .width(100.dp),
-                    item = item,
-                    onMinusClick = {
-                        action.removeFromCart(item)
 
-                    },
-                    onPlusClick = {
-                        action.addToCart(item)
-                    }
-                )
+            items(
+                count = suggestedProducts.itemCount,
+                key = suggestedProducts.itemKey { item -> item.id }) { index ->
+
+                val item: ProductItem? = suggestedProducts[index]
+                item?.let {
+                    ProductItemCompose(
+                        modifier = Modifier
+                            .padding(start = if (index == 0) 16.dp else 0.dp)
+                            .width(100.dp),
+                        item = item,
+                        onMinusClick = {
+                            action.removeFromCart(item)
+
+                        },
+                        onPlusClick = {
+                            action.addToCart(item)
+                        }
+                    )
+                }
             }
         }
     }
@@ -186,8 +205,8 @@ private fun SuggestedProductList(
 
 @Composable
 private fun ProductList(
-    items: List<ProductItem>,
-    suggestedProductList: List<ProductItem>,
+    products: LazyPagingItems<ProductItem>,
+    suggestedProducts: LazyPagingItems<ProductItem>,
     action: ProductListAction
 ) {
     val color = LocalCustomColorsPalette.current
@@ -204,11 +223,10 @@ private fun ProductList(
             verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-
-            if (suggestedProductList.isNotEmpty()) {
+            if (suggestedProducts.itemCount > 0) {
                 item(span = { GridItemSpan(3) }) {
                     SuggestedProductList(
-                        items = suggestedProductList,
+                        suggestedProducts = suggestedProducts,
                         action = action
                     )
                 }
@@ -223,26 +241,26 @@ private fun ProductList(
                 }
             }
 
-            items(
-                items = items,
-                key = { item -> item.id }
-            ) { item ->
-                ProductItemCompose(
-                    modifier = Modifier.padding(start = 16.dp, end = 8.dp),
-                    item = item,
-                    onMinusClick = {
-                        action.removeFromCart(item)
+            items(count = products.itemCount, key = products.itemKey { item -> item.id }) { index ->
 
-                    },
-                    onPlusClick = {
-                        action.addToCart(item)
-                    }
-                )
+                val item: ProductItem? = products[index]
+                item?.let {
+                    ProductItemCompose(
+                        modifier = Modifier.padding(start = 16.dp, end = 8.dp),
+                        item = item,
+                        onMinusClick = {
+                            action.removeFromCart(item)
+
+                        },
+                        onPlusClick = {
+                            action.addToCart(item)
+                        }
+                    )
+                }
             }
         }
     }
 }
-
 
 @Composable
 private fun ScreenShimmer() {
@@ -254,11 +272,7 @@ private fun ScreenShimmer() {
             .padding(top = 16.dp)
     ) {
 
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            repeat(10) {
-                ProductShimmer()
-            }
-        }
+        SuggestedProductsShimmer()
 
         Spacer(
             Modifier
@@ -267,17 +281,30 @@ private fun ScreenShimmer() {
                 .background(color = color.backgroundColor)
         )
 
-        LazyVerticalGrid(
+        ProductsShimmer()
+    }
+}
 
-            modifier = Modifier.padding(top = 16.dp),
-            columns = GridCells.Fixed(3),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            userScrollEnabled = false
-        ) {
-            items(15) {
-                ProductShimmer()
-            }
+@Composable
+fun SuggestedProductsShimmer() {
+    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        repeat(10) {
+            ProductShimmer()
+        }
+    }
+}
+
+@Composable
+fun ProductsShimmer() {
+    LazyVerticalGrid(
+        modifier = Modifier.padding(top = 16.dp),
+        columns = GridCells.Fixed(3),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        userScrollEnabled = false
+    ) {
+        items(15) {
+            ProductShimmer()
         }
     }
 }

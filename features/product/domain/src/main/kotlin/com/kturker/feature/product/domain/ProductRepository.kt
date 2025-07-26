@@ -1,13 +1,18 @@
 package com.kturker.feature.product.domain
 
+import androidx.paging.PagingData
 import com.kturker.contract.ResultState
 import com.kturker.core.domain.ProductItem
 import kotlinx.coroutines.flow.Flow
 
 interface ProductRepository {
 
-    suspend fun getProducts(): Flow<ResultState<List<ProductItem>>>
+    suspend fun fetchProducts(): Flow<ResultState<Unit>>
 
-    suspend fun getSuggestedProducts(): Flow<ResultState<List<ProductItem>>>
+    suspend fun fetchSuggestedProducts(): Flow<ResultState<Unit>>
+
+    fun getProductsPaging(): Flow<PagingData<ProductItem>>
+
+    fun getSuggestedProductsPaging(): Flow<PagingData<ProductItem>>
 
 }
