@@ -11,12 +11,12 @@ data class ProductDetailScreenDestination(
     val args: ProductDetailArgs
 ) : NavigationCommand.Destination
 
-
 @Serializable
 data class ProductDetailArgs(
     val id: String,
-    val imageUrl: String,
+    val name: String,
     val description: String,
-    val priceText: String,
-    val name: String
+    val imageUrl: String,
+    val price: Double,
+    val priceText: String
 )
