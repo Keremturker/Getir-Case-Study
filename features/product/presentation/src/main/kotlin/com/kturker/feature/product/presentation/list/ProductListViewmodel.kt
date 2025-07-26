@@ -42,6 +42,7 @@ internal class ProductListViewmodel @Inject constructor(
         ProductListUiState(
             title = stringResourceManager[ML::productListTitle],
             goToCartButtonTitle = stringResourceManager[ML::goToCartButtonTitle],
+            emptyListText = stringResourceManager[ML::emptyListText]
         )
     )
     val uiState: StateFlow<ProductListUiState> = _uiState.asStateFlow()

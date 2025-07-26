@@ -22,13 +22,17 @@ import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -64,6 +68,12 @@ internal fun ProductListScreen(
         }
     }
 
+    val isEmptyState by remember(key1 = state.productList, key2 = state.suggestedProductList) {
+        derivedStateOf {
+            state.productList.isEmpty() && state.suggestedProductList.isEmpty()
+        }
+    }
+
     KtScaffold(
         topBar = {
             KtToolbar(centerContent = {
@@ -94,15 +104,19 @@ internal fun ProductListScreen(
                 if (state.isLoading) {
                     ScreenShimmer()
                 } else {
-                    ProductList(
-                        items = state.productList,
-                        suggestedProductList = state.suggestedProductList,
-                        action = action
-                    )
+                    if (isEmptyState) {
+                        EmptyListState(emptyText = state.emptyListText)
+                    } else {
+                        ProductList(
+                            items = state.productList,
+                            suggestedProductList = state.suggestedProductList,
+                            action = action
+                        )
+                    }
                 }
 
                 AnimatedVisibility(
-                    visible = state.totalPriceFormatted.isNotEmpty() && state.isLoading.not(),
+                    visible = state.totalPriceFormatted.isNotEmpty() && state.isLoading.not() && isEmptyState.not(),
                     modifier = Modifier.align(Alignment.BottomCenter),
                     enter = slideInVertically(
                         initialOffsetY = { fullHeight -> fullHeight },
@@ -179,20 +193,22 @@ private fun ProductList(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
 
-            item(span = { GridItemSpan(3) }) {
-                SuggestedProductList(
-                    items = suggestedProductList,
-                    action = action
-                )
-            }
+            if (suggestedProductList.isNotEmpty()) {
+                item(span = { GridItemSpan(3) }) {
+                    SuggestedProductList(
+                        items = suggestedProductList,
+                        action = action
+                    )
+                }
 
-            item(span = { GridItemSpan(3) }) {
-                Spacer(
-                    Modifier
-                        .height(16.dp)
-                        .fillMaxWidth()
-                        .background(color = color.backgroundColor)
-                )
+                item(span = { GridItemSpan(3) }) {
+                    Spacer(
+                        Modifier
+                            .height(16.dp)
+                            .fillMaxWidth()
+                            .background(color = color.backgroundColor)
+                    )
+                }
             }
 
             items(
@@ -291,6 +307,25 @@ private fun ProductShimmer() {
                 .height(height = 12.dp)
                 .clip(shape = RoundedCornerShape(size = 6.dp))
                 .shimmerEffect()
+        )
+    }
+}
+
+@Composable
+private fun EmptyListState(emptyText: String) {
+    val color = LocalCustomColorsPalette.current
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        KtText(
+            text = emptyText,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Bold,
+            color = color.textGray
         )
     }
 }
