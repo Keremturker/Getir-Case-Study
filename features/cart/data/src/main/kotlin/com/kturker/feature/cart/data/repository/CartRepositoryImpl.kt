@@ -18,6 +18,8 @@ internal class CartRepositoryImpl @Inject constructor(
             list.map { it.toProductItem() }
         }
 
+    override fun getCartTotalPriceFlow(): Flow<Double> = cartDao.getTotalCartPriceFlow()
+
     override suspend fun addToCart(item: ProductItem) {
         val existing = cartDao.getCartItemById(item.id)
         val updated = if (existing == null) {

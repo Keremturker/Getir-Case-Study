@@ -20,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kturker.core.domain.ProductItem
+import com.kturker.feature.product.presentation.component.CartPriceBadge
 import com.kturker.feature.product.presentation.component.ProductItemCompose
 import com.kturker.uikit.LocalCustomColorsPalette
 import com.kturker.uikit.components.scaffold.KtScaffold
@@ -42,6 +43,8 @@ internal fun ProductListScreen(
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold
                 )
+            }, endContent = {
+                CartPriceBadge(priceText = state.totalPriceFormatted)
             })
         }
     ) { paddingValues ->

@@ -19,7 +19,7 @@ import com.kturker.uikit.components.extension.noRippleClickable
 
 val AppBarHeight = 44.dp
 private val ComponentSize = AppBarHeight
-private val IconPadding = 16.dp
+private val IconPadding = 8.dp
 
 @Composable
 fun KtToolbar(
@@ -27,7 +27,7 @@ fun KtToolbar(
     backgroundColor: Color = LocalCustomColorsPalette.current.primaryColor,
     endIconClick: () -> Unit = {},
     startContent: @Composable (() -> Unit)? = null,
-    endIconContent: @Composable (() -> Unit)? = null,
+    endContent: @Composable (() -> Unit)? = null,
     centerContent: (@Composable () -> Unit)? = null
 ) {
     ConstraintLayout(
@@ -57,9 +57,9 @@ fun KtToolbar(
                 .constrainAs(
                     centerComponent
                 ) {
-                    start.linkTo(startComponent.end)
+                    start.linkTo(parent.start)
                     top.linkTo(parent.top)
-                    end.linkTo(endComponent.start)
+                    end.linkTo(parent.end)
                     bottom.linkTo(parent.bottom)
                     width = Dimension.fillToConstraints
                 },
@@ -84,7 +84,7 @@ fun KtToolbar(
                     .align(Alignment.Center)
                     .noRippleClickable { endIconClick.invoke() }
             ) {
-                endIconContent?.invoke()
+                endContent?.invoke()
             }
         }
     }

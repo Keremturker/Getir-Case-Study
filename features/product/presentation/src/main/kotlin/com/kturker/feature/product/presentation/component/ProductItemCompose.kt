@@ -77,7 +77,7 @@ private fun ProductImageSection(
 ) {
     val color = LocalCustomColorsPalette.current
 
-    val borderColor = if (cartCount > 0) color.primaryColor else color.borderGray
+    val borderColor = if (cartCount > 0) color.primaryColor else color.softBackground
     val shape = RoundedCornerShape(12.dp)
 
     Box(Modifier.fillMaxWidth()) {
