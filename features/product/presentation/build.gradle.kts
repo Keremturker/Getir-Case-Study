@@ -40,6 +40,7 @@ android {
 }
 
 dependencies {
+    implementation(project(mapOf("path" to ":core:domain")))
     implementation(project(mapOf("path" to ":features:product:contract")))
     implementation(project(mapOf("path" to ":features:product:domain")))
     implementation(project(mapOf("path" to ":core")))

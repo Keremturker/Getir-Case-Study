@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.kturker.feature.product.domain.model.ProductItem
+import com.kturker.core.domain.ProductItem
 import com.kturker.feature.product.presentation.component.ProductItemCompose
 import com.kturker.uikit.LocalCustomColorsPalette
 import com.kturker.uikit.components.scaffold.KtScaffold
@@ -29,7 +29,7 @@ import com.kturker.uikit.components.toolbar.KtToolbar
 @Composable
 internal fun ProductListScreen(
     state: ProductListUiState,
-    action: ProductListActionHandler
+    action: ProductListAction
 ) {
     val color = LocalCustomColorsPalette.current
 
@@ -67,7 +67,7 @@ internal fun ProductListScreen(
 @Composable
 private fun SuggestedProductList(
     items: List<ProductItem>,
-    action: ProductListActionHandler
+    action: ProductListAction
 ) {
     val color = LocalCustomColorsPalette.current
 
@@ -93,20 +93,11 @@ private fun SuggestedProductList(
                     modifier = Modifier.width(100.dp),
                     item = item,
                     onMinusClick = {
-                        action.onAction(
-                            action = ProductListAction.Remove(
-                                id = item.id,
-                                source = ProductListAction.Source.Suggested
-                            )
-                        )
+                        action.removeFromCart(item)
+
                     },
                     onPlusClick = {
-                        action.onAction(
-                            action = ProductListAction.Add(
-                                id = item.id,
-                                source = ProductListAction.Source.Suggested
-                            )
-                        )
+                        action.addToCart(item)
                     }
                 )
             }
@@ -117,7 +108,7 @@ private fun SuggestedProductList(
 @Composable
 private fun ProductList(
     items: List<ProductItem>,
-    action: ProductListActionHandler
+    action: ProductListAction
 ) {
     val color = LocalCustomColorsPalette.current
 
@@ -141,20 +132,11 @@ private fun ProductList(
                 ProductItemCompose(
                     item = item,
                     onMinusClick = {
-                        action.onAction(
-                            action = ProductListAction.Remove(
-                                id = item.id,
-                                source = ProductListAction.Source.All
-                            )
-                        )
+                        action.removeFromCart(item)
+
                     },
                     onPlusClick = {
-                        action.onAction(
-                            action = ProductListAction.Add(
-                                id = item.id,
-                                source = ProductListAction.Source.All
-                            )
-                        )
+                        action.addToCart(item)
                     }
                 )
             }

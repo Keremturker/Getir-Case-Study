@@ -32,5 +32,8 @@ class RoomModule {
     @Singleton
     fun provideSuggestedProductDao(db: AppDatabase) = db.suggestedProductDao()
 
+    @Provides
+    @Singleton
+    fun provideCartDao(db: AppDatabase) = db.cardDao()
 
 }

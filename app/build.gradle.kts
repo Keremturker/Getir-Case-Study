@@ -83,10 +83,12 @@ android {
 
 dependencies {
     includeFeatureModules(":features:product", listOf("contract", "data", "domain", "presentation"))
+    includeFeatureModules(":features:cart", listOf("data"))
 
     implementation(project(mapOf("path" to ":contract")))
     implementation(project(mapOf("path" to ":core")))
     implementation(project(mapOf("path" to ":core:di")))
+    implementation(project(mapOf("path" to ":core:domain")))
     implementation(project(mapOf("path" to ":database")))
     implementation(project(mapOf("path" to ":language")))
     implementation(project(mapOf("path" to ":navigation")))

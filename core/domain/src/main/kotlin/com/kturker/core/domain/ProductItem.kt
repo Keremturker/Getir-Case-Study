@@ -1,4 +1,4 @@
-package com.kturker.feature.product.domain.model
+package com.kturker.core.domain
 
 data class ProductItem(
     val id: String = "",

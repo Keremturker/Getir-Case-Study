@@ -1,7 +1,7 @@
 package com.kturker.feature.product.domain
 
 import com.kturker.contract.ResultState
-import com.kturker.feature.product.domain.model.ProductItem
+import com.kturker.core.domain.ProductItem
 import kotlinx.coroutines.flow.Flow
 
 interface ProductRepository {
