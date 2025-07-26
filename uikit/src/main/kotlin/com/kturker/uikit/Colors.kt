@@ -13,7 +13,9 @@ data class CustomColorsPalette(
     val textWhite: Color = Color.Unspecified,
     val textPurple: Color = primaryColor,
     val textBlack: Color = Color.Unspecified,
-    val textGray: Color = Color.Unspecified
+    val textGray: Color = Color.Unspecified,
+    val shimmerMain: Color = Color.Unspecified,
+    val shimmerReflect: Color = Color.Unspecified
 )
 
 val LocalCustomColorsPalette = staticCompositionLocalOf { CustomColorsPalette() }
@@ -24,7 +26,9 @@ val OnLightCustomColorsPalette = CustomColorsPalette(
     primaryColor = Color(color = 0xFF5D3EBC),
     textWhite = Color(color = 0xFFFFFFFF),
     textBlack = Color(color = 0xFF191919),
-    textGray = Color(color = 0xFF697488)
+    textGray = Color(color = 0xFF697488),
+    shimmerMain = Color(color = 0xFFEAEAEA),
+    shimmerReflect = Color(color = 0xFFBCBCBC)
 )
 
 val OnDarkCustomColorsPalette = CustomColorsPalette(
@@ -33,5 +37,7 @@ val OnDarkCustomColorsPalette = CustomColorsPalette(
     primaryColor = Color(color = 0xFF5D3EBC),
     textWhite = Color(color = 0xFFFFFFFF),
     textBlack = Color(color = 0xFF191919),
-    textGray = Color(color = 0xFF697488)
+    textGray = Color(color = 0xFF697488),
+    shimmerMain = Color(color = 0xFFEAEAEA),
+    shimmerReflect = Color(color = 0xFFBCBCBC)
 )
