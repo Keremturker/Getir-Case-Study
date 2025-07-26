@@ -14,6 +14,9 @@ interface CartDao {
     @Query("SELECT * FROM CartEntity")
     fun getCartItemsFlow(): Flow<List<CartEntity>>
 
+    @Query("SELECT SUM(price * quantity) FROM CartEntity")
+    fun getTotalCartPriceFlow(): Flow<Double>
+
     @Query("SELECT * FROM CartEntity WHERE id = :id")
     suspend fun getCartItemById(id: String): CartEntity?
 
