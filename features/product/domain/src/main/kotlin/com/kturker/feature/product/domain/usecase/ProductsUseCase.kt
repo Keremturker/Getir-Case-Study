@@ -1,18 +1,17 @@
 package com.kturker.feature.product.domain.usecase
 
-import com.kturker.contract.ResultState
-import com.kturker.core.domain.ProductItem
+import com.kturker.contract.Dispatchers
 import com.kturker.feature.product.domain.ProductRepository
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emitAll
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class ProductsUseCase @Inject constructor(
+    @Dispatchers.IO private val dispatcher: CoroutineDispatcher,
     private val repository: ProductRepository
 ) {
 
-    operator fun invoke(): Flow<ResultState<List<ProductItem>>> = flow {
-        emitAll(repository.getProducts())
+    suspend operator fun invoke() = withContext(context = dispatcher) {
+        repository.fetchProducts()
     }
 }

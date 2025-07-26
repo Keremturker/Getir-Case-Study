@@ -54,4 +54,6 @@ dependencies {
     implementation(libs.kotlin.serialization.json)
 
     testImplementation(libs.junit)
+    implementation(libs.androidx.paging.runtime.ktx)
+
 }

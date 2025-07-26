@@ -1,6 +1,5 @@
 package com.kturker.feature.product.data.mapper
 
-import com.kturker.core.domain.ProductItem
 import com.kturker.database.room.entity.SuggestedProductEntity
 import com.kturker.feature.product.data.model.SuggestedItemDto
 import javax.inject.Inject
@@ -21,15 +20,4 @@ internal class SuggestedProductMapper @Inject constructor() {
             unitPrice = itemDto.unitPrice ?: 0.0
         )
     }.orEmpty()
-
-    fun mapEntityListToItemList(items: List<SuggestedProductEntity>) = items.map { item ->
-        ProductItem(
-            id = item.id,
-            name = item.name,
-            price = item.price,
-            priceText = item.priceText,
-            description = item.shortDescription,
-            imageUrl = item.imageURL.takeIf { it.isNotBlank() } ?: item.squareThumbnailURL
-        )
-    }
 }
