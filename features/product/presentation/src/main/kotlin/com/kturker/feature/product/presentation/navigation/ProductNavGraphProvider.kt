@@ -1,7 +1,5 @@
 package com.kturker.feature.product.presentation.navigation
 
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.slideInHorizontally
 import androidx.navigation.NavGraphBuilder
 import com.kturker.core.presentation.CustomNavType
 import com.kturker.core.presentation.ktAnimatedDestination
@@ -17,10 +15,7 @@ import kotlin.reflect.typeOf
 internal class ProductNavGraphProvider @Inject constructor() : NavGraphProvider {
     override fun registerGraph(navGraphBuilder: NavGraphBuilder) {
         navGraphBuilder.apply {
-            ktAnimatedDestination<ProductListScreenDestination>(
-                enterTransition = { slideInHorizontally { fullWidth -> fullWidth } + fadeIn() },
-
-                ) {
+            ktAnimatedDestination<ProductListScreenDestination> {
                 ProductListRouteScreen()
             }
 

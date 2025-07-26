@@ -48,7 +48,11 @@ internal fun ProductDetailScreen(state: ProductDetailUiState, action: ProductDet
                         fontWeight = FontWeight.Bold
                     )
                 }, endContent = {
-                    AnimatedCartPriceBadge(totalPriceFormatted = state.totalPriceFormatted)
+                    AnimatedCartPriceBadge(
+                        totalPriceFormatted = state.totalPriceFormatted,
+                        modifier = Modifier.noRippleClickable {
+                            action.navigateToCartScreen()
+                        })
                 })
         }, bottomBar = {
             BottomCartBar(
