@@ -66,7 +66,7 @@ internal fun CartPriceBadge(
         ) {
             KtText(
                 text = priceText,
-                color = color.primaryColor,
+                color = color.textPurple,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Bold
             )
