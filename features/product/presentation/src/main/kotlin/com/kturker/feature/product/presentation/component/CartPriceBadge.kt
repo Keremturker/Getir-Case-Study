@@ -1,8 +1,11 @@
 package com.kturker.feature.product.presentation.component
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -31,7 +34,24 @@ import com.kturker.uikit.icons.Bucket
 import kotlinx.coroutines.delay
 
 @Composable
-internal fun CartPriceBadge(
+fun AnimatedCartPriceBadge(totalPriceFormatted: String) {
+    AnimatedVisibility(
+        visible = totalPriceFormatted.isNotEmpty(),
+        enter = slideInHorizontally(
+            initialOffsetX = { fullWidth -> fullWidth },
+            animationSpec = tween(durationMillis = 300)
+        ),
+        exit = slideOutHorizontally(
+            targetOffsetX = { fullWidth -> fullWidth },
+            animationSpec = tween(durationMillis = 300)
+        )
+    ) {
+        CartPriceBadge(priceText = totalPriceFormatted)
+    }
+}
+
+@Composable
+private fun CartPriceBadge(
     priceText: String,
     onClick: () -> Unit = {}
 ) {

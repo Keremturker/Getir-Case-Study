@@ -4,8 +4,8 @@ import com.kturker.core.domain.CartRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetCartTotalPriceUseCase @Inject constructor(
+class GetQuantityByIdUseCase @Inject constructor(
     private val repository: CartRepository
 ) {
-    operator fun invoke(): Flow<String> = repository.getCartTotalPriceFlow()
+    operator fun invoke(id: String): Flow<Int> = repository.getQuantityById(id = id)
 }

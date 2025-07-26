@@ -1,9 +1,15 @@
 package com.kturker.feature.product.presentation.detail
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -11,7 +17,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.kturker.feature.product.presentation.component.AnimatedCartPriceBadge
 import com.kturker.uikit.LocalCustomColorsPalette
+import com.kturker.uikit.components.HorizontalQuantitySelector
 import com.kturker.uikit.components.icon.KtIcon
 import com.kturker.uikit.components.image.ProductImage
 import com.kturker.uikit.components.scaffold.KtScaffold
@@ -39,9 +47,15 @@ internal fun ProductDetailScreen(state: ProductDetailUiState, action: ProductDet
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold
                     )
+                }, endContent = {
+                    AnimatedCartPriceBadge(totalPriceFormatted = state.totalPriceFormatted)
                 })
         }, bottomBar = {
-
+            BottomCartBar(
+                productQuantity = state.productQuantity,
+                addToCart = action::addToCart,
+                removeFromCart = action::removeFromCart
+            )
         },
         containerColor = color.white
     ) { paddingValues ->
@@ -90,3 +104,56 @@ internal fun ProductDetailScreen(state: ProductDetailUiState, action: ProductDet
     }
 }
 
+@Composable
+private fun BottomCartBar(
+    productQuantity: Int,
+    addToCart: () -> Unit,
+    removeFromCart: () -> Unit
+) {
+    val color = LocalCustomColorsPalette.current
+
+    Surface(
+        color = color.white,
+        shadowElevation = 8.dp,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        if (productQuantity > 0) {
+            HorizontalQuantitySelector(
+                modifier = Modifier.padding(all = 16.dp),
+                cartCount = productQuantity,
+                selectorSize = 48.dp,
+                quantityTextSize = 16.sp,
+                iconSize = 24.dp,
+                onPlusClick = addToCart,
+                onMinusClick = removeFromCart
+            )
+        } else {
+            NoProductItem(modifier = Modifier.padding(all = 16.dp), addToCart = addToCart)
+        }
+    }
+}
+
+@Composable
+private fun NoProductItem(modifier: Modifier, addToCart: () -> Unit) {
+    val color = LocalCustomColorsPalette.current
+
+    Box(modifier = modifier) {
+        Button(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(height = 50.dp),
+            onClick = addToCart,
+            shape = RoundedCornerShape(size = 10.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = color.primaryColor
+            )
+        ) {
+            Text(
+                text = "Sepete Ekle",
+                color = color.textWhite,
+                fontWeight = FontWeight.Bold,
+                fontSize = 14.sp
+            )
+        }
+    }
+}

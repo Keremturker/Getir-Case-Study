@@ -1,5 +1,6 @@
 package com.kturker.feature.cart.data.repository
 
+import android.annotation.SuppressLint
 import com.kturker.core.domain.CartRepository
 import com.kturker.core.domain.ProductItem
 import com.kturker.database.room.dao.CartDao
@@ -18,7 +19,17 @@ internal class CartRepositoryImpl @Inject constructor(
             list.map { it.toProductItem() }
         }
 
-    override fun getCartTotalPriceFlow(): Flow<Double> = cartDao.getTotalCartPriceFlow()
+    @SuppressLint("DefaultLocale")
+    override fun getCartTotalPriceFlow(): Flow<String> {
+        return cartDao.getTotalCartPriceFlow()
+            .map { total ->
+                String.format("₺%.2f", total).takeIf { total > 0.0 }.orEmpty()
+            }
+    }
+
+    override fun getQuantityById(id: String): Flow<Int> {
+        return cartDao.getQuantityById(id)
+    }
 
     override suspend fun addToCart(item: ProductItem) {
         val existing = cartDao.getCartItemById(item.id)

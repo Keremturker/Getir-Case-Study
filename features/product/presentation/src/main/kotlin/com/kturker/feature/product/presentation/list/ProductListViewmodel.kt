@@ -1,6 +1,5 @@
 package com.kturker.feature.product.presentation.list
 
-import android.annotation.SuppressLint
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.kturker.contract.ResultState
@@ -61,15 +60,12 @@ internal class ProductListViewmodel @Inject constructor(
 
     val suggestedProductList = suggestedProductPagingUseCase().cachedIn(viewModelScope)
 
-    @SuppressLint("DefaultLocale")
     private fun observeCartTotalPrice() {
         getCartTotalPrice()
             .distinctUntilChanged()
-            .onEach { totalPrice ->
-                val formattedPrice =
-                    String.format("₺%.2f", totalPrice).takeIf { totalPrice > 0.0 }.orEmpty()
+            .onEach { totalPriceFormatted ->
                 _uiState.update { state ->
-                    state.copy(totalPriceFormatted = formattedPrice)
+                    state.copy(totalPriceFormatted = totalPriceFormatted)
                 }
             }
             .launchIn(viewModelScope)
@@ -92,7 +88,7 @@ internal class ProductListViewmodel @Inject constructor(
 
     override fun removeFromCart(item: ProductItem) {
         viewModelScope.launch {
-            removeFromCart.invoke(item = item)
+            removeFromCart.invoke(id = item.id)
         }
     }
 

@@ -25,7 +25,8 @@ internal class ProductNavigation @Inject constructor(
                     imageUrl = item.imageUrl,
                     description = item.description,
                     priceText = item.priceText,
-                    name = item.name
+                    name = item.name,
+                    price = item.price
                 )
             )
         )

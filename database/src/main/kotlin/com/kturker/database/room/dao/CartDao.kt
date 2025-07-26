@@ -20,6 +20,9 @@ interface CartDao {
     @Query("SELECT * FROM CartEntity WHERE id = :id")
     suspend fun getCartItemById(id: String): CartEntity?
 
+    @Query("SELECT COALESCE(quantity, 0) as quantity FROM CartEntity WHERE id = :id")
+    fun getQuantityById(id: String): Flow<Int>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(cartItem: CartEntity)
 
