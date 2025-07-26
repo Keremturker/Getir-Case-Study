@@ -1,17 +1,19 @@
 package com.kturker.navigation
 
 sealed interface NavigationCommand {
+    interface Destination : NavigationCommand
+    interface Command : NavigationCommand
+}
 
-    data class OpenScreen(
-        val route: String,
-        val clearBackStack: Boolean = false,
-        val addToBackStack: Boolean = true
-    ) : NavigationCommand
+sealed interface ComposeNavigatorCommand : NavigationCommand.Command {
 
-    data class PopBackStackTo(val route: String, val inclusive: Boolean = false) : NavigationCommand
+    data object NavigateUp : NavigationCommand.Command
 
-    data object NavigateUp : NavigationCommand
+    data class PopBackStackTo(
+        val to: NavigationCommand.Destination,
+        val inclusive: Boolean = false
+    ) : NavigationCommand.Command
 
-    data object PopBackStack : NavigationCommand
+    data object PopBackStack : NavigationCommand.Command
 
 }
