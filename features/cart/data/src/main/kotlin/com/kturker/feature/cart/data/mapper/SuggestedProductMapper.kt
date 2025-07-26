@@ -1,14 +1,12 @@
-package com.kturker.feature.product.data.mapper
+package com.kturker.feature.cart.data.mapper
 
-import androidx.paging.PagingData
-import androidx.paging.map
 import com.kturker.core.domain.model.ProductItem
 import com.kturker.database.room.ProductWithCart
 import javax.inject.Inject
 
-internal class ProductWithCardMapper @Inject constructor() {
+internal class SuggestedProductMapper @Inject constructor() {
 
-    fun mapProductWithCartToProductItem(data: PagingData<ProductWithCart>) =
+    fun mapProductWithCartToProductItem(data: List<ProductWithCart>) =
         data.map { entity: ProductWithCart ->
             ProductItem(
                 id = entity.id,

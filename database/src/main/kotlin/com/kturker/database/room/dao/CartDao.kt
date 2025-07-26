@@ -32,4 +32,7 @@ interface CartDao {
     @Delete
     suspend fun delete(cartItem: CartEntity)
 
+    @Query("DELETE FROM CartEntity")
+    fun clearCart()
+
 }

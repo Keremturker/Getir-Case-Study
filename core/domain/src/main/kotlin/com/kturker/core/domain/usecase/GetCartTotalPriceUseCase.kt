@@ -1,4 +1,4 @@
-package com.kturker.feature.product.domain.usecase
+package com.kturker.core.domain.usecase
 
 import com.kturker.core.domain.CartRepository
 import kotlinx.coroutines.flow.Flow

@@ -39,12 +39,16 @@ android {
 }
 
 dependencies {
+    implementation(project(mapOf("path" to ":core:domain")))
     implementation(project(mapOf("path" to ":contract")))
     implementation(project(mapOf("path" to ":navigation")))
+    implementation(project(mapOf("path" to ":uikit")))
 
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.compose.material3.material3)
 
     implementation(libs.kotlin.serialization.json)
 

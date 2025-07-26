@@ -15,7 +15,6 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.kturker.uikit.LocalCustomColorsPalette
-import com.kturker.uikit.extension.noRippleClickable
 
 val AppBarHeight = 44.dp
 private val ComponentSize = AppBarHeight
@@ -25,7 +24,6 @@ private val IconPadding = 8.dp
 fun KtToolbar(
     modifier: Modifier = Modifier,
     backgroundColor: Color = LocalCustomColorsPalette.current.primaryColor,
-    endIconClick: () -> Unit = {},
     startContent: @Composable (() -> Unit)? = null,
     endContent: @Composable (() -> Unit)? = null,
     centerContent: (@Composable () -> Unit)? = null
@@ -77,15 +75,10 @@ fun KtToolbar(
                 }
                 .height(ComponentSize)
                 .widthIn(min = ComponentSize)
-                .padding(horizontal = IconPadding)
+                .padding(horizontal = IconPadding),
+            contentAlignment = Alignment.Center
         ) {
-            Box(
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .noRippleClickable { endIconClick.invoke() }
-            ) {
-                endContent?.invoke()
-            }
+            endContent?.invoke()
         }
     }
 }

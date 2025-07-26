@@ -32,6 +32,7 @@ fun HorizontalQuantitySelector(
     cartCount: Int,
     selectorSize: Dp,
     iconSize: Dp,
+    quantityWidth: Dp = selectorSize,
     quantityTextSize: TextUnit,
     modifier: Modifier = Modifier,
     onPlusClick: () -> Unit,
@@ -54,7 +55,7 @@ fun HorizontalQuantitySelector(
 
         Box(
             modifier = Modifier
-                .size(selectorSize)
+                .size(width = quantityWidth, height = selectorSize)
                 .background(color = color.primaryColor),
             contentAlignment = Alignment.Center
         ) {

@@ -6,7 +6,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.kturker.core.domain.ProductItem
+import com.kturker.core.domain.model.ProductItem
 
 @Composable
 internal fun ProductListRouteScreen(

@@ -1,11 +1,11 @@
-package com.kturker.core.domain
+package com.kturker.core.domain.model
 
-data class ProductItem(
+data class CartItem(
     val id: String = "",
     val name: String = "",
     val description: String = "",
-    val imageUrl: String = "",
+    val imageURL: String = "",
     val price: Double = 0.0,
     val priceText: String = "",
-    val cartCount: Int = 0
+    val quantity: Int
 )

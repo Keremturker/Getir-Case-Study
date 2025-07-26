@@ -11,4 +11,13 @@ internal class StringResourceManagerImpl @Inject constructor() : StringResourceM
     override fun get(property: KProperty1<StringResourcesUiModel, String>): String {
         return property.get(resourceTR.resources)
     }
+
+    override fun get(property: KProperty1<StringResourcesUiModel, String>, vararg params: String): String {
+        var resource = property.get(resourceTR.resources)
+        params.forEachIndexed { index, param ->
+            resource = resource.replace("{$index}", param)
+        }
+        return resource
+    }
+
 }

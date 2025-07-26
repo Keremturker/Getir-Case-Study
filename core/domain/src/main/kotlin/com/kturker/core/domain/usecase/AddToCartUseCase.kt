@@ -1,7 +1,7 @@
-package com.kturker.feature.product.domain.usecase
+package com.kturker.core.domain.usecase
 
 import com.kturker.core.domain.CartRepository
-import com.kturker.core.domain.ProductItem
+import com.kturker.core.domain.model.ProductItem
 import javax.inject.Inject
 
 class AddToCartUseCase @Inject constructor(

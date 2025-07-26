@@ -18,5 +18,6 @@ data class ProductDetailArgs(
     val description: String,
     val imageUrl: String,
     val price: Double,
-    val priceText: String
+    val priceText: String,
+    val isCameFromCart: Boolean = false
 )

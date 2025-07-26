@@ -7,5 +7,6 @@ internal data class ProductDetailUiState(
     val description: String = "",
     val priceText: String = "",
     val totalPriceFormatted: String = "",
-    val productQuantity: Int = 0
+    val productQuantity: Int = 0,
+    val addToCartTitle: String = ""
 )

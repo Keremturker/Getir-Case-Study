@@ -3,13 +3,13 @@ package com.kturker.feature.product.presentation.list
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.kturker.contract.ResultState
-import com.kturker.core.domain.ProductItem
+import com.kturker.core.domain.model.ProductItem
+import com.kturker.core.domain.usecase.AddToCartUseCase
+import com.kturker.core.domain.usecase.GetCartTotalPriceUseCase
+import com.kturker.core.domain.usecase.RemoveFromCartUseCase
 import com.kturker.core.presentation.CoreViewModel
-import com.kturker.feature.product.domain.usecase.AddToCartUseCase
-import com.kturker.feature.product.domain.usecase.GetCartTotalPriceUseCase
 import com.kturker.feature.product.domain.usecase.ProductPagingUseCase
 import com.kturker.feature.product.domain.usecase.ProductsUseCase
-import com.kturker.feature.product.domain.usecase.RemoveFromCartUseCase
 import com.kturker.feature.product.domain.usecase.SuggestedProductPagingUseCase
 import com.kturker.feature.product.domain.usecase.SuggestedProductsUseCase
 import com.kturker.feature.product.presentation.navigation.ProductNavigation

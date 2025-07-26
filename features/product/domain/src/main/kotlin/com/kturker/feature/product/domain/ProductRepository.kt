@@ -2,7 +2,7 @@ package com.kturker.feature.product.domain
 
 import androidx.paging.PagingData
 import com.kturker.contract.ResultState
-import com.kturker.core.domain.ProductItem
+import com.kturker.core.domain.model.ProductItem
 import kotlinx.coroutines.flow.Flow
 
 interface ProductRepository {

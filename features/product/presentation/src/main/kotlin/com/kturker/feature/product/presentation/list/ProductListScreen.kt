@@ -5,7 +5,6 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,13 +22,10 @@ import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicText
-import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Surface
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -39,17 +35,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemKey
-import com.kturker.core.domain.ProductItem
+import com.kturker.core.domain.model.ProductItem
+import com.kturker.core.presentation.BottomCartBar
+import com.kturker.core.presentation.ProductItemCompose
 import com.kturker.feature.product.presentation.component.AnimatedCartPriceBadge
-import com.kturker.feature.product.presentation.component.ProductItemCompose
 import com.kturker.uikit.LocalCustomColorsPalette
 import com.kturker.uikit.components.scaffold.KtScaffold
 import com.kturker.uikit.components.text.KtText
@@ -369,73 +364,5 @@ private fun EmptyListState(emptyText: String) {
             fontWeight = FontWeight.Bold,
             color = color.textGray
         )
-    }
-}
-
-
-@Composable
-private fun BottomCartBar(
-    title: String,
-    totalPriceFormatted: String,
-    onClick: () -> Unit
-) {
-    val color = LocalCustomColorsPalette.current
-
-    Surface(
-        color = color.white,
-        shadowElevation = 8.dp
-    ) {
-        Row(
-            modifier = Modifier
-                .padding(all = 16.dp)
-                .clip(shape = RoundedCornerShape(size = 16.dp))
-                .clickable { onClick() },
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-
-            Box(
-                modifier = Modifier
-                    .weight(weight = 2F)
-                    .background(
-                        color = color.primaryColor,
-                        shape = RoundedCornerShape(topStart = 16.dp, bottomStart = 16.dp)
-                    )
-                    .padding(all = 16.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                KtText(
-                    text = title,
-                    color = color.textWhite,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 14.sp
-                )
-            }
-
-            Box(
-                modifier = Modifier
-                    .weight(weight = 1F)
-                    .background(
-                        color = color.white,
-                        shape = RoundedCornerShape(topEnd = 16.dp, bottomEnd = 16.dp)
-                    )
-                    .padding(all = 16.dp),
-                contentAlignment = Alignment.Center
-            ) {
-
-                BasicText(
-                    text = AnnotatedString(text = totalPriceFormatted),
-                    autoSize = TextAutoSize.StepBased(
-                        minFontSize = 14.sp,
-                        maxFontSize = 20.sp,
-                    ),
-                    maxLines = 1,
-                    style = TextStyle(
-                        fontWeight = FontWeight.Bold,
-                        color = color.textPurple
-                    )
-                )
-            }
-        }
     }
 }
