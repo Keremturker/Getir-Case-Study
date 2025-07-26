@@ -1,4 +1,4 @@
-package com.kturker.feature.product.presentation.component
+package com.kturker.core.presentation
 
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
@@ -30,7 +30,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.kturker.core.domain.ProductItem
+import com.kturker.core.domain.model.ProductItem
 import com.kturker.uikit.LocalCustomColorsPalette
 import com.kturker.uikit.components.icon.KtIcon
 import com.kturker.uikit.components.image.ProductImage
@@ -41,7 +41,7 @@ import com.kturker.uikit.icons.Plus
 import com.kturker.uikit.icons.Trash
 
 @Composable
-internal fun ProductItemCompose(
+fun ProductItemCompose(
     modifier: Modifier = Modifier,
     item: ProductItem,
     onPlusClick: (id: String) -> Unit,

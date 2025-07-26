@@ -1,6 +1,6 @@
 package com.kturker.feature.product.presentation.list
 
-import com.kturker.core.domain.ProductItem
+import com.kturker.core.domain.model.ProductItem
 
 internal interface ProductListAction {
     fun addToCart(item: ProductItem)

@@ -2,10 +2,13 @@ package com.kturker.feature.product.presentation.detail
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Surface
@@ -36,9 +39,12 @@ internal fun ProductDetailScreen(state: ProductDetailUiState, action: ProductDet
         topBar = {
             KtToolbar(
                 startContent = {
-                    KtIcon(imageVector = Close, modifier = Modifier.noRippleClickable {
-                        action.navigateUp()
-                    })
+                    KtIcon(
+                        imageVector = Close,
+                        tint = color.white,
+                        modifier = Modifier.noRippleClickable {
+                            action.navigateUp()
+                        })
                 },
                 centerContent = {
                     KtText(
@@ -57,6 +63,7 @@ internal fun ProductDetailScreen(state: ProductDetailUiState, action: ProductDet
         }, bottomBar = {
             BottomCartBar(
                 productQuantity = state.productQuantity,
+                title = state.addToCartTitle,
                 addToCart = action::addToCart,
                 removeFromCart = action::removeFromCart
             )
@@ -73,10 +80,16 @@ internal fun ProductDetailScreen(state: ProductDetailUiState, action: ProductDet
             Column(
                 Modifier
                     .fillMaxWidth()
-                    .padding(all = 16.dp),
+                    .padding(all = 16.dp)
+                    .verticalScroll(rememberScrollState()),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                ProductImage(modifier = Modifier.padding(bottom = 16.dp), imageUrl = state.imageUrl)
+                ProductImage(
+                    modifier = Modifier
+                        .padding(bottom = 16.dp)
+                        .defaultMinSize(minWidth = 200.dp, minHeight = 200.dp),
+                    imageUrl = state.imageUrl
+                )
 
                 KtText(
                     modifier = Modifier.padding(bottom = 4.dp),
@@ -111,6 +124,7 @@ internal fun ProductDetailScreen(state: ProductDetailUiState, action: ProductDet
 @Composable
 private fun BottomCartBar(
     productQuantity: Int,
+    title: String,
     addToCart: () -> Unit,
     removeFromCart: () -> Unit
 ) {
@@ -132,13 +146,17 @@ private fun BottomCartBar(
                 onMinusClick = removeFromCart
             )
         } else {
-            NoProductItem(modifier = Modifier.padding(all = 16.dp), addToCart = addToCart)
+            NoProductItem(
+                modifier = Modifier.padding(all = 16.dp),
+                title = title,
+                addToCart = addToCart
+            )
         }
     }
 }
 
 @Composable
-private fun NoProductItem(modifier: Modifier, addToCart: () -> Unit) {
+private fun NoProductItem(modifier: Modifier, title: String, addToCart: () -> Unit) {
     val color = LocalCustomColorsPalette.current
 
     Box(modifier = modifier) {
@@ -153,7 +171,7 @@ private fun NoProductItem(modifier: Modifier, addToCart: () -> Unit) {
             )
         ) {
             Text(
-                text = "Sepete Ekle",
+                text = title,
                 color = color.textWhite,
                 fontWeight = FontWeight.Bold,
                 fontSize = 14.sp

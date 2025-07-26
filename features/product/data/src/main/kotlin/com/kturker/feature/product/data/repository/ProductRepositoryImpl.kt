@@ -5,7 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.kturker.contract.Dispatchers
 import com.kturker.contract.ResultState
-import com.kturker.core.domain.ProductItem
+import com.kturker.core.domain.model.ProductItem
 import com.kturker.database.room.ProductWithCart
 import com.kturker.database.room.dao.ProductDao
 import com.kturker.database.room.dao.SuggestedProductDao

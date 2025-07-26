@@ -44,6 +44,7 @@ dependencies {
     implementation(project(mapOf("path" to ":core:presentation")))
     implementation(project(mapOf("path" to ":features:cart:contract")))
     implementation(project(mapOf("path" to ":features:cart:domain")))
+    implementation(project(mapOf("path" to ":features:product:contract")))
     implementation(project(mapOf("path" to ":contract")))
     implementation(project(mapOf("path" to ":language")))
     implementation(project(mapOf("path" to ":navigation")))
