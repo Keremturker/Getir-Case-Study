@@ -51,6 +51,7 @@ import com.kturker.uikit.LocalCustomColorsPalette
 import com.kturker.uikit.components.scaffold.KtScaffold
 import com.kturker.uikit.components.text.KtText
 import com.kturker.uikit.components.toolbar.KtToolbar
+import com.kturker.uikit.extension.noRippleClickable
 import com.kturker.uikit.extension.shimmerEffect
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
@@ -187,7 +188,10 @@ private fun SuggestedProductList(
                     ProductItemCompose(
                         modifier = Modifier
                             .padding(start = if (index == 0) 16.dp else 0.dp)
-                            .width(100.dp),
+                            .width(100.dp)
+                            .noRippleClickable {
+                                action.navigateToDetailScreen(item = item)
+                            },
                         item = item,
                         onMinusClick = {
                             action.removeFromCart(item)
@@ -246,7 +250,11 @@ private fun ProductList(
                 val item: ProductItem? = products[index]
                 item?.let {
                     ProductItemCompose(
-                        modifier = Modifier.padding(start = 16.dp, end = 8.dp),
+                        modifier = Modifier
+                            .padding(start = 16.dp, end = 8.dp)
+                            .noRippleClickable {
+                                action.navigateToDetailScreen(item = item)
+                            },
                         item = item,
                         onMinusClick = {
                             action.removeFromCart(item)

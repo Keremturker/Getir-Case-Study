@@ -26,16 +26,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kturker.core.domain.ProductItem
 import com.kturker.uikit.LocalCustomColorsPalette
-import com.kturker.uikit.R
 import com.kturker.uikit.components.icon.KtIcon
-import com.kturker.uikit.components.image.KtAsyncImage
+import com.kturker.uikit.components.image.ProductImage
 import com.kturker.uikit.components.text.KtText
 import com.kturker.uikit.extension.noRippleClickable
 import com.kturker.uikit.icons.Minus
@@ -94,13 +92,12 @@ private fun ProductImageSection(
                 .align(Alignment.Center)
                 .aspectRatio(1F)
         ) {
-            KtAsyncImage(
-                image = imageUrl,
+
+            ProductImage(
+                imageUrl = imageUrl,
                 modifier = Modifier
                     .fillMaxSize()
-                    .clip(shape = shape),
-                error = painterResource(R.drawable.placeholder),
-                placeholder = painterResource(R.drawable.placeholder)
+                    .clip(shape = shape)
             )
         }
 
