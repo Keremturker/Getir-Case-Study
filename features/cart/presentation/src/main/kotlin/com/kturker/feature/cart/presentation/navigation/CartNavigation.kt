@@ -3,6 +3,7 @@ package com.kturker.feature.cart.presentation.navigation
 import com.kturker.core.domain.model.ProductItem
 import com.kturker.feature.product.contract.ProductDetailArgs
 import com.kturker.feature.product.contract.ProductDetailScreenDestination
+import com.kturker.feature.product.contract.ProductListScreenDestination
 import com.kturker.navigation.ComposeNavigatorCommand
 import com.kturker.navigation.NavigationManager
 import javax.inject.Inject
@@ -15,8 +16,12 @@ internal class CartNavigation @Inject constructor(
         navigationManager.navigate(navigationCommand = ComposeNavigatorCommand.NavigateUp)
     }
 
-    fun popBackStack() {
-        navigationManager.navigate(navigationCommand = ComposeNavigatorCommand.PopBackStack)
+    fun popBackStackToProductList() {
+        navigationManager.navigate(
+            navigationCommand = ComposeNavigatorCommand.PopBackStackTo(
+                to = ProductListScreenDestination
+            )
+        )
     }
 
     fun navigateToDetail(productItem: ProductItem) {

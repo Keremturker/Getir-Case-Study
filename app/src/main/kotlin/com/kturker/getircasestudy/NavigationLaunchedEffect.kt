@@ -28,10 +28,6 @@ internal fun NavigationLaunchedEffect(
                         is ComposeNavigatorCommand.PopBackStackTo -> {
                             navController.popBackStack(route = it.to, inclusive = it.inclusive)
                         }
-
-                        ComposeNavigatorCommand.PopBackStack -> {
-                            navController.popBackStack()
-                        }
                     }
                 }
             }

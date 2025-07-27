@@ -20,9 +20,6 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -31,12 +28,12 @@ import javax.inject.Inject
 internal class CartViewModel @Inject constructor(
     private val navigation: CartNavigation,
     private val clearCart: ClearCartUseCase,
-    private val getCartProducts: GetCartProductsUseCase,
     private val addToCart: AddToCartUseCase,
     private val removeFromCart: RemoveFromCartUseCase,
-    private val getSuggestedProduct: GetSuggestedProductUseCase,
-    private val getCartTotalPrice: GetCartTotalPriceUseCase,
-    private val stringResourceManager: StringResourceManager
+    private val stringResourceManager: StringResourceManager,
+    getSuggestedProduct: GetSuggestedProductUseCase,
+    getCartTotalPrice: GetCartTotalPriceUseCase,
+    getCartProducts: GetCartProductsUseCase
 ) : CoreViewModel(), CartAction {
 
     private val _uiState = MutableStateFlow(
@@ -51,49 +48,11 @@ internal class CartViewModel @Inject constructor(
     private val _dialogEvents = MutableSharedFlow<DialogEvent>()
     val dialogEvents: SharedFlow<DialogEvent> = _dialogEvents.asSharedFlow()
 
-    init {
-        observeCartProducts()
-        observeSuggestedProducts()
-        observeCartTotalPrice()
-    }
+    val cartTotalPrice = getCartTotalPrice()
 
-    private fun observeCartTotalPrice() {
-        getCartTotalPrice()
-            .distinctUntilChanged()
-            .onEach { totalPriceFormatted ->
-                _uiState.update { state ->
-                    state.copy(totalPriceFormatted = totalPriceFormatted)
-                }
-            }
-            .launchIn(viewModelScope)
-    }
+    val suggestedProduct = getSuggestedProduct()
 
-
-    private fun observeSuggestedProducts() {
-        getSuggestedProduct()
-            .distinctUntilChanged()
-            .onEach { suggestedProducts ->
-                _uiState.update { state ->
-                    state.copy(suggestedProducts = suggestedProducts)
-                }
-            }
-            .launchIn(viewModelScope)
-    }
-
-    private fun observeCartProducts() {
-        getCartProducts()
-            .distinctUntilChanged()
-            .onEach { cartProducts ->
-                _uiState.update { state ->
-                    state.copy(cartProducts = cartProducts)
-                }
-
-                if (cartProducts.isEmpty()) {
-                    navigation.popBackStack()
-                }
-            }
-            .launchIn(viewModelScope)
-    }
+    val cartProducts = getCartProducts()
 
     override fun navigateUp() {
         navigation.navigateUp()
@@ -148,6 +107,32 @@ internal class CartViewModel @Inject constructor(
             )
         }
     }
+
+
+    fun updateCartTotalPrice(totalPrice: String) {
+        _uiState.update { state ->
+            state.copy(totalPriceFormatted = totalPrice)
+        }
+    }
+
+    fun updateSuggestedProduct(products: List<ProductItem>) {
+        _uiState.update { state ->
+            state.copy(suggestedProducts = products)
+        }
+    }
+
+
+    fun updateCartProducts(cartProducts: List<CartItem>) {
+
+        _uiState.update { state ->
+            state.copy(cartProducts = cartProducts)
+        }
+
+        if (cartProducts.isEmpty()) {
+            navigation.popBackStackToProductList()
+        }
+    }
+
 
     private fun clearCart() {
         clearCart.invoke()
