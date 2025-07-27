@@ -3,9 +3,14 @@ package com.kturker.getircasestudy
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
@@ -27,19 +32,31 @@ internal fun AppRouteScreen(
 
     CompositionLocalProvider(value = LocalCustomColorsPalette provides isSystemDark) {
 
-        Box(
-            modifier = Modifier
-                .statusBarsPadding()
-                .navigationBarsPadding()
-                .fillMaxSize()
-                .background(color = LocalCustomColorsPalette.current.backgroundColor)
-        ) {
-            NavHost(
-                navController = navController,
-                startDestination = ProductListScreenDestination
+        val color = LocalCustomColorsPalette.current
+
+        Column(modifier = Modifier.fillMaxSize()) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(color.primaryColor)
+                    .height(
+                        height = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
+                    )
+            )
+
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .navigationBarsPadding()
+                    .background(color.backgroundColor)
             ) {
-                navGraphProviders.forEach {
-                    it.value.registerGraph(navGraphBuilder = this)
+                NavHost(
+                    navController = navController,
+                    startDestination = ProductListScreenDestination
+                ) {
+                    navGraphProviders.forEach {
+                        it.value.registerGraph(navGraphBuilder = this)
+                    }
                 }
             }
         }

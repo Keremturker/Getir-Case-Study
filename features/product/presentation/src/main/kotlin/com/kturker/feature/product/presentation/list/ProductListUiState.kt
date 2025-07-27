@@ -1,5 +1,8 @@
 package com.kturker.feature.product.presentation.list
 
+import androidx.compose.runtime.Immutable
+
+@Immutable
 internal data class ProductListUiState(
     val title: String = "",
     val totalPriceFormatted: String = "",

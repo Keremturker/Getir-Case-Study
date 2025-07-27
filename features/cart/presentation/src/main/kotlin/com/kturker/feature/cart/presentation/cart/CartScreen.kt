@@ -116,28 +116,30 @@ private fun CartList(
             )
         }
 
-        item {
-            Column {
-                Box(
-                    Modifier
-                        .fillMaxWidth()
-                        .background(color = color.backgroundColor)
-                        .padding(top = 20.dp, bottom = 12.dp)
-                        .padding(horizontal = 12.dp)
-                ) {
-                    KtText(
-                        text = suggestedListTitle,
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        color = color.textBlack
+        if (suggestedList.isNotEmpty()) {
+            item {
+                Column {
+                    Box(
+                        Modifier
+                            .fillMaxWidth()
+                            .background(color = color.backgroundColor)
+                            .padding(top = 20.dp, bottom = 12.dp)
+                            .padding(horizontal = 12.dp)
+                    ) {
+                        KtText(
+                            text = suggestedListTitle,
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = color.textBlack
+                        )
+                    }
+                    SuggestedList(
+                        suggestedList = suggestedList,
+                        onPlusClick = onPlusClick,
+                        onMinusClick = onMinusClick,
+                        navigateToDetail = navigateToDetail
                     )
                 }
-                SuggestedList(
-                    suggestedList = suggestedList,
-                    onPlusClick = onPlusClick,
-                    onMinusClick = onMinusClick,
-                    navigateToDetail = navigateToDetail
-                )
             }
         }
     }
