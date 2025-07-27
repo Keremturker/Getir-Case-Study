@@ -17,9 +17,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -28,10 +25,10 @@ import javax.inject.Inject
 internal class ProductDetailViewmodel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val navigation: ProductNavigation,
-    private val getCartTotalPrice: GetCartTotalPriceUseCase,
-    private val getQuantityById: GetQuantityByIdUseCase,
     private val addToCart: AddToCartUseCase,
     private val removeFromCart: RemoveFromCartUseCase,
+    getCartTotalPrice: GetCartTotalPriceUseCase,
+    getQuantityById: GetQuantityByIdUseCase,
     stringResourceManager: StringResourceManager
 ) : CoreViewModel(), ProductDetailAction {
 
@@ -40,46 +37,18 @@ internal class ProductDetailViewmodel @Inject constructor(
     private val _uiState = MutableStateFlow(
         value = ProductDetailUiState(
             title = stringResourceManager[ML::productDetailTitle],
-            addToCartTitle = stringResourceManager[ML::addToCartTitle]
+            addToCartTitle = stringResourceManager[ML::addToCartTitle],
+            imageUrl = args.imageUrl,
+            description = args.description,
+            priceText = args.priceText,
+            name = args.name
         )
     )
     val uiState: StateFlow<ProductDetailUiState> = _uiState.asStateFlow()
 
-    init {
-        _uiState.update {
-            it.copy(
-                imageUrl = args.imageUrl,
-                description = args.description,
-                priceText = args.priceText,
-                name = args.name
-            )
-        }
+    val cartTotalPrice = getCartTotalPrice()
 
-        observeCartTotalPrice()
-        observeProductQuantity()
-    }
-
-    private fun observeCartTotalPrice() {
-        getCartTotalPrice()
-            .distinctUntilChanged()
-            .onEach { totalPrice ->
-                _uiState.update { state ->
-                    state.copy(totalPriceFormatted = totalPrice)
-                }
-            }
-            .launchIn(viewModelScope)
-    }
-
-    private fun observeProductQuantity() {
-        getQuantityById(id = args.id)
-            .distinctUntilChanged()
-            .onEach { quantity ->
-                _uiState.update { state ->
-                    state.copy(productQuantity = quantity)
-                }
-            }
-            .launchIn(viewModelScope)
-    }
+    val quantityById = getQuantityById(args.id)
 
     override fun navigateUp() {
         navigation.navigateUp()
@@ -111,6 +80,18 @@ internal class ProductDetailViewmodel @Inject constructor(
             navigation.navigateUp()
         } else {
             navigation.navigateToCartScreen()
+        }
+    }
+
+    fun updateCartTotalPrice(totalPrice: String) {
+        _uiState.update { state ->
+            state.copy(totalPriceFormatted = totalPrice)
+        }
+    }
+
+    fun updateProductQuantity(quantity: Int) {
+        _uiState.update { state ->
+            state.copy(productQuantity = quantity)
         }
     }
 

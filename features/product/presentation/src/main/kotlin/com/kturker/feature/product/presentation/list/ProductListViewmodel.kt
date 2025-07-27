@@ -24,9 +24,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -37,11 +34,11 @@ internal class ProductListViewmodel @Inject constructor(
     private val fetchSuggestedProducts: SuggestedProductsUseCase,
     private val addToCart: AddToCartUseCase,
     private val removeFromCart: RemoveFromCartUseCase,
-    private val getCartTotalPrice: GetCartTotalPriceUseCase,
     private val navigation: ProductNavigation,
     stringResourceManager: StringResourceManager,
     productPagingUseCase: ProductPagingUseCase,
     suggestedProductPagingUseCase: SuggestedProductPagingUseCase,
+    getCartTotalPrice: GetCartTotalPriceUseCase
 ) : CoreViewModel(), ProductListAction {
 
     private val _uiState = MutableStateFlow(
@@ -60,19 +57,9 @@ internal class ProductListViewmodel @Inject constructor(
 
     val suggestedProductList = suggestedProductPagingUseCase().cachedIn(viewModelScope)
 
-    private fun observeCartTotalPrice() {
-        getCartTotalPrice()
-            .distinctUntilChanged()
-            .onEach { totalPriceFormatted ->
-                _uiState.update { state ->
-                    state.copy(totalPriceFormatted = totalPriceFormatted)
-                }
-            }
-            .launchIn(viewModelScope)
-    }
+    val totalPriceFormatted = getCartTotalPrice()
 
     init {
-        observeCartTotalPrice()
         onFetchData(defaultOnLoading = false)
     }
 
@@ -139,6 +126,13 @@ internal class ProductListViewmodel @Inject constructor(
     fun sendSnackbar(message: String) {
         viewModelScope.launch {
             _snackbarMessage.emit(message)
+        }
+    }
+
+
+    fun updateTotalPrice(totalPrice: String) {
+        _uiState.update { state ->
+            state.copy(totalPriceFormatted = totalPrice)
         }
     }
 

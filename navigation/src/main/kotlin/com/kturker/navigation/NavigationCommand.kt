@@ -14,6 +14,4 @@ sealed interface ComposeNavigatorCommand : NavigationCommand.Command {
         val inclusive: Boolean = false
     ) : NavigationCommand.Command
 
-    data object PopBackStack : NavigationCommand.Command
-
 }
