@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-internal class ProductDetailViewmodel @Inject constructor(
+internal class ProductDetailViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val navigation: ProductNavigation,
     private val addToCart: AddToCartUseCase,

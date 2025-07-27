@@ -35,7 +35,7 @@ internal fun CartRoutScreen(viewmodel: CartViewModel = hiltViewModel()) {
         viewmodel.suggestedProduct
             .distinctUntilChanged()
             .collect { suggestedProduct ->
-                viewmodel.updateSuggestedProduct(products = suggestedProduct)
+                viewmodel.updateSuggestedProduct(suggestedProducts = suggestedProduct)
             }
     }
 

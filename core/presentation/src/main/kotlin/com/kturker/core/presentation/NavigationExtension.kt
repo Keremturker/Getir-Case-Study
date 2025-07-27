@@ -66,6 +66,14 @@ inline fun <reified T> SavedStateHandle.getTypedArg(key: String = "args"): T {
     return Json.decodeFromString(json)
 }
 
+inline fun <reified T> createSavedStateHandleWithArgs(
+    key: String = "args",
+    args: T
+): SavedStateHandle {
+    val json = Json.encodeToString(args)
+    return SavedStateHandle(mapOf(key to json))
+}
+
 class CustomNavType<T>(
     private val serializer: KSerializer<T>
 ) : NavType<T>(isNullableAllowed = false) {

@@ -60,7 +60,7 @@ dependencies {
     debugImplementation(libs.ui.tooling)
     implementation(libs.androidx.navigation.compose)
 
-    testImplementation(libs.junit)
+    testImplementation(libs.bundles.test.all)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
