@@ -24,7 +24,7 @@ internal fun ProductListRouteScreen(
         viewmodel.suggestedProductList.collectAsLazyPagingItems()
 
     LaunchedEffect(key1 = Unit) {
-        viewmodel.onFetchData(defaultOnLoading = false)
+        viewmodel.onFetchData(defaultIsRefreshing = false)
     }
 
     LaunchedEffect(key1 = Unit) {

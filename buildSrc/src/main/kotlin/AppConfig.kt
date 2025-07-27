@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 object AppConfig {
     const val applicationId = "com.kturker.getircasestudy"
-    const val name = "Getir Case Study"
+    const val name = "Getir"
 
     const val compileSdkVersion = 36
     const val minSdkVersion = 24
