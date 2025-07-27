@@ -1,5 +1,8 @@
 package com.kturker.feature.product.presentation.detail
 
+import androidx.compose.runtime.Immutable
+
+@Immutable
 internal data class ProductDetailUiState(
     val title: String = "",
     val imageUrl: String = "",

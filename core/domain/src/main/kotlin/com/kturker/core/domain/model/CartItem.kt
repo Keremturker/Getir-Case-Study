@@ -1,5 +1,8 @@
 package com.kturker.core.domain.model
 
+import androidx.compose.runtime.Immutable
+
+@Immutable
 data class CartItem(
     val id: String = "",
     val name: String = "",
