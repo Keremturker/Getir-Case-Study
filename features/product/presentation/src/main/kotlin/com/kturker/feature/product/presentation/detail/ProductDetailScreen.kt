@@ -22,9 +22,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kturker.feature.product.presentation.component.AnimatedCartPriceBadge
 import com.kturker.uikit.LocalCustomColorsPalette
-import com.kturker.uikit.components.HorizontalQuantitySelector
 import com.kturker.uikit.components.icon.KtIcon
 import com.kturker.uikit.components.image.ProductImage
+import com.kturker.uikit.components.quantityselector.HorizontalQuantitySelector
 import com.kturker.uikit.components.scaffold.KtScaffold
 import com.kturker.uikit.components.text.KtText
 import com.kturker.uikit.components.toolbar.KtToolbar
@@ -138,7 +138,7 @@ private fun BottomCartBar(
         if (productQuantity > 0) {
             HorizontalQuantitySelector(
                 modifier = Modifier.padding(all = 16.dp),
-                cartCount = productQuantity,
+                quantity = productQuantity,
                 selectorSize = 48.dp,
                 quantityTextSize = 16.sp,
                 iconSize = 24.dp,

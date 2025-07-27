@@ -29,9 +29,9 @@ import com.kturker.core.domain.model.ProductItem
 import com.kturker.core.presentation.BottomCartBar
 import com.kturker.core.presentation.ProductItemCompose
 import com.kturker.uikit.LocalCustomColorsPalette
-import com.kturker.uikit.components.HorizontalQuantitySelector
 import com.kturker.uikit.components.icon.KtIcon
 import com.kturker.uikit.components.image.ProductImage
+import com.kturker.uikit.components.quantityselector.HorizontalQuantitySelector
 import com.kturker.uikit.components.scaffold.KtScaffold
 import com.kturker.uikit.components.text.KtText
 import com.kturker.uikit.components.toolbar.KtToolbar
@@ -206,7 +206,7 @@ private fun CartItem(
             }
 
             HorizontalQuantitySelector(
-                cartCount = item.quantity,
+                quantity = item.quantity,
                 selectorSize = 32.dp,
                 quantityWidth = 38.dp,
                 iconSize = 18.dp,

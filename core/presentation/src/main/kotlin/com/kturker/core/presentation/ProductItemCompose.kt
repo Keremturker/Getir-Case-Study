@@ -1,8 +1,5 @@
 package com.kturker.core.presentation
 
-import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.animation.core.tween
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -10,35 +7,21 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kturker.core.domain.model.ProductItem
 import com.kturker.uikit.LocalCustomColorsPalette
-import com.kturker.uikit.components.icon.KtIcon
 import com.kturker.uikit.components.image.ProductImage
+import com.kturker.uikit.components.quantityselector.VerticalQuantitySelector
 import com.kturker.uikit.components.text.KtText
-import com.kturker.uikit.extension.noRippleClickable
-import com.kturker.uikit.icons.Minus
-import com.kturker.uikit.icons.Plus
-import com.kturker.uikit.icons.Trash
 
 @Composable
 fun ProductItemCompose(
@@ -101,109 +84,18 @@ private fun ProductImageSection(
             )
         }
 
-        QuantitySelector(
+        VerticalQuantitySelector(
             modifier = Modifier.align(Alignment.TopEnd),
-            cartCount = cartCount,
-            itemId = id,
-            onPlusClick = onPlusClick,
-            onMinusClick = onMinusClick
-        )
-    }
-}
-
-@Composable
-private fun QuantitySelector(
-    itemId: String,
-    cartCount: Int,
-    modifier: Modifier = Modifier,
-    onPlusClick: (id: String) -> Unit,
-    onMinusClick: (id: String) -> Unit
-) {
-    val color = LocalCustomColorsPalette.current
-
-    val isExpanded = cartCount > 0
-    val removeIcon = if (cartCount == 1) Trash else Minus
-
-    val animatedHeight by animateDpAsState(
-        targetValue = if (isExpanded) 96.dp else 32.dp,
-        label = "heightAnimation",
-        animationSpec = tween(
-            durationMillis = 400
-        )
-    )
-
-    Column(
-        modifier = modifier
-            .height(animatedHeight)
-            .width(32.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-
-        ActionButton(
-            imageVector = Plus,
-            onClickAction = {
-                onPlusClick.invoke(itemId)
+            quantity = cartCount,
+            onPlusClick = {
+                onPlusClick.invoke(id)
             },
-            shape = if (isExpanded) {
-                RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp)
-            } else {
-                RoundedCornerShape(8.dp)
+            onMinusClick = {
+                onMinusClick.invoke(id)
             }
         )
-
-        if (isExpanded) {
-            Box(
-                modifier = Modifier
-                    .size(size = 32.dp)
-                    .background(
-                        color = color.primaryColor
-                    ),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = cartCount.toString(),
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 12.sp,
-                    color = color.textWhite
-                )
-            }
-
-            ActionButton(
-                imageVector = removeIcon,
-                onClickAction = {
-                    onMinusClick.invoke(itemId)
-                },
-                shape = RoundedCornerShape(bottomStart = 8.dp, bottomEnd = 8.dp)
-            )
-        }
     }
 }
-
-@Composable
-private fun ActionButton(imageVector: ImageVector?, onClickAction: () -> Unit, shape: Shape) {
-    val color = LocalCustomColorsPalette.current
-
-    Card(
-        modifier = Modifier
-            .size(32.dp)
-            .noRippleClickable(debounceTime = 0L) {
-                onClickAction.invoke()
-            },
-        shape = shape,
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White)
-    ) {
-        Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-            KtIcon(
-                imageVector = imageVector,
-                contentDescription = "Plus",
-                modifier = Modifier.size(24.dp),
-                tint = color.primaryColor
-            )
-        }
-    }
-}
-
 
 @Composable
 private fun ProductInfoSection(name: String, price: String, description: String) {

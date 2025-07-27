@@ -51,5 +51,6 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation (libs.androidx.constraintlayout.compose)
     implementation(libs.coil.compose)
+    implementation(libs.airbnb.lottie)
 
 }
