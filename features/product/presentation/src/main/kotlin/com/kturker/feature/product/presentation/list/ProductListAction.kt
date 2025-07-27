@@ -5,7 +5,7 @@ import com.kturker.core.domain.model.ProductItem
 internal interface ProductListAction {
     fun addToCart(item: ProductItem)
     fun removeFromCart(item: ProductItem)
-    fun onFetchData(defaultOnLoading: Boolean = true)
+    fun onFetchData(defaultIsRefreshing: Boolean = true)
     fun navigateToDetailScreen(item: ProductItem)
     fun navigateToCartScreen()
 }

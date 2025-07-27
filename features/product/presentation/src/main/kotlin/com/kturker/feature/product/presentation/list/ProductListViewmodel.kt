@@ -54,6 +54,8 @@ internal class ProductListViewmodel @Inject constructor(
 
     val totalPriceFormatted = getCartTotalPrice()
 
+   private var fetchedBefore: Boolean = false
+
     override fun navigateToDetailScreen(item: ProductItem) {
         navigation.navigateToDetailScreen(item = item)
     }
@@ -74,8 +76,12 @@ internal class ProductListViewmodel @Inject constructor(
         }
     }
 
-    override fun onFetchData(defaultOnLoading: Boolean) {
-        _uiState.update { it.copy(isRefreshing = defaultOnLoading, isLoading = true) }
+    override fun onFetchData(defaultIsRefreshing: Boolean) {
+        if (fetchedBefore && defaultIsRefreshing.not()) return
+
+        fetchedBefore = true
+
+        _uiState.update { it.copy(isRefreshing = defaultIsRefreshing, isLoading = true) }
 
         viewModelScope.launch {
             refreshProducts().collect { result ->

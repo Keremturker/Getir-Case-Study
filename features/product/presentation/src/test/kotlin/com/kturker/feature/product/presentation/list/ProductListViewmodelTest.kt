@@ -201,7 +201,7 @@ internal class ProductListViewmodelTest {
             val defaultOnLoading = true
 
             //When
-            viewModel.onFetchData(defaultOnLoading = defaultOnLoading)
+            viewModel.onFetchData(defaultIsRefreshing = defaultOnLoading)
 
             //Then
             viewModel.uiState.test {
@@ -222,7 +222,7 @@ internal class ProductListViewmodelTest {
             val defaultOnLoading = true
 
             //When
-            viewModel.onFetchData(defaultOnLoading = defaultOnLoading)
+            viewModel.onFetchData(defaultIsRefreshing = defaultOnLoading)
 
             //Then
             viewModel.uiState.test {

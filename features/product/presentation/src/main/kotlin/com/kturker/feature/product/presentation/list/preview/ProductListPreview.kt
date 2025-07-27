@@ -88,7 +88,7 @@ private fun fakeLazyPagingItems(): LazyPagingItems<ProductItem> {
 private val dummyAction = object : ProductListAction {
     override fun addToCart(item: ProductItem) = Unit
     override fun removeFromCart(item: ProductItem) = Unit
-    override fun onFetchData(defaultOnLoading: Boolean) = Unit
+    override fun onFetchData(defaultIsRefreshing: Boolean) = Unit
     override fun navigateToDetailScreen(item: ProductItem) = Unit
     override fun navigateToCartScreen() = Unit
 }
