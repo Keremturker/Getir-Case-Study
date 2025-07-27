@@ -3,6 +3,7 @@ package com.kturker.feature.product.presentation.component
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
@@ -18,11 +19,13 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -58,16 +61,33 @@ private fun CartPriceBadge(
     priceText: String
 ) {
     val color = LocalCustomColorsPalette.current
+    val defaultDuration = 1000
 
     var visiblePrice by remember { mutableStateOf(priceText) }
+    var showAnimation by remember { mutableStateOf(false) }
+    var showAnimationDuration by remember { mutableIntStateOf(defaultDuration) }
 
+    //Todo It's not nice but i had to
     LaunchedEffect(key1 = priceText) {
+        showAnimationDuration = 0
+        showAnimation = false
+
         if (priceText.isNotEmpty()) {
             visiblePrice = ""
             delay(120)
             visiblePrice = priceText
+            showAnimationDuration = defaultDuration
+            showAnimation = true
         }
     }
+
+    val targetAlpha = if (showAnimation) 1f else 0f
+
+    val alpha by animateFloatAsState(
+        targetValue = targetAlpha,
+        animationSpec = tween(durationMillis = showAnimationDuration),
+        label = "TextAlpha"
+    )
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -109,6 +129,7 @@ private fun CartPriceBadge(
             contentAlignment = Alignment.Center
         ) {
             KtText(
+                modifier = Modifier.graphicsLayer { this.alpha = alpha },
                 text = visiblePrice,
                 color = color.textPurple,
                 fontSize = 14.sp,

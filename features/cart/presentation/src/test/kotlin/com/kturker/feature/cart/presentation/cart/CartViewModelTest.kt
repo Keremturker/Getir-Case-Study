@@ -137,7 +137,7 @@ internal class CartViewModelTest {
                 imageUrl = "img",
                 price = 10.0,
                 priceText = "₺10",
-                cartCount = 1
+                quantity = 1
             )
 
             viewModel.updateSuggestedProduct(suggestedProducts = listOf(expectedProduct))
@@ -220,7 +220,7 @@ internal class CartViewModelTest {
                 imageUrl = "img",
                 price = 10.0,
                 priceText = "₺10",
-                cartCount = 1
+                quantity = 1
             )
 
             viewModel.updateSuggestedProduct(suggestedProducts = listOf(expectedProduct))

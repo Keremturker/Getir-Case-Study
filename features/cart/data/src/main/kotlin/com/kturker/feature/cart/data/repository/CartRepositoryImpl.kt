@@ -34,9 +34,9 @@ internal class CartRepositoryImpl @Inject constructor(
     override suspend fun addToCart(item: ProductItem) {
         val existing = cartDao.getCartItemById(id = item.id)
         val updated = if (existing == null) {
-            item.copy(cartCount = 1)
+            item.copy(quantity = 1)
         } else {
-            item.copy(cartCount = existing.quantity + 1)
+            item.copy(quantity = existing.quantity + 1)
         }
 
         val cartItem = updated.toCartItemEntity()

@@ -17,7 +17,7 @@ internal class ProductWithCardMapper @Inject constructor() {
                 imageUrl = entity.imageURL,
                 price = entity.price,
                 priceText = entity.priceText.trim(),
-                cartCount = entity.quantity
+                quantity = entity.quantity
             )
         }
 }

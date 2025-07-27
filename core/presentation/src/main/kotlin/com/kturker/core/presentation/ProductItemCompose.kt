@@ -1,5 +1,7 @@
 package com.kturker.core.presentation
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -10,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,7 +37,7 @@ fun ProductItemCompose(
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(space = 8.dp)) {
         ProductImageSection(
             id = item.id,
-            cartCount = item.cartCount,
+            quantity = item.quantity,
             imageUrl = item.imageUrl,
             onPlusClick = onPlusClick,
             onMinusClick = onMinusClick
@@ -51,15 +54,22 @@ fun ProductItemCompose(
 @Composable
 private fun ProductImageSection(
     id: String,
-    cartCount: Int,
+    quantity: Int,
     imageUrl: String,
     onPlusClick: (id: String) -> Unit,
     onMinusClick: (id: String) -> Unit
 ) {
     val color = LocalCustomColorsPalette.current
 
-    val borderColor = if (cartCount > 0) color.primaryColor else color.softBackground
+    val borderColor = if (quantity > 0) color.primaryColor else color.softBackground
     val shape = RoundedCornerShape(12.dp)
+
+
+    val animatedBorderColor by animateColorAsState(
+        targetValue = borderColor,
+        label = "BorderColor",
+        animationSpec = tween(durationMillis = 500)
+    )
 
     Box(Modifier.fillMaxWidth()) {
         Box(
@@ -68,7 +78,7 @@ private fun ProductImageSection(
                 .padding(top = 8.dp, end = 8.dp)
                 .border(
                     width = 1.dp,
-                    color = borderColor,
+                    color = animatedBorderColor,
                     shape = shape
                 )
                 .padding(all = 4.dp)
@@ -86,7 +96,7 @@ private fun ProductImageSection(
 
         VerticalQuantitySelector(
             modifier = Modifier.align(Alignment.TopEnd),
-            quantity = cartCount,
+            quantity = quantity,
             onPlusClick = {
                 onPlusClick.invoke(id)
             },

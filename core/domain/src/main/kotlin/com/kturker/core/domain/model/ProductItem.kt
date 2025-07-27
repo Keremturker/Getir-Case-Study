@@ -10,5 +10,5 @@ data class ProductItem(
     val imageUrl: String = "",
     val price: Double = 0.0,
     val priceText: String = "",
-    val cartCount: Int = 0
+    val quantity: Int = 0
 )

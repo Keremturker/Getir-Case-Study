@@ -205,56 +205,59 @@ private fun ProductList(
 ) {
     val color = LocalCustomColorsPalette.current
 
-    Box(
-        Modifier
-            .padding(top = 16.dp)
-            .background(color = color.white)
-            .padding(top = 8.dp)
+    LazyVerticalGrid(
+        modifier = Modifier.background(color = color.white),
+        columns = GridCells.Fixed(3),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
+        item(span = { GridItemSpan(3) }) {
+            Spacer(
+                Modifier
+                    .height(16.dp)
+                    .fillMaxWidth()
+                    .background(color = color.backgroundColor)
+            )
+        }
 
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(3),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            if (suggestedProducts.itemCount > 0) {
-                item(span = { GridItemSpan(3) }) {
-                    SuggestedProductList(
-                        suggestedProducts = suggestedProducts,
-                        action = action
-                    )
-                }
+        if (suggestedProducts.itemCount > 0) {
 
-                item(span = { GridItemSpan(3) }) {
-                    Spacer(
-                        Modifier
-                            .height(16.dp)
-                            .fillMaxWidth()
-                            .background(color = color.backgroundColor)
-                    )
-                }
+            item(span = { GridItemSpan(3) }) {
+                SuggestedProductList(
+                    suggestedProducts = suggestedProducts,
+                    action = action
+                )
             }
 
-            items(count = products.itemCount, key = products.itemKey { item -> item.id }) { index ->
+            item(span = { GridItemSpan(3) }) {
+                Spacer(
+                    Modifier
+                        .height(16.dp)
+                        .fillMaxWidth()
+                        .background(color = color.backgroundColor)
+                )
+            }
+        }
 
-                val item: ProductItem? = products[index]
-                item?.let {
-                    ProductItemCompose(
-                        modifier = Modifier
-                            .padding(start = 16.dp, end = 8.dp)
-                            .noRippleClickable {
-                                action.navigateToDetailScreen(item = item)
-                            },
-                        item = item,
-                        onMinusClick = {
-                            action.removeFromCart(item)
+        items(count = products.itemCount, key = products.itemKey { item -> item.id }) { index ->
 
+            val item: ProductItem? = products[index]
+            item?.let {
+                ProductItemCompose(
+                    modifier = Modifier
+                        .padding(start = 16.dp, end = 8.dp)
+                        .noRippleClickable {
+                            action.navigateToDetailScreen(item = item)
                         },
-                        onPlusClick = {
-                            action.addToCart(item)
-                        }
-                    )
-                }
+                    item = item,
+                    onMinusClick = {
+                        action.removeFromCart(item)
+
+                    },
+                    onPlusClick = {
+                        action.addToCart(item)
+                    }
+                )
             }
         }
     }

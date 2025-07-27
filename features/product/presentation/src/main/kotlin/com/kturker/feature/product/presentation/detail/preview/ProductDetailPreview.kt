@@ -1,13 +1,13 @@
 package com.kturker.feature.product.presentation.detail.preview
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
-import com.kturker.feature.product.presentation.detail.ProductDetailAction
+ import com.kturker.feature.product.presentation.detail.ProductDetailAction
 import com.kturker.feature.product.presentation.detail.ProductDetailScreen
 import com.kturker.feature.product.presentation.detail.ProductDetailUiState
 import com.kturker.uikit.extension.KtPreviewWrapper
+import com.kturker.uikit.extension.PreviewGetir
 
-@Preview
+@PreviewGetir
 @Composable
 private fun ProductDetailPreview() {
     KtPreviewWrapper {
@@ -18,7 +18,7 @@ private fun ProductDetailPreview() {
     }
 }
 
-@Preview
+@PreviewGetir
 @Composable
 private fun ProductDetailPreviewWithQuantity() {
     KtPreviewWrapper {
