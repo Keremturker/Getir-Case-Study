@@ -24,6 +24,10 @@ internal fun ProductListRouteScreen(
         viewmodel.suggestedProductList.collectAsLazyPagingItems()
 
     LaunchedEffect(key1 = Unit) {
+        viewmodel.onFetchData(defaultOnLoading = false)
+    }
+
+    LaunchedEffect(key1 = Unit) {
         viewmodel.totalPriceFormatted
             .distinctUntilChanged()
             .collect { totalPriceFormatted ->

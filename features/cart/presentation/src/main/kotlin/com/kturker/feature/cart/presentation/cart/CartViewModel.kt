@@ -108,22 +108,19 @@ internal class CartViewModel @Inject constructor(
         }
     }
 
-
     fun updateCartTotalPrice(totalPrice: String) {
         _uiState.update { state ->
             state.copy(totalPriceFormatted = totalPrice)
         }
     }
 
-    fun updateSuggestedProduct(products: List<ProductItem>) {
+    fun updateSuggestedProduct(suggestedProducts: List<ProductItem>) {
         _uiState.update { state ->
-            state.copy(suggestedProducts = products)
+            state.copy(suggestedProducts = suggestedProducts)
         }
     }
 
-
     fun updateCartProducts(cartProducts: List<CartItem>) {
-
         _uiState.update { state ->
             state.copy(cartProducts = cartProducts)
         }

@@ -26,6 +26,17 @@ constraintlayoutCompose = "1.1.1"
 coilCompose = "2.7.0"
 pagingCompose = "3.3.6"
 
+# Test
+test_junit_platform_runner = "1.13.4"
+test_junit_jupiter_api = "5.13.4"
+test_junit_jupiter_engine = "5.13.4"
+test_arch_testing = "2.2.0"
+test_json = "20250517"
+test_mockito_kotlin = "6.0.0"
+test_kotlinx_coroutines = "1.10.2"
+test_mockk = "1.14.5"
+test_turbine = "1.2.1"
+
 [libraries]
 androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycleViewmodel" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -39,8 +50,6 @@ androidx-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
-androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
-androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
@@ -67,8 +76,21 @@ coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose"
 androidx-paging-runtime-ktx = { module = "androidx.paging:paging-runtime-ktx", version.ref = "pagingCompose" }
 androidx-paging-compose = { module = "androidx.paging:paging-compose", version.ref = "pagingCompose" }
 
+# Test
+test-junit-platform-runner = { group = "org.junit.platform", name = "junit-platform-runner", version.ref = "test_junit_platform_runner" }
+test-junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter" }
+test-junit-jupiter-api = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "test_junit_jupiter_api" }
+test-junit-jupiter-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "test_junit_jupiter_engine" }
+test-core-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "test_arch_testing" }
+test-json = { group = "org.json", name = "json", version.ref = "test_json" }
+test-mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "test_mockito_kotlin" }
+test-kotlinx-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "test_kotlinx_coroutines" }
+test-mockk = { group = "io.mockk", name = "mockk", version.ref = "test_mockk" }
+test-turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "test_turbine" }
+
 [bundles]
 network = ["network-retrofit", "network-gson-converter", "network-okhttp", "google-gson"]
+test-all = ["test-junit-platform-runner", "test-junit-jupiter", "test-junit-jupiter-api", "test-junit-jupiter-engine", "test-core-testing", "test-json", "test-mockito-kotlin", "test-kotlinx-coroutines", "test-mockk", "test-turbine"]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

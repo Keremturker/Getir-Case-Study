@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 
 @Composable
 internal fun ProductDetailRouteScreen(
-    viewmodel: ProductDetailViewmodel = hiltViewModel()
+    viewmodel: ProductDetailViewModel = hiltViewModel()
 ) {
     val uiState by viewmodel.uiState.collectAsStateWithLifecycle()
 
