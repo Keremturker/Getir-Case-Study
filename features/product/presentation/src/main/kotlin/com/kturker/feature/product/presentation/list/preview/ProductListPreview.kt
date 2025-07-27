@@ -2,7 +2,6 @@ package com.kturker.feature.product.presentation.list.preview
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -11,9 +10,10 @@ import com.kturker.feature.product.presentation.list.ProductListAction
 import com.kturker.feature.product.presentation.list.ProductListScreen
 import com.kturker.feature.product.presentation.list.ProductListUiState
 import com.kturker.uikit.extension.KtPreviewWrapper
+import com.kturker.uikit.extension.PreviewGetir
 import kotlinx.coroutines.flow.flowOf
 
-@Preview
+@PreviewGetir
 @Composable
 private fun ProductListScreenNotEmptyPreview() {
 
@@ -36,7 +36,7 @@ private fun ProductListScreenNotEmptyPreview() {
     }
 }
 
-@Preview
+@PreviewGetir
 @Composable
 private fun ProductListScreenEmptyPreview() {
     val state = ProductListUiState(
@@ -74,7 +74,7 @@ private fun fakeLazyPagingItems(): LazyPagingItems<ProductItem> {
             imageUrl = "",
             price = 10.0 + index,
             priceText = "₺${"%.2f".format(10.0 + index)}",
-            cartCount = 0
+            quantity = 0
         )
     }
 

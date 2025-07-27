@@ -1,15 +1,15 @@
 package com.kturker.feature.cart.presentation.cart.preview
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import com.kturker.core.domain.model.CartItem
 import com.kturker.core.domain.model.ProductItem
 import com.kturker.feature.cart.presentation.cart.CartAction
 import com.kturker.feature.cart.presentation.cart.CartScreen
 import com.kturker.feature.cart.presentation.cart.CartUiState
 import com.kturker.uikit.extension.KtPreviewWrapper
+import com.kturker.uikit.extension.PreviewGetir
 
-@Preview
+@PreviewGetir
 @Composable
 private fun CartScreenWithItemsPreview() {
     KtPreviewWrapper {
@@ -20,7 +20,7 @@ private fun CartScreenWithItemsPreview() {
     }
 }
 
-@Preview
+@PreviewGetir
 @Composable
 private fun CartScreenEmptyPreview() {
     KtPreviewWrapper {
@@ -73,7 +73,7 @@ private val dummyUiState = CartUiState(
             imageUrl = "",
             price = 17.25,
             priceText = "₺17,25",
-            cartCount = 0
+            quantity = 0
         )
     )
 )

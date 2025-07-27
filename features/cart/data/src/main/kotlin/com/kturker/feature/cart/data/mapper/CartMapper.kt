@@ -9,7 +9,7 @@ internal fun ProductItem.toCartItemEntity(): CartEntity {
         id = id,
         name = name,
         price = price,
-        quantity = cartCount,
+        quantity = quantity,
         description = description,
         imageURL = imageUrl,
         priceText = priceText

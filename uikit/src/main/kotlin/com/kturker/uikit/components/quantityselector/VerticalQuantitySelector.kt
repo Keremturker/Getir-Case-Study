@@ -48,14 +48,14 @@ fun VerticalQuantitySelector(
 
     var showAnimation by remember { mutableStateOf(false) }
     var isClickedMinus by remember { mutableStateOf(false) }
-    var previousCount by remember { mutableIntStateOf(quantity) }
+    var previousQuantity by remember { mutableIntStateOf(quantity) }
 
     LaunchedEffect(key1 = quantity) {
-        if (quantity != previousCount) {
+        if (quantity != previousQuantity) {
             showAnimation = true
             delay(300)
             showAnimation = false
-            previousCount = quantity
+            previousQuantity = quantity
         }
     }
 
