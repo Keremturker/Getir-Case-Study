@@ -13,5 +13,15 @@ data class StringResourcesUiModel(
     val completeOrderDialogDescription: String = "",
     val yes: String = "",
     val abort: String = "",
-    val close: String = ""
+    val close: String = "",
+    val orderIsPlaced: String = "",
+    val orderIsConfirming: String = "",
+    val orderIsPreparing: String = "",
+    val orderIsPreparingToDelivery: String = "",
+    val orderIsOnTheWay: String = "",
+    val orderIsEnroute: String = "",
+    val orderIsArriving: String = "",
+    val orderIsEnjoy: String = "",
+    val orderIsDelivered: String = "",
+    val orderIsThanks: String = "",
 )

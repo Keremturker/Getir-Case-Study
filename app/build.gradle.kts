@@ -107,6 +107,7 @@ dependencies {
     androidTestImplementation(platform(libs.androidx.compose.bom))
     debugImplementation(libs.androidx.ui.tooling)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.accompanist.permissions)
 
     //Dagger - Hilt
     implementation(libs.hilt.android)
