@@ -1,11 +1,13 @@
 [versions]
 agp = "8.11.1"
+detektFormatting = "1.23.8"
 kotlin = "2.2.0"
 coreKtx = "1.16.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 kotlinxCoroutinesCore = "1.10.2"
+leakcanaryAndroid = "2.14"
 lifecycleRuntimeKtx = "2.9.2"
 activityCompose = "1.10.1"
 composeBom = "2025.07.00"
@@ -42,6 +44,9 @@ test_turbine = "1.2.1"
 [libraries]
 androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycleViewmodel" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detektFormatting" }
+detekt-rules-libraries = { module = "io.gitlab.arturbosch.detekt:detekt-rules-libraries", version.ref = "detektFormatting" }
+detekt-rules-authors = { module = "io.gitlab.arturbosch.detekt:detekt-rules-ruleauthors", version.ref = "detektFormatting" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -60,6 +65,7 @@ androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-com
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
 javax-inject = { module = "javax.inject:javax.inject", version.ref = "javaxInject" }
 airbnb-lottie = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "airbnb_lottie" }
+leakcanary-android = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanaryAndroid" }
 network-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 network-gson-converter = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
 network-okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
@@ -95,6 +101,7 @@ test-turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "te
 [bundles]
 network = ["network-retrofit", "network-gson-converter", "network-okhttp", "google-gson"]
 test-all = ["test-junit-platform-runner", "test-junit-jupiter", "test-junit-jupiter-api", "test-junit-jupiter-engine", "test-core-testing", "test-json", "test-mockito-kotlin", "test-kotlinx-coroutines", "test-mockk", "test-turbine"]
+detekt = ["detekt-formatting", "detekt-rules-libraries", "detekt-rules-authors"]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -46,4 +46,5 @@ dependencies {
     ksp(libs.androidx.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
 
+    detektPlugins(libs.bundles.detekt)
 }

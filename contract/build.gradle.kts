@@ -16,4 +16,5 @@ kotlin {
 
 dependencies {
     implementation(libs.javax.inject)
+    detektPlugins(libs.bundles.detekt)
 }

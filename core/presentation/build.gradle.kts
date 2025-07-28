@@ -54,5 +54,5 @@ dependencies {
 
     implementation(libs.kotlin.serialization.json)
 
-
+    detektPlugins(libs.bundles.detekt)
 }
