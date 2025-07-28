@@ -6,21 +6,18 @@ import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.kturker.core.domain.model.ProductItem
+import com.kturker.core.presentation.KtPreviewWrapper
+import com.kturker.core.presentation.PreviewGetir
 import com.kturker.feature.product.presentation.list.ProductListAction
 import com.kturker.feature.product.presentation.list.ProductListScreen
 import com.kturker.feature.product.presentation.list.ProductListUiState
-import com.kturker.uikit.extension.KtPreviewWrapper
-import com.kturker.uikit.extension.PreviewGetir
 import kotlinx.coroutines.flow.flowOf
 
 @PreviewGetir
 @Composable
 private fun ProductListScreenNotEmptyPreview() {
     val state = ProductListUiState(
-        title = "Ürünler",
-        totalPriceFormatted = "3 TL",
-        goToCartButtonTitle = "Sepete Git",
-        emptyListText = "Item Bulunamadi"
+        totalPriceFormatted = "3 TL"
     )
 
     KtPreviewWrapper {
@@ -37,12 +34,7 @@ private fun ProductListScreenNotEmptyPreview() {
 @PreviewGetir
 @Composable
 private fun ProductListScreenEmptyPreview() {
-    val state = ProductListUiState(
-        title = "Ürünler",
-        totalPriceFormatted = "",
-        goToCartButtonTitle = "Sepete Git",
-        emptyListText = "Item Bulunamadi"
-    )
+    val state = ProductListUiState(totalPriceFormatted = "")
 
     KtPreviewWrapper {
         ProductListScreen(

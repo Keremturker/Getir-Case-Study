@@ -12,8 +12,6 @@ import com.kturker.feature.cart.domain.usecase.ClearCartUseCase
 import com.kturker.feature.cart.domain.usecase.GetCartProductsUseCase
 import com.kturker.feature.cart.domain.usecase.GetSuggestedProductUseCase
 import com.kturker.feature.cart.presentation.navigation.CartNavigation
-import com.kturker.language.ML
-import com.kturker.language.StringResourceManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,20 +29,13 @@ internal class CartViewModel @Inject constructor(
     private val clearCart: ClearCartUseCase,
     private val addToCart: AddToCartUseCase,
     private val removeFromCart: RemoveFromCartUseCase,
-    private val stringResourceManager: StringResourceManager,
     private val progressCentricNotificationManager: ProgressCentricNotificationManager,
     getSuggestedProduct: GetSuggestedProductUseCase,
     getCartTotalPrice: GetCartTotalPriceUseCase,
     getCartProducts: GetCartProductsUseCase
 ) : CoreViewModel(), CartAction {
 
-    private val _uiState = MutableStateFlow(
-        CartUiState(
-            title = stringResourceManager[ML::cartTitle],
-            completeOrderButtonTitle = stringResourceManager[ML::completeOrderTitle],
-            suggestedProductTitle = stringResourceManager[ML::suggestedProductListTitle]
-        )
-    )
+    private val _uiState = MutableStateFlow(CartUiState())
     val uiState: StateFlow<CartUiState> = _uiState.asStateFlow()
 
     private val _dialogEvents = MutableSharedFlow<DialogEvent>()
@@ -79,9 +70,8 @@ internal class CartViewModel @Inject constructor(
             val totalPrice = _uiState.value.totalPriceFormatted
 
             _dialogEvents.emit(
-                value = DialogEvent.ShowDialog(
-                    description = stringResourceManager[ML::completeOrderDialogDescription, totalPrice],
-                    positiveButtonText = stringResourceManager[ML::close],
+                value = DialogEvent.ShowCompleteOrderDialog(
+                    totalPrice = totalPrice,
                     onPositive = {
                         progressCentricNotificationManager.sendNotification()
                         clearCart()
@@ -99,10 +89,7 @@ internal class CartViewModel @Inject constructor(
     override fun clearCartDialog() {
         viewModelScope.launch {
             _dialogEvents.emit(
-                value = DialogEvent.ShowDialog(
-                    description = stringResourceManager[ML::clearCartDialogDescription],
-                    positiveButtonText = stringResourceManager[ML::yes],
-                    negativeButtonText = stringResourceManager[ML::abort],
+                value = DialogEvent.ShowClearCartDialog(
                     onPositive = {
                         clearCart()
                     }

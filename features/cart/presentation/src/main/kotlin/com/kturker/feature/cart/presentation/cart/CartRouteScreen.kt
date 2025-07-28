@@ -8,6 +8,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.kturker.language.LocalStringResourceManager
+import com.kturker.language.ML
 import com.kturker.uikit.components.KtBasicDialog
 import kotlinx.coroutines.flow.distinctUntilChanged
 
@@ -54,18 +56,35 @@ internal fun CartRoutScreen(viewmodel: CartViewModel = hiltViewModel()) {
 
 @Composable
 private fun DialogHandler(dialogState: MutableState<DialogEvent?>) {
+    val stringResourceManager = LocalStringResourceManager.current
+
     fun onDismissDialog() {
         dialogState.value = null
     }
 
     dialogState.value?.let { event ->
         when (event) {
-            is DialogEvent.ShowDialog -> {
+            is DialogEvent.ShowClearCartDialog -> {
                 KtBasicDialog(
                     onDismissRequest = ::onDismissDialog,
-                    description = event.description,
-                    positiveButtonTitle = event.positiveButtonText,
-                    negativeButtonTitle = event.negativeButtonText,
+                    description = stringResourceManager[ML::clearCartDialogDescription],
+                    positiveButtonTitle = stringResourceManager[ML::yes],
+                    negativeButtonTitle = stringResourceManager[ML::abort],
+                    positiveButtonAction = {
+                        event.onPositive.invoke()
+                        onDismissDialog()
+                    },
+                    negativeButtonAction = {
+                        onDismissDialog()
+                    }
+                )
+            }
+
+            is DialogEvent.ShowCompleteOrderDialog -> {
+                KtBasicDialog(
+                    onDismissRequest = ::onDismissDialog,
+                    description = stringResourceManager[ML::completeOrderDialogDescription, event.totalPrice],
+                    positiveButtonTitle = stringResourceManager[ML::close],
                     positiveButtonAction = {
                         event.onPositive.invoke()
                         onDismissDialog()

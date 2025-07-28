@@ -28,6 +28,8 @@ import com.kturker.core.domain.model.CartItem
 import com.kturker.core.domain.model.ProductItem
 import com.kturker.core.presentation.BottomCartBar
 import com.kturker.core.presentation.ProductItemCompose
+import com.kturker.language.LocalStringResourceManager
+import com.kturker.language.ML
 import com.kturker.uikit.LocalCustomColorsPalette
 import com.kturker.uikit.components.icon.KtIcon
 import com.kturker.uikit.components.image.ProductImage
@@ -43,6 +45,7 @@ import com.kturker.uikit.icons.Trash
 @Composable
 internal fun CartScreen(uiState: CartUiState, action: CartAction) {
     val color = LocalCustomColorsPalette.current
+    val stringResourceManager = LocalStringResourceManager.current
 
     KtScaffold(
         topBar = {
@@ -58,7 +61,7 @@ internal fun CartScreen(uiState: CartUiState, action: CartAction) {
                 },
                 centerContent = {
                     KtText(
-                        text = uiState.title,
+                        text = stringResourceManager[ML::cartTitle],
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
                         color = color.textWhite
@@ -77,7 +80,7 @@ internal fun CartScreen(uiState: CartUiState, action: CartAction) {
         },
         bottomBar = {
             BottomCartBar(
-                title = uiState.completeOrderButtonTitle,
+                title = stringResourceManager[ML::completeOrderTitle],
                 totalPriceFormatted = uiState.totalPriceFormatted,
                 onClick = action::completeOrderDialog
             )
@@ -87,7 +90,7 @@ internal fun CartScreen(uiState: CartUiState, action: CartAction) {
                 CartList(
                     cartProducts = uiState.cartProducts,
                     suggestedList = uiState.suggestedProducts,
-                    suggestedListTitle = uiState.suggestedProductTitle,
+                    suggestedListTitle = stringResourceManager[ML::suggestedProductListTitle],
                     onPlusClick = action::addToCard,
                     onMinusClick = action::removeFromCard,
                     navigateToDetail = action::navigateToDetail

@@ -17,6 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.kturker.feature.product.contract.ProductListScreenDestination
+import com.kturker.language.LocalStringResourceManager
+import com.kturker.language.StringResourceManager
 import com.kturker.navigation.NavGraphProvider
 import com.kturker.uikit.LocalCustomColorsPalette
 import com.kturker.uikit.OnDarkCustomColorsPalette
@@ -25,36 +27,39 @@ import com.kturker.uikit.OnLightCustomColorsPalette
 @Composable
 internal fun AppRouteScreen(
     navController: NavHostController,
+    stringResourceManager: StringResourceManager,
     navGraphProviders: Map<String, NavGraphProvider>
 ) {
     val isSystemDark =
         if (isSystemInDarkTheme()) OnDarkCustomColorsPalette else OnLightCustomColorsPalette
 
     CompositionLocalProvider(value = LocalCustomColorsPalette provides isSystemDark) {
-        val color = LocalCustomColorsPalette.current
+        CompositionLocalProvider(value = LocalStringResourceManager provides stringResourceManager) {
+            val color = LocalCustomColorsPalette.current
 
-        Column(modifier = Modifier.fillMaxSize()) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(color.primaryColor)
-                    .height(
-                        height = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
-                    )
-            )
+            Column(modifier = Modifier.fillMaxSize()) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(color.primaryColor)
+                        .height(
+                            height = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
+                        )
+                )
 
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .navigationBarsPadding()
-                    .background(color.backgroundColor)
-            ) {
-                NavHost(
-                    navController = navController,
-                    startDestination = ProductListScreenDestination
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .navigationBarsPadding()
+                        .background(color.backgroundColor)
                 ) {
-                    navGraphProviders.forEach {
-                        it.value.registerGraph(navGraphBuilder = this)
+                    NavHost(
+                        navController = navController,
+                        startDestination = ProductListScreenDestination
+                    ) {
+                        navGraphProviders.forEach {
+                            it.value.registerGraph(navGraphBuilder = this)
+                        }
                     }
                 }
             }

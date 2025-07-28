@@ -21,6 +21,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kturker.feature.product.presentation.component.AnimatedCartPriceBadge
+import com.kturker.language.LocalStringResourceManager
+import com.kturker.language.ML
 import com.kturker.uikit.LocalCustomColorsPalette
 import com.kturker.uikit.components.icon.KtIcon
 import com.kturker.uikit.components.image.ProductImage
@@ -34,6 +36,7 @@ import com.kturker.uikit.icons.Close
 @Composable
 internal fun ProductDetailScreen(state: ProductDetailUiState, action: ProductDetailAction) {
     val color = LocalCustomColorsPalette.current
+    val stringResourceManager = LocalStringResourceManager.current
 
     KtScaffold(
         topBar = {
@@ -49,7 +52,7 @@ internal fun ProductDetailScreen(state: ProductDetailUiState, action: ProductDet
                 },
                 centerContent = {
                     KtText(
-                        text = state.title,
+                        text = stringResourceManager[ML::productDetailTitle],
                         color = color.textWhite,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold
@@ -68,7 +71,7 @@ internal fun ProductDetailScreen(state: ProductDetailUiState, action: ProductDet
         bottomBar = {
             BottomCartBar(
                 productQuantity = state.productQuantity,
-                title = state.addToCartTitle,
+                title = stringResourceManager[ML::addToCartTitle],
                 addToCart = action::addToCart,
                 removeFromCart = action::removeFromCart
             )

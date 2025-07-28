@@ -14,6 +14,7 @@ import com.kturker.language.StringResourceManager
 import com.kturker.navigation.NavGraphProvider
 import com.kturker.navigation.NavigationManager
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -36,6 +37,8 @@ internal class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         handleIntent(intent = intent)
 
+        stringResourceManager.setLanguage(Locale.getDefault().language)
+
         enableEdgeToEdge()
 
         setContent {
@@ -43,7 +46,8 @@ internal class MainActivity : ComponentActivity() {
 
             AppRouteScreen(
                 navController = navController,
-                navGraphProviders = navGraphProviders
+                navGraphProviders = navGraphProviders,
+                stringResourceManager = stringResourceManager
             )
 
             NavigationLaunchedEffect(
