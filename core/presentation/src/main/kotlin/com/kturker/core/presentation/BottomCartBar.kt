@@ -23,11 +23,7 @@ import com.kturker.uikit.LocalCustomColorsPalette
 import com.kturker.uikit.components.text.KtText
 
 @Composable
-fun BottomCartBar(
-    title: String,
-    totalPriceFormatted: String,
-    onClick: () -> Unit
-) {
+fun BottomCartBar(title: String, totalPriceFormatted: String, onClick: () -> Unit) {
     val color = LocalCustomColorsPalette.current
 
     Surface(
@@ -42,7 +38,6 @@ fun BottomCartBar(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-
             Box(
                 modifier = Modifier
                     .weight(weight = 2F)
@@ -71,12 +66,11 @@ fun BottomCartBar(
                     .padding(all = 16.dp),
                 contentAlignment = Alignment.Center
             ) {
-
                 BasicText(
                     text = AnnotatedString(text = totalPriceFormatted),
                     autoSize = TextAutoSize.StepBased(
                         minFontSize = 14.sp,
-                        maxFontSize = 20.sp,
+                        maxFontSize = 20.sp
                     ),
                     maxLines = 1,
                     style = TextStyle(

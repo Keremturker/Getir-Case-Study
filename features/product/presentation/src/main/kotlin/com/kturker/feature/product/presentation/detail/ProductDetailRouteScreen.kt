@@ -8,9 +8,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.flow.distinctUntilChanged
 
 @Composable
-internal fun ProductDetailRouteScreen(
-    viewmodel: ProductDetailViewModel = hiltViewModel()
-) {
+internal fun ProductDetailRouteScreen(viewmodel: ProductDetailViewModel = hiltViewModel()) {
     val uiState by viewmodel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(key1 = Unit) {

@@ -33,7 +33,6 @@ fun ProductItemCompose(
     onPlusClick: (id: String) -> Unit,
     onMinusClick: (id: String) -> Unit
 ) {
-
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(space = 8.dp)) {
         ProductImageSection(
             id = item.id,
@@ -64,7 +63,6 @@ private fun ProductImageSection(
     val borderColor = if (quantity > 0) color.primaryColor else color.softBackground
     val shape = RoundedCornerShape(12.dp)
 
-
     val animatedBorderColor by animateColorAsState(
         targetValue = borderColor,
         label = "BorderColor",
@@ -85,7 +83,6 @@ private fun ProductImageSection(
                 .align(Alignment.Center)
                 .aspectRatio(1F)
         ) {
-
             ProductImage(
                 imageUrl = imageUrl,
                 modifier = Modifier

@@ -16,14 +16,12 @@ import kotlinx.coroutines.flow.flowOf
 @PreviewGetir
 @Composable
 private fun ProductListScreenNotEmptyPreview() {
-
     val state = ProductListUiState(
         title = "Ürünler",
         totalPriceFormatted = "3 TL",
         goToCartButtonTitle = "Sepete Git",
         emptyListText = "Item Bulunamadi"
     )
-
 
     KtPreviewWrapper {
         ProductListScreen(
@@ -56,7 +54,6 @@ private fun ProductListScreenEmptyPreview() {
         )
     }
 }
-
 
 @Composable
 private fun fakeLazyEmptyPagingItems(): LazyPagingItems<ProductItem> {

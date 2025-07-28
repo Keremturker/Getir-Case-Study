@@ -43,12 +43,12 @@ fun KtBasicDialog(
                 )
                 .padding(horizontal = 16.dp)
                 .padding(
-                    bottom = 8.dp, top = 24.dp
+                    bottom = 8.dp,
+                    top = 24.dp
                 ),
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
             KtText(
                 color = color.textBlack,
                 text = description,
@@ -109,5 +109,4 @@ private fun DialogButton(
             fontSize = 14.sp
         )
     }
-
 }

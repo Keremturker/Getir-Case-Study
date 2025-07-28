@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 data class ProductEntity(
     @PrimaryKey
     @ColumnInfo(name = "id")
-    var id: String = "",
+    val id: String = "",
     @ColumnInfo(name = "name")
     val name: String = "",
     @ColumnInfo(name = "attribute")

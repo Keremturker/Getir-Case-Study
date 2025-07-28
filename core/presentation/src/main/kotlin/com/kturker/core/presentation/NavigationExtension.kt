@@ -21,29 +21,52 @@ import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
 import kotlin.reflect.KType
 
+const val NAVIGATION_ANIMATION_DURATION = 500
+
 @OptIn(ExperimentalAnimationApi::class)
 inline fun <reified T : NavigationCommand> NavGraphBuilder.ktAnimatedDestination(
     typeMap: Map<KType, @JvmSuppressWildcards NavType<*>> = emptyMap(),
     deepLinks: List<NavDeepLink> = emptyList(),
-    noinline enterTransition:
-    (AnimatedContentTransitionScope<NavBackStackEntry>.() -> @JvmSuppressWildcards
-    EnterTransition?)? =
-        { slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Start, tween(500)) },
-    noinline exitTransition:
-    (AnimatedContentTransitionScope<NavBackStackEntry>.() -> @JvmSuppressWildcards
-    ExitTransition?)? =
-        { slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Start, tween(500)) },
-    noinline popEnterTransition:
-    (AnimatedContentTransitionScope<NavBackStackEntry>.() -> @JvmSuppressWildcards
-    EnterTransition?)? =
-        { slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.End, tween(500)) },
-    noinline popExitTransition:
-    (AnimatedContentTransitionScope<NavBackStackEntry>.() -> @JvmSuppressWildcards
-    ExitTransition?)? =
-        { slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.End, tween(500)) },
-    noinline sizeTransform:
-    (AnimatedContentTransitionScope<NavBackStackEntry>.() -> @JvmSuppressWildcards
-    SizeTransform?)? =
+    noinline enterTransition: (
+        AnimatedContentTransitionScope<NavBackStackEntry>.() -> @JvmSuppressWildcards
+        EnterTransition?
+    )? = {
+        slideIntoContainer(
+            AnimatedContentTransitionScope.SlideDirection.Start,
+            tween(NAVIGATION_ANIMATION_DURATION)
+        )
+    },
+    noinline exitTransition: (
+        AnimatedContentTransitionScope<NavBackStackEntry>.() -> @JvmSuppressWildcards
+        ExitTransition?
+    )? = {
+        slideOutOfContainer(
+            AnimatedContentTransitionScope.SlideDirection.Start,
+            tween(NAVIGATION_ANIMATION_DURATION)
+        )
+    },
+    noinline popEnterTransition: (
+        AnimatedContentTransitionScope<NavBackStackEntry>.() -> @JvmSuppressWildcards
+        EnterTransition?
+    )? = {
+        slideIntoContainer(
+            AnimatedContentTransitionScope.SlideDirection.End,
+            tween(NAVIGATION_ANIMATION_DURATION)
+        )
+    },
+    noinline popExitTransition: (
+        AnimatedContentTransitionScope<NavBackStackEntry>.() -> @JvmSuppressWildcards
+        ExitTransition?
+    )? = {
+        slideOutOfContainer(
+            AnimatedContentTransitionScope.SlideDirection.End,
+            tween(NAVIGATION_ANIMATION_DURATION)
+        )
+    },
+    noinline sizeTransform: (
+        AnimatedContentTransitionScope<NavBackStackEntry>.() -> @JvmSuppressWildcards
+        SizeTransform?
+    )? =
         null,
     noinline content: @Composable AnimatedContentScope.(NavBackStackEntry) -> Unit
 ) {

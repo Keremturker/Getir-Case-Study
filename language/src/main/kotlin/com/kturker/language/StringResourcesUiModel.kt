@@ -23,5 +23,5 @@ data class StringResourcesUiModel(
     val orderIsArriving: String = "",
     val orderIsEnjoy: String = "",
     val orderIsDelivered: String = "",
-    val orderIsThanks: String = "",
+    val orderIsThanks: String = ""
 )

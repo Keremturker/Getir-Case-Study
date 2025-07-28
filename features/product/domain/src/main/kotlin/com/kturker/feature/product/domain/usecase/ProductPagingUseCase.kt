@@ -9,6 +9,5 @@ import javax.inject.Inject
 class ProductPagingUseCase @Inject constructor(
     private val repository: ProductRepository
 ) {
-      operator fun invoke(): Flow<PagingData<ProductItem>> =
-        repository.getProductsPaging()
+    operator fun invoke(): Flow<PagingData<ProductItem>> = repository.getProductsPaging()
 }

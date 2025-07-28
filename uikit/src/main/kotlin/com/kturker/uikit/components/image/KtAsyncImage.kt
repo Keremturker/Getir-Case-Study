@@ -32,7 +32,6 @@ fun KtAsyncImage(
     filterQuality: FilterQuality = DrawScope.DefaultFilterQuality,
     bitmapCaptureDisabled: Boolean = true
 ) {
-
     val imageRequestBuilder = ImageRequest.Builder(context = LocalContext.current)
         .data(data = image)
         .crossfade(enable = true)

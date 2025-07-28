@@ -13,5 +13,4 @@ sealed interface ComposeNavigatorCommand : NavigationCommand.Command {
         val to: NavigationCommand.Destination,
         val inclusive: Boolean = false
     ) : NavigationCommand.Command
-
 }

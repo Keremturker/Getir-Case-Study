@@ -1,3 +1,5 @@
+@file:Suppress("MatchingDeclarationName", "AnnotationOnSeparateLine")
+
 package com.kturker.feature.cart.contract
 
 import com.kturker.navigation.NavigationCommand

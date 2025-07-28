@@ -55,7 +55,8 @@ internal fun CartScreen(uiState: CartUiState, action: CartAction) {
                             action.navigateUp()
                         }
                     )
-                }, centerContent = {
+                },
+                centerContent = {
                     KtText(
                         text = uiState.title,
                         fontSize = 14.sp,
@@ -73,7 +74,8 @@ internal fun CartScreen(uiState: CartUiState, action: CartAction) {
                     )
                 }
             )
-        }, bottomBar = {
+        },
+        bottomBar = {
             BottomCartBar(
                 title = uiState.completeOrderButtonTitle,
                 totalPriceFormatted = uiState.totalPriceFormatted,
@@ -232,7 +234,6 @@ private fun SuggestedList(
     onMinusClick: (id: String) -> Unit,
     navigateToDetail: (id: String) -> Unit
 ) {
-
     LazyRow(
         modifier = Modifier.padding(top = 8.dp, bottom = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -248,7 +249,6 @@ private fun SuggestedList(
                 item = item,
                 onMinusClick = {
                     onMinusClick.invoke(item.id)
-
                 },
                 onPlusClick = {
                     onPlusClick.invoke(item.id)

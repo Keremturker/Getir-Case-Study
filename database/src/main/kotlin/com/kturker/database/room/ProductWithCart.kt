@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 
 data class ProductWithCart(
     @ColumnInfo(name = "id")
-    var id: String = "",
+    val id: String = "",
     @ColumnInfo(name = "name")
     val name: String = "",
     @ColumnInfo(name = "description")

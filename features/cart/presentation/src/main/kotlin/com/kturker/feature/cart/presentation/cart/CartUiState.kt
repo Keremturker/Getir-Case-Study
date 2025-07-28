@@ -11,5 +11,5 @@ internal data class CartUiState(
     val suggestedProductTitle: String = "",
     val totalPriceFormatted: String = "",
     val cartProducts: List<CartItem> = listOf(),
-    val suggestedProducts: List<ProductItem> = listOf(),
+    val suggestedProducts: List<ProductItem> = listOf()
 )

@@ -18,4 +18,3 @@ inline val <T> Response<T>.asRestResult: ServiceResult<T>
 fun <T> createErrorResultWithoutWrapper(response: Response<T>): ServiceResult.Error {
     return ServiceResult.Error(message = response.errorBody()?.string().orEmpty())
 }
-

@@ -12,5 +12,4 @@ internal interface ProductService {
 
     @GET(value = ProductEndpoints.GetSuggestedProducts)
     suspend fun getSuggestedProducts(): Response<List<SuggestedProductsResponseDto>>
-
 }

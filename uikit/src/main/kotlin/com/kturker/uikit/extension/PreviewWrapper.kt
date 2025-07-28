@@ -1,3 +1,5 @@
+@file:Suppress("MatchingDeclarationName")
+
 package com.kturker.uikit.extension
 
 import androidx.compose.foundation.background
@@ -27,10 +29,7 @@ import com.kturker.uikit.OnLightCustomColorsPalette
 annotation class PreviewGetir
 
 @Composable
-fun KtPreviewWrapper(
-    isDarkTheme: Boolean = false,
-    content: @Composable () -> Unit
-) {
+fun KtPreviewWrapper(isDarkTheme: Boolean = false, content: @Composable () -> Unit) {
     val palette = if (isDarkTheme) OnDarkCustomColorsPalette else OnLightCustomColorsPalette
 
     CompositionLocalProvider(value = LocalCustomColorsPalette provides palette) {
