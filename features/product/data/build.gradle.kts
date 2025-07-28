@@ -55,5 +55,5 @@ dependencies {
 
     testImplementation(libs.junit)
     implementation(libs.androidx.paging.runtime.ktx)
-
+    detektPlugins(libs.bundles.detekt)
 }

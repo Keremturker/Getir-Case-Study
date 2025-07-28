@@ -53,4 +53,5 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.airbnb.lottie)
 
+    detektPlugins(libs.bundles.detekt)
 }

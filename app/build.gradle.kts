@@ -108,6 +108,8 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.accompanist.permissions)
+    debugImplementation(libs.leakcanary.android)
+    detektPlugins(libs.bundles.detekt)
 
     //Dagger - Hilt
     implementation(libs.hilt.android)

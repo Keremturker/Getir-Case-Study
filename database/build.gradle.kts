@@ -51,4 +51,6 @@ dependencies {
 
     implementation (libs.androidx.room.paging)
     implementation (libs.androidx.paging.runtime.ktx)
+
+    detektPlugins(libs.bundles.detekt)
 }

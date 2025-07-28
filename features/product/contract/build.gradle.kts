@@ -17,4 +17,5 @@ dependencies {
     implementation(project(mapOf("path" to ":navigation")))
 
     implementation(libs.kotlin.serialization.json)
+    detektPlugins(libs.bundles.detekt)
 }

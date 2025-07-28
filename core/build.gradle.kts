@@ -16,5 +16,5 @@ kotlin {
 
 dependencies {
     implementation(project(mapOf("path" to ":contract")))
-
+    detektPlugins(libs.bundles.detekt)
 }
