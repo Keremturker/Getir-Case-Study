@@ -3,11 +3,11 @@ package com.kturker.feature.cart.presentation.cart.preview
 import androidx.compose.runtime.Composable
 import com.kturker.core.domain.model.CartItem
 import com.kturker.core.domain.model.ProductItem
+import com.kturker.core.presentation.KtPreviewWrapper
+import com.kturker.core.presentation.PreviewGetir
 import com.kturker.feature.cart.presentation.cart.CartAction
 import com.kturker.feature.cart.presentation.cart.CartScreen
 import com.kturker.feature.cart.presentation.cart.CartUiState
-import com.kturker.uikit.extension.KtPreviewWrapper
-import com.kturker.uikit.extension.PreviewGetir
 
 @PreviewGetir
 @Composable
@@ -41,9 +41,6 @@ private val dummyAction = object : CartAction {
 }
 
 private val dummyUiState = CartUiState(
-    title = "Sepetim",
-    completeOrderButtonTitle = "Siparişi Tamamla",
-    suggestedProductTitle = "Önerilen Ürünler",
     totalPriceFormatted = "₺103,50",
     cartProducts = listOf(
         CartItem(

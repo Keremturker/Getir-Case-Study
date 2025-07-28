@@ -28,7 +28,7 @@ fun KtBasicDialog(
     onDismissRequest: () -> Unit,
     description: String,
     positiveButtonTitle: String,
-    negativeButtonTitle: String?,
+    negativeButtonTitle: String? = null,
     positiveButtonAction: () -> Unit,
     negativeButtonAction: () -> Unit
 ) {

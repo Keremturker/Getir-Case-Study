@@ -45,6 +45,8 @@ import com.kturker.core.domain.model.ProductItem
 import com.kturker.core.presentation.BottomCartBar
 import com.kturker.core.presentation.ProductItemCompose
 import com.kturker.feature.product.presentation.component.AnimatedCartPriceBadge
+import com.kturker.language.LocalStringResourceManager
+import com.kturker.language.ML
 import com.kturker.uikit.LocalCustomColorsPalette
 import com.kturker.uikit.components.scaffold.KtScaffold
 import com.kturker.uikit.components.text.KtText
@@ -64,6 +66,8 @@ internal fun ProductListScreen(
     suggestedProducts: LazyPagingItems<ProductItem>
 ) {
     val color = LocalCustomColorsPalette.current
+    val stringResourceManager = LocalStringResourceManager.current
+
     val snackbarHostState = remember { SnackbarHostState() }
 
     LaunchedEffect(key1 = Unit) {
@@ -91,7 +95,7 @@ internal fun ProductListScreen(
         topBar = {
             KtToolbar(centerContent = {
                 KtText(
-                    text = state.title,
+                    text = stringResourceManager[ML::productListTitle],
                     color = color.textWhite,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold
@@ -120,7 +124,7 @@ internal fun ProductListScreen(
                     ScreenShimmer()
                 } else {
                     if (isEmptyState) {
-                        EmptyListState(emptyText = state.emptyListText)
+                        EmptyListState(emptyText = stringResourceManager[ML::emptyListText])
                     } else {
                         ProductList(
                             products = products,
@@ -143,7 +147,7 @@ internal fun ProductListScreen(
                     )
                 ) {
                     BottomCartBar(
-                        title = state.goToCartButtonTitle,
+                        title = stringResourceManager[ML::goToCartButtonTitle],
                         totalPriceFormatted = state.totalPriceFormatted,
                         onClick = action::navigateToCartScreen
                     )

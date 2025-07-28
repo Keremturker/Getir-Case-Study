@@ -1,6 +1,6 @@
 @file:Suppress("MatchingDeclarationName")
 
-package com.kturker.uikit.extension
+package com.kturker.core.presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.material3.MaterialTheme
@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Devices.NEXUS_5
 import androidx.compose.ui.tooling.preview.Devices.PHONE
 import androidx.compose.ui.tooling.preview.Devices.TABLET
 import androidx.compose.ui.tooling.preview.Preview
+import com.kturker.language.LocalStringResourceManager
 import com.kturker.uikit.LocalCustomColorsPalette
 import com.kturker.uikit.OnDarkCustomColorsPalette
 import com.kturker.uikit.OnLightCustomColorsPalette
@@ -33,11 +34,13 @@ fun KtPreviewWrapper(isDarkTheme: Boolean = false, content: @Composable () -> Un
     val palette = if (isDarkTheme) OnDarkCustomColorsPalette else OnLightCustomColorsPalette
 
     CompositionLocalProvider(value = LocalCustomColorsPalette provides palette) {
-        MaterialTheme {
-            Surface(
-                modifier = Modifier.background(palette.backgroundColor)
-            ) {
-                content()
+        CompositionLocalProvider(value = LocalStringResourceManager provides PreviewStringResourceManager) {
+            MaterialTheme {
+                Surface(
+                    modifier = Modifier.background(palette.backgroundColor)
+                ) {
+                    content()
+                }
             }
         }
     }

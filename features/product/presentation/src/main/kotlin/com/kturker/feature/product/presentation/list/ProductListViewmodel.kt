@@ -11,8 +11,6 @@ import com.kturker.feature.product.domain.usecase.ProductPagingUseCase
 import com.kturker.feature.product.domain.usecase.RefreshProductsUseCase
 import com.kturker.feature.product.domain.usecase.SuggestedProductPagingUseCase
 import com.kturker.feature.product.presentation.navigation.ProductNavigation
-import com.kturker.language.ML
-import com.kturker.language.StringResourceManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,19 +28,12 @@ internal class ProductListViewmodel @Inject constructor(
     private val removeFromCart: RemoveFromCartUseCase,
     private val navigation: ProductNavigation,
     private val refreshProducts: RefreshProductsUseCase,
-    stringResourceManager: StringResourceManager,
     productPaging: ProductPagingUseCase,
     suggestedProductPaging: SuggestedProductPagingUseCase,
     getCartTotalPrice: GetCartTotalPriceUseCase
 ) : CoreViewModel(), ProductListAction {
 
-    private val _uiState = MutableStateFlow(
-        ProductListUiState(
-            title = stringResourceManager[ML::productListTitle],
-            goToCartButtonTitle = stringResourceManager[ML::goToCartButtonTitle],
-            emptyListText = stringResourceManager[ML::emptyListText]
-        )
-    )
+    private val _uiState = MutableStateFlow(value = ProductListUiState())
     val uiState: StateFlow<ProductListUiState> = _uiState.asStateFlow()
 
     private val _snackbarMessage = MutableSharedFlow<String>()

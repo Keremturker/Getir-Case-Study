@@ -11,8 +11,6 @@ import com.kturker.core.presentation.getTypedArg
 import com.kturker.feature.product.contract.ProductDetailArgs
 import com.kturker.feature.product.domain.usecase.GetQuantityByIdUseCase
 import com.kturker.feature.product.presentation.navigation.ProductNavigation
-import com.kturker.language.ML
-import com.kturker.language.StringResourceManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -28,16 +26,13 @@ internal class ProductDetailViewModel @Inject constructor(
     private val addToCart: AddToCartUseCase,
     private val removeFromCart: RemoveFromCartUseCase,
     getCartTotalPrice: GetCartTotalPriceUseCase,
-    getQuantityById: GetQuantityByIdUseCase,
-    stringResourceManager: StringResourceManager
+    getQuantityById: GetQuantityByIdUseCase
 ) : CoreViewModel(), ProductDetailAction {
 
     val args: ProductDetailArgs by lazy { savedStateHandle.getTypedArg<ProductDetailArgs>() }
 
     private val _uiState = MutableStateFlow(
         value = ProductDetailUiState(
-            title = stringResourceManager[ML::productDetailTitle],
-            addToCartTitle = stringResourceManager[ML::addToCartTitle],
             imageUrl = args.imageUrl,
             description = args.description,
             priceText = args.priceText,

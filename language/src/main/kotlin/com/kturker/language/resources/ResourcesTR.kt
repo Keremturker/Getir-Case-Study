@@ -3,8 +3,8 @@ package com.kturker.language.resources
 import com.kturker.language.LanguageUiModel
 import com.kturker.language.StringResourcesUiModel
 
-val resourceTR = LanguageUiModel(
-    language = Language.TR,
+internal val resourceTR = LanguageUiModel(
+    language = LanguageType.TR.code,
     resources = StringResourcesUiModel(
         productListTitle = "Ürünler",
         goToCartButtonTitle = "Sepete Git",

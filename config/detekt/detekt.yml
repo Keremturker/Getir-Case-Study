@@ -673,7 +673,7 @@ style:
     ignoreAnnotated:
       - "androidx.compose.ui.tooling.preview.Preview"
       - "androidx.compose.ui.tooling.preview.PreviewLightDark"
-      - "com.kturker.uikit.extension.PreviewGetir"
+      - "com.kturker.core.presentation.PreviewGetir"
   UseAnyOrNoneInsteadOfFind:
     active: true
   UseArrayLiteralsInAnnotations:
