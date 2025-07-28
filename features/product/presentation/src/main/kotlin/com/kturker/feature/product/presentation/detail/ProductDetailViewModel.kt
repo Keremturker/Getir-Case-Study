@@ -94,5 +94,4 @@ internal class ProductDetailViewModel @Inject constructor(
             state.copy(productQuantity = quantity)
         }
     }
-
 }

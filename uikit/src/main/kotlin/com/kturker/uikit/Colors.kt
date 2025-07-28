@@ -1,3 +1,5 @@
+@file:Suppress("MatchingDeclarationName")
+
 package com.kturker.uikit
 
 import androidx.compose.runtime.Immutable

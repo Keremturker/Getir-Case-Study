@@ -56,10 +56,7 @@ fun AnimatedCartPriceBadge(totalPriceFormatted: String, modifier: Modifier = Mod
 }
 
 @Composable
-private fun CartPriceBadge(
-    modifier: Modifier,
-    priceText: String
-) {
+private fun CartPriceBadge(modifier: Modifier, priceText: String) {
     val color = LocalCustomColorsPalette.current
     val defaultDuration = 1000
 
@@ -67,7 +64,7 @@ private fun CartPriceBadge(
     var showAnimation by remember { mutableStateOf(false) }
     var showAnimationDuration by remember { mutableIntStateOf(defaultDuration) }
 
-    //Todo It's not nice but i had to
+    // Todo It's not nice but i had to
     LaunchedEffect(key1 = priceText) {
         showAnimationDuration = 0
         showAnimation = false
@@ -100,7 +97,6 @@ private fun CartPriceBadge(
             .height(34.dp)
             .background(color = color.white, shape = RoundedCornerShape(8.dp))
     ) {
-
         Box(
             modifier = Modifier
                 .background(color = color.white, shape = RoundedCornerShape(8.dp))

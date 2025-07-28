@@ -14,7 +14,8 @@ interface ProductDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertProducts(products: List<ProductEntity>)
 
-    @Query("""
+    @Query(
+        """
     SELECT 
         product.id AS id,
         product.name AS name,
@@ -25,7 +26,7 @@ interface ProductDao {
         COALESCE(cart.quantity, 0) AS quantity
     FROM ProductEntity AS product
     LEFT JOIN CartEntity AS cart ON product.id = cart.id
-""")
+"""
+    )
     fun getProductsWithCart(): PagingSource<Int, ProductWithCart>
-
 }

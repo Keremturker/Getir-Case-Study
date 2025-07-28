@@ -1,7 +1,7 @@
 package com.kturker.feature.product.presentation.detail.preview
 
 import androidx.compose.runtime.Composable
- import com.kturker.feature.product.presentation.detail.ProductDetailAction
+import com.kturker.feature.product.presentation.detail.ProductDetailAction
 import com.kturker.feature.product.presentation.detail.ProductDetailScreen
 import com.kturker.feature.product.presentation.detail.ProductDetailUiState
 import com.kturker.uikit.extension.KtPreviewWrapper

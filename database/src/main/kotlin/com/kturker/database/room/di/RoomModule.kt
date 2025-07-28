@@ -18,11 +18,10 @@ class RoomModule {
 
     @Provides
     @Singleton
-    fun provideAppDatabase(
-        @ApplicationContext context: Context
-    ) = Room.databaseBuilder(context, AppDatabase::class.java, DB_NAME_NB)
-        .allowMainThreadQueries()
-        .build()
+    fun provideAppDatabase(@ApplicationContext context: Context) =
+        Room.databaseBuilder(context, AppDatabase::class.java, DB_NAME_NB)
+            .allowMainThreadQueries()
+            .build()
 
     @Provides
     @Singleton
@@ -35,5 +34,4 @@ class RoomModule {
     @Provides
     @Singleton
     fun provideCartDao(db: AppDatabase) = db.cardDao()
-
 }

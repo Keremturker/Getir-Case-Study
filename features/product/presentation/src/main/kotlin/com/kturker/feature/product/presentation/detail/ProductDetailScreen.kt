@@ -44,7 +44,8 @@ internal fun ProductDetailScreen(state: ProductDetailUiState, action: ProductDet
                         tint = color.white,
                         modifier = Modifier.noRippleClickable {
                             action.navigateUp()
-                        })
+                        }
+                    )
                 },
                 centerContent = {
                     KtText(
@@ -53,14 +54,18 @@ internal fun ProductDetailScreen(state: ProductDetailUiState, action: ProductDet
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold
                     )
-                }, endContent = {
+                },
+                endContent = {
                     AnimatedCartPriceBadge(
                         totalPriceFormatted = state.totalPriceFormatted,
                         modifier = Modifier.noRippleClickable {
                             action.navigateToCartScreen()
-                        })
-                })
-        }, bottomBar = {
+                        }
+                    )
+                }
+            )
+        },
+        bottomBar = {
             BottomCartBar(
                 productQuantity = state.productQuantity,
                 title = state.addToCartTitle,

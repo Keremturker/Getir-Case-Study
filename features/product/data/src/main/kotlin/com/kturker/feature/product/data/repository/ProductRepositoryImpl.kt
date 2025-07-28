@@ -66,15 +66,14 @@ internal class ProductRepositoryImpl @Inject constructor(
             productWithCardMapper.mapProductWithCartToProductItem(data = data)
         }
 
-    override suspend fun fetchProducts(): Flow<ResultState<Unit>> =
-        fetchAndCacheFromApiOnly(
-            dispatcher = ioDispatcher,
-            apiCall = {
-                service.getProducts().asRestResult.mapToResultState {
-                    it.firstOrNull()?.products.orEmpty()
-                }
-            },
-            dtoToEntity = productMapper::mapDtoListToItemList,
-            insertToDb = productDao::insertProducts
-        )
+    override suspend fun fetchProducts(): Flow<ResultState<Unit>> = fetchAndCacheFromApiOnly(
+        dispatcher = ioDispatcher,
+        apiCall = {
+            service.getProducts().asRestResult.mapToResultState {
+                it.firstOrNull()?.products.orEmpty()
+            }
+        },
+        dtoToEntity = productMapper::mapDtoListToItemList,
+        insertToDb = productDao::insertProducts
+    )
 }

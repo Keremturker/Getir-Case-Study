@@ -31,7 +31,6 @@ internal fun AppRouteScreen(
         if (isSystemInDarkTheme()) OnDarkCustomColorsPalette else OnLightCustomColorsPalette
 
     CompositionLocalProvider(value = LocalCustomColorsPalette provides isSystemDark) {
-
         val color = LocalCustomColorsPalette.current
 
         Column(modifier = Modifier.fillMaxSize()) {

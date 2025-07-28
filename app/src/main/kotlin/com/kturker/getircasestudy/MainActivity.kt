@@ -39,7 +39,6 @@ internal class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
-
             val navController = rememberNavController()
 
             AppRouteScreen(
@@ -56,7 +55,6 @@ internal class MainActivity : ComponentActivity() {
                 progressCentricNotificationManager,
                 stringResourceManager
             )
-
         }
     }
 

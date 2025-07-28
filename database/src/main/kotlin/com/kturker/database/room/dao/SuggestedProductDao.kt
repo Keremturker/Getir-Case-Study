@@ -46,5 +46,4 @@ LEFT JOIN CartEntity AS cart ON product.id = cart.id
 """
     )
     fun getProductsWithCart(): PagingSource<Int, ProductWithCart>
-
 }

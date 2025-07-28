@@ -14,5 +14,4 @@ interface ProductRepository {
     fun getProductsPaging(): Flow<PagingData<ProductItem>>
 
     fun getSuggestedProductsPaging(): Flow<PagingData<ProductItem>>
-
 }

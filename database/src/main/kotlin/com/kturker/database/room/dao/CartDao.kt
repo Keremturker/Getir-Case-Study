@@ -34,5 +34,4 @@ interface CartDao {
 
     @Query("DELETE FROM CartEntity")
     fun clearCart()
-
 }

@@ -40,7 +40,7 @@ fun KtText(
     style: TextStyle = LocalTextStyle.current
 ) {
     val currentText = text?.let { AnnotatedString(text = it) } ?: annotatedString
-    ?: AnnotatedString(text = "")
+        ?: AnnotatedString(text = "")
 
     Text(
         modifier = modifier,

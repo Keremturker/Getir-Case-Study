@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 data class SuggestedProductEntity(
     @PrimaryKey
     @ColumnInfo(name = "id")
-    var id: String = "",
+    val id: String = "",
     @ColumnInfo(name = "name")
     val name: String = "",
     @ColumnInfo(name = "price")
@@ -26,5 +26,5 @@ data class SuggestedProductEntity(
     @ColumnInfo(name = "category")
     val category: String = "",
     @ColumnInfo(name = "unitPrice")
-    val unitPrice: Double = 0.0,
+    val unitPrice: Double = 0.0
 )

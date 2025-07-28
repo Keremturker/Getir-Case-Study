@@ -18,5 +18,4 @@ internal class ProductMapper @Inject constructor() {
             priceText = itemDto.priceText.orEmpty().trim()
         )
     }.orEmpty()
-
 }

@@ -40,7 +40,6 @@ fun ProgressCentricLaunchedEffect(
     )
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
-
         val permissionsState =
             rememberPermissionState(permission = Manifest.permission.POST_NOTIFICATIONS)
 
@@ -53,7 +52,6 @@ fun ProgressCentricLaunchedEffect(
                 states.forEach {
                     delay(it.second)
                     progressCentricNotificationManager.updateNotificationStatus(it.first)
-
                 }
             }
         }

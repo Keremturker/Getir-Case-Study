@@ -54,7 +54,7 @@ internal class ProductListViewmodel @Inject constructor(
 
     val totalPriceFormatted = getCartTotalPrice()
 
-   private var fetchedBefore: Boolean = false
+    private var fetchedBefore: Boolean = false
 
     override fun navigateToDetailScreen(item: ProductItem) {
         navigation.navigateToDetailScreen(item = item)
@@ -105,5 +105,4 @@ internal class ProductListViewmodel @Inject constructor(
             state.copy(totalPriceFormatted = totalPrice)
         }
     }
-
 }

@@ -10,5 +10,4 @@ interface StringResourceManager {
         property: KProperty1<StringResourcesUiModel, String>,
         vararg params: String
     ): String
-
 }

@@ -61,7 +61,7 @@ internal fun ProductListScreen(
     action: ProductListAction,
     snackbarFlow: Flow<String>,
     products: LazyPagingItems<ProductItem>,
-    suggestedProducts: LazyPagingItems<ProductItem>,
+    suggestedProducts: LazyPagingItems<ProductItem>
 ) {
     val color = LocalCustomColorsPalette.current
     val snackbarHostState = remember { SnackbarHostState() }
@@ -81,9 +81,9 @@ internal fun ProductListScreen(
             val isSuggestedLoaded = suggestedProducts.loadState.refresh !is LoadState.Loading
 
             isProductLoaded &&
-                    isSuggestedLoaded &&
-                    products.itemCount == 0 &&
-                    suggestedProducts.itemCount == 0
+                isSuggestedLoaded &&
+                products.itemCount == 0 &&
+                suggestedProducts.itemCount == 0
         }
     }
 
@@ -101,10 +101,11 @@ internal fun ProductListScreen(
                     totalPriceFormatted = state.totalPriceFormatted,
                     modifier = Modifier.noRippleClickable {
                         action.navigateToCartScreen()
-                    })
+                    }
+                )
             })
         },
-        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
     ) { paddingValues ->
 
         PullToRefreshBox(
@@ -115,7 +116,6 @@ internal fun ProductListScreen(
             Box(
                 modifier = Modifier.fillMaxSize()
             ) {
-
                 if (state.isLoading) {
                     ScreenShimmer()
                 } else {
@@ -168,10 +168,10 @@ private fun SuggestedProductList(
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-
             items(
                 count = suggestedProducts.itemCount,
-                key = suggestedProducts.itemKey { item -> item.id }) { index ->
+                key = suggestedProducts.itemKey { item -> item.id }
+            ) { index ->
 
                 val item: ProductItem? = suggestedProducts[index]
                 item?.let {
@@ -185,7 +185,6 @@ private fun SuggestedProductList(
                         item = item,
                         onMinusClick = {
                             action.removeFromCart(item)
-
                         },
                         onPlusClick = {
                             action.addToCart(item)
@@ -221,7 +220,6 @@ private fun ProductList(
         }
 
         if (suggestedProducts.itemCount > 0) {
-
             item(span = { GridItemSpan(3) }) {
                 SuggestedProductList(
                     suggestedProducts = suggestedProducts,
@@ -252,7 +250,6 @@ private fun ProductList(
                     item = item,
                     onMinusClick = {
                         action.removeFromCart(item)
-
                     },
                     onPlusClick = {
                         action.addToCart(item)
@@ -272,7 +269,6 @@ private fun ScreenShimmer() {
             .background(color = color.white)
             .padding(top = 16.dp)
     ) {
-
         SuggestedProductsShimmer()
 
         Spacer(
@@ -317,7 +313,6 @@ private fun ProductShimmer() {
             .padding(start = 16.dp, bottom = 16.dp),
         verticalArrangement = Arrangement.spacedBy(space = 8.dp)
     ) {
-
         Box(
             modifier = Modifier
                 .size(size = 92.dp)

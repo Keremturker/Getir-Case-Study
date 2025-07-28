@@ -27,7 +27,6 @@ internal fun QuantitySelectActionButton(
     onClickAction: () -> Unit,
     content: @Composable () -> Unit
 ) {
-
     Card(
         modifier = Modifier
             .size(size)
@@ -46,7 +45,6 @@ internal fun QuantitySelectActionButton(
 
 @Composable
 internal fun QuantitySelectorLottie(size: Dp, tintColor: Color? = null) {
-
     val composition by rememberLottieComposition(
         spec = LottieCompositionSpec.RawRes(R.raw.loading_animation)
     )

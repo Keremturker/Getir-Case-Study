@@ -14,5 +14,7 @@ internal interface ProgressCentricModule {
 
     @ActivityRetainedScoped
     @Binds
-    fun bindsProgressCentricNotificationManager(impl: ProgressCentricNotificationManagerImpl): ProgressCentricNotificationManager
+    fun bindsProgressCentricNotificationManager(
+        impl: ProgressCentricNotificationManagerImpl
+    ): ProgressCentricNotificationManager
 }

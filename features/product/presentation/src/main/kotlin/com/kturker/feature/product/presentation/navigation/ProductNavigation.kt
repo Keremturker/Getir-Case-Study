@@ -16,9 +16,7 @@ internal class ProductNavigation @Inject constructor(
         navigationManager.navigate(navigationCommand = ComposeNavigatorCommand.NavigateUp)
     }
 
-    fun navigateToDetailScreen(
-        item: ProductItem
-    ) {
+    fun navigateToDetailScreen(item: ProductItem) {
         navigationManager.navigate(
             navigationCommand = ProductDetailScreenDestination(
                 args = ProductDetailArgs(

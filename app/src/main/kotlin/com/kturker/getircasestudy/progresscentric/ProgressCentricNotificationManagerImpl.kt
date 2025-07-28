@@ -29,6 +29,16 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
+private const val POINT_24 = 24
+private const val POINT_25 = 25
+private const val POINT_50 = 50
+private const val POINT_75 = 75
+private const val POINT_100 = 100
+private const val DELAY_2000 = 2000L
+private const val DELAY_ZERO = 0L
+private const val NOTIFICATION_ID = 4321
+
+@Suppress("UnnecessaryAnnotationUseSiteTarget")
 internal class ProgressCentricNotificationManagerImpl @Inject constructor(
     @param:ApplicationContext private val context: Context,
     @Dispatchers.Main dispatcher: CoroutineDispatcher
@@ -39,7 +49,6 @@ internal class ProgressCentricNotificationManagerImpl @Inject constructor(
     private lateinit var notificationManager: NotificationManager
     private val channelId = "live_updates_16_channel_id"
     private val channelName = "live_updates_16_channel_name"
-    private val notificationId = 4321
 
     private lateinit var colors: ProgressCentricOrderColors
     private lateinit var stringResourceManager: StringResourceManager
@@ -47,6 +56,14 @@ internal class ProgressCentricNotificationManagerImpl @Inject constructor(
     private val startNotificationChannel = Channel<List<Pair<ProgressCentricOrderState, Long>>>()
     override val startNotification: Flow<List<Pair<ProgressCentricOrderState, Long>>>
         get() = startNotificationChannel.receiveAsFlow()
+
+    private val orderStates = listOf(
+        ProgressCentricOrderState.Confirmed to DELAY_ZERO,
+        ProgressCentricOrderState.Preparing to DELAY_2000,
+        ProgressCentricOrderState.Enroute to DELAY_2000,
+        ProgressCentricOrderState.Arriving to DELAY_2000,
+        ProgressCentricOrderState.Delivered to DELAY_2000
+    )
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun initialize(
@@ -60,7 +77,8 @@ internal class ProgressCentricNotificationManagerImpl @Inject constructor(
         notificationManager = notifManager
         val channel = NotificationChannel(
             channelId,
-            channelName, IMPORTANCE_DEFAULT
+            channelName,
+            IMPORTANCE_DEFAULT
         )
         notificationManager.createNotificationChannel(channel)
     }
@@ -88,9 +106,10 @@ internal class ProgressCentricNotificationManagerImpl @Inject constructor(
                     .setStyle(
                         buildBaseProgressStyle().setProgressTrackerIcon(
                             IconCompat.createWithResource(
-                                context, R.drawable.order_being_prepared,
-                            ).toIcon(context),
-                        ).setProgress(24)
+                                context,
+                                R.drawable.order_being_prepared
+                            ).toIcon(context)
+                        ).setProgress(POINT_24)
                     )
             }
 
@@ -102,13 +121,13 @@ internal class ProgressCentricNotificationManagerImpl @Inject constructor(
                         buildBaseProgressStyle()
                             .setProgressTrackerIcon(
                                 IconCompat.createWithResource(
-                                    context, R.drawable.order_arriving,
-                                ).toIcon(context),
+                                    context,
+                                    R.drawable.order_arriving
+                                ).toIcon(context)
                             )
-                            .setProgress(50),
+                            .setProgress(POINT_50)
                     )
             }
-
 
             ProgressCentricOrderState.Arriving -> {
                 buildBaseNotification(context)
@@ -118,10 +137,11 @@ internal class ProgressCentricNotificationManagerImpl @Inject constructor(
                         buildBaseProgressStyle()
                             .setProgressTrackerIcon(
                                 IconCompat.createWithResource(
-                                    context, R.drawable.order_is_arrived,
-                                ).toIcon(context),
+                                    context,
+                                    R.drawable.order_is_arrived
+                                ).toIcon(context)
                             )
-                            .setProgress(75),
+                            .setProgress(POINT_75)
                     )
             }
 
@@ -133,23 +153,21 @@ internal class ProgressCentricNotificationManagerImpl @Inject constructor(
                         buildBaseProgressStyle()
                             .setProgressTrackerIcon(
                                 IconCompat.createWithResource(
-                                    context, R.drawable.order_complete,
-                                ).toIcon(context),
+                                    context,
+                                    R.drawable.order_complete
+                                ).toIcon(context)
                             )
-                            .setProgress(100),
+                            .setProgress(POINT_100)
                     )
-
             }
         }
 
         val notification = notificationBuilder.build()
-        notificationManager.notify(notificationId, notification)
+        notificationManager.notify(NOTIFICATION_ID, notification)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun buildBaseNotification(
-        appContext: Context,
-    ): Notification.Builder {
+    private fun buildBaseNotification(appContext: Context): Notification.Builder {
         return Notification.Builder(appContext, channelId)
             .setSmallIcon(com.kturker.getircasestudy.R.drawable.ic_launcher_foreground)
             .setOngoing(true)
@@ -161,28 +179,21 @@ internal class ProgressCentricNotificationManagerImpl @Inject constructor(
         val progressStyle = ProgressStyle()
             .setProgressPoints(
                 listOf(
-                    Point(25).setColor(colors.color25),
-                    Point(50).setColor(colors.color50),
-                    Point(75).setColor(colors.color75),
-                    Point(100).setColor(colors.colo100)
+                    Point(POINT_25).setColor(colors.color25),
+                    Point(POINT_50).setColor(colors.color50),
+                    Point(POINT_75).setColor(colors.color75),
+                    Point(POINT_100).setColor(colors.colo100)
                 )
-            ).setProgressSegments(
+            )
+            .setProgressSegments(
                 listOf(
-                    Segment(25).setColor(colors.color25),
-                    Segment(25).setColor(colors.color25),
-                    Segment(25).setColor(colors.color25),
-                    Segment(25).setColor(colors.color25)
+                    Segment(POINT_25).setColor(colors.color25),
+                    Segment(POINT_25).setColor(colors.color25),
+                    Segment(POINT_25).setColor(colors.color25),
+                    Segment(POINT_25).setColor(colors.color25)
 
                 )
             )
         return progressStyle
     }
-
-    private val orderStates = listOf(
-        ProgressCentricOrderState.Confirmed to 0L,
-        ProgressCentricOrderState.Preparing to 2000L,
-        ProgressCentricOrderState.Enroute to 2000L,
-        ProgressCentricOrderState.Arriving to 2000L,
-        ProgressCentricOrderState.Delivered to 2000L
-    )
 }

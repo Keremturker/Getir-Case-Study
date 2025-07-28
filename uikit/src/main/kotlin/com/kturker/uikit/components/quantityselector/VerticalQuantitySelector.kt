@@ -73,7 +73,6 @@ fun VerticalQuantitySelector(
             .width(selectorWidth),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
         QuantitySelectActionButton(
             size = selectorWidth,
             onClickAction = {
@@ -86,7 +85,7 @@ fun VerticalQuantitySelector(
                 RoundedCornerShape(8.dp)
             },
             content = {
-                if (showAnimation && quantity == 1 && isClickedMinus.not() ) {
+                if (showAnimation && quantity == 1 && isClickedMinus.not()) {
                     QuantitySelectorLottie(size = selectorWidth, tintColor = color.primaryColor)
                 } else {
                     KtIcon(
@@ -105,7 +104,6 @@ fun VerticalQuantitySelector(
                     .background(color = color.primaryColor),
                 contentAlignment = Alignment.Center
             ) {
-
                 if (showAnimation && quantity != 1 || (showAnimation && isClickedMinus)) {
                     QuantitySelectorLottie(size = selectorWidth, tintColor = color.white)
                 } else {
@@ -136,4 +134,3 @@ fun VerticalQuantitySelector(
         }
     }
 }
-

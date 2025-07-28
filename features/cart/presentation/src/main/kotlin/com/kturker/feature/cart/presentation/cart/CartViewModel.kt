@@ -133,7 +133,6 @@ internal class CartViewModel @Inject constructor(
         }
     }
 
-
     private fun clearCart() {
         clearCart.invoke()
     }

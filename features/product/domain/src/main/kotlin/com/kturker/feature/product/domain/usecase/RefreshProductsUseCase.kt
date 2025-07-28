@@ -21,16 +21,12 @@ class RefreshProductsUseCase @Inject constructor(
             val allProductsError = (allProductsResult as? ResultState.Error)?.message
             val suggestedError = (suggestedResult as? ResultState.Error)?.message
 
-            return@combine when {
-                products != null || suggested != null -> {
-                    val combinedErrorMessage =
-                        listOfNotNull(allProductsError, suggestedError).joinToString(" & ")
-                    combinedErrorMessage.ifBlank { null }
-                }
-
-                else -> {
-                    allProductsError ?: suggestedError ?: "Unknown error"
-                }
+            return@combine if (products != null || suggested != null) {
+                val combinedErrorMessage =
+                    listOfNotNull(allProductsError, suggestedError).joinToString(" & ")
+                combinedErrorMessage.ifBlank { null }
+            } else {
+                allProductsError ?: suggestedError ?: "Unknown error"
             }
         }
     }

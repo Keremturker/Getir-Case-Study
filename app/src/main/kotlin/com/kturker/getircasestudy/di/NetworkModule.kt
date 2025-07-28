@@ -14,5 +14,4 @@ internal object NetworkModule {
     @BaseUrl
     @Provides
     fun provideBaseUrl(): String = BuildConfig.BASE_URL
-
 }

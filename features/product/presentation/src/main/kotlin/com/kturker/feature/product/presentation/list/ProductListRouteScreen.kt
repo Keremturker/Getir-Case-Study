@@ -11,10 +11,7 @@ import com.kturker.core.domain.model.ProductItem
 import kotlinx.coroutines.flow.distinctUntilChanged
 
 @Composable
-internal fun ProductListRouteScreen(
-    viewmodel: ProductListViewmodel = hiltViewModel()
-) {
-
+internal fun ProductListRouteScreen(viewmodel: ProductListViewmodel = hiltViewModel()) {
     val uiState by viewmodel.uiState.collectAsStateWithLifecycle()
 
     val products: LazyPagingItems<ProductItem> =

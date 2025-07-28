@@ -7,7 +7,6 @@ import com.kturker.uikit.R
 
 @Composable
 fun ProductImage(imageUrl: String, modifier: Modifier = Modifier) {
-
     KtAsyncImage(
         modifier = modifier,
         image = imageUrl,

@@ -1,3 +1,5 @@
+@file:Suppress("MagicNumber")
+
 package com.kturker.uikit.icons
 
 import androidx.compose.ui.graphics.Color

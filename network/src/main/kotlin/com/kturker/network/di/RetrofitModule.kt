@@ -47,5 +47,4 @@ internal object RetrofitModule {
     fun provideGsonConverterFactory(gson: Gson): Converter.Factory {
         return GsonConverterFactory.create(gson)
     }
-
 }

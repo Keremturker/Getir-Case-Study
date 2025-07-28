@@ -8,12 +8,9 @@ import kotlinx.coroutines.flow.transform
 
 abstract class CoreViewModel : ViewModel() {
 
-    fun <T : Any> safeFlowApiCall(
-        call: () -> Flow<ResultState<T>>
-    ): Flow<ResultState<T>> {
+    fun <T : Any> safeFlowApiCall(call: () -> Flow<ResultState<T>>): Flow<ResultState<T>> {
         return call.invoke()
             .transform { emit(it) }
             .catch { emit(value = ResultState.Error(message = it.message.orEmpty())) }
     }
-
 }
