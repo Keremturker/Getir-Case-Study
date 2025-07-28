@@ -14,10 +14,20 @@ val resourceTR = LanguageUiModel(
         completeOrderTitle = "Siparişi Tamamla",
         suggestedProductListTitle = "Önerilen Ürünler",
         addToCartTitle = "Sepete Ekle",
-        clearCartDialogDescription = "{0} tutarındaki siparişiniz başarıyla oluşturulmuştur.",
-        completeOrderDialogDescription = "Tüm ürünler sepetten silinecek. Devam etmek istiyor musunuz?",
+        completeOrderDialogDescription = "{0} tutarındaki siparişiniz başarıyla oluşturulmuştur.",
+        clearCartDialogDescription = "Tüm ürünler sepetten silinecek. Devam etmek istiyor musunuz?",
         yes = "Evet",
         abort = "Vazgeç",
-        close = "Kapat"
+        close = "Kapat",
+        orderIsPlaced = "Siparişiniz alındı",
+        orderIsConfirming = "Onaylanıyor",
+        orderIsPreparing = "Siparişiniz hazırlanıyor",
+        orderIsPreparingToDelivery = "Bir sonraki adım teslimat olacak",
+        orderIsOnTheWay = "Siparişiniz yola çıktı",
+        orderIsEnroute = "Teslimat adresine doğru ilerliyor",
+        orderIsArriving = "Siparişiniz ulaşıyor...",
+        orderIsEnjoy = "Afiyet olsun 😋",
+        orderIsDelivered = "Siparişiniz tamamlandı.",
+        orderIsThanks = "Uygulamamızı kullandığınız için teşekkür ederiz."
     )
 )

@@ -43,6 +43,7 @@ dependencies {
     implementation(project(mapOf("path" to ":contract")))
     implementation(project(mapOf("path" to ":navigation")))
     implementation(project(mapOf("path" to ":uikit")))
+    implementation(project(mapOf("path" to ":language")))
 
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(platform(libs.androidx.compose.bom))

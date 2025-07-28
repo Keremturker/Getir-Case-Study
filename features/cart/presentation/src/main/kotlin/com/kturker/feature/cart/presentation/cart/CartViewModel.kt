@@ -7,6 +7,7 @@ import com.kturker.core.domain.usecase.AddToCartUseCase
 import com.kturker.core.domain.usecase.GetCartTotalPriceUseCase
 import com.kturker.core.domain.usecase.RemoveFromCartUseCase
 import com.kturker.core.presentation.CoreViewModel
+import com.kturker.core.presentation.progresscentricnotification.ProgressCentricNotificationManager
 import com.kturker.feature.cart.domain.usecase.ClearCartUseCase
 import com.kturker.feature.cart.domain.usecase.GetCartProductsUseCase
 import com.kturker.feature.cart.domain.usecase.GetSuggestedProductUseCase
@@ -31,6 +32,7 @@ internal class CartViewModel @Inject constructor(
     private val addToCart: AddToCartUseCase,
     private val removeFromCart: RemoveFromCartUseCase,
     private val stringResourceManager: StringResourceManager,
+    private val progressCentricNotificationManager: ProgressCentricNotificationManager,
     getSuggestedProduct: GetSuggestedProductUseCase,
     getCartTotalPrice: GetCartTotalPriceUseCase,
     getCartProducts: GetCartProductsUseCase
@@ -78,9 +80,10 @@ internal class CartViewModel @Inject constructor(
 
             _dialogEvents.emit(
                 value = DialogEvent.ShowDialog(
-                    description = stringResourceManager[ML::clearCartDialogDescription, totalPrice],
+                    description = stringResourceManager[ML::completeOrderDialogDescription, totalPrice],
                     positiveButtonText = stringResourceManager[ML::close],
                     onPositive = {
+                        progressCentricNotificationManager.sendNotification()
                         clearCart()
                     }
                 )
@@ -97,7 +100,7 @@ internal class CartViewModel @Inject constructor(
         viewModelScope.launch {
             _dialogEvents.emit(
                 value = DialogEvent.ShowDialog(
-                    description = stringResourceManager[ML::completeOrderDialogDescription],
+                    description = stringResourceManager[ML::clearCartDialogDescription],
                     positiveButtonText = stringResourceManager[ML::yes],
                     negativeButtonText = stringResourceManager[ML::abort],
                     onPositive = {
