@@ -6,12 +6,11 @@ import com.kturker.core.domain.model.ProductItem
 import com.kturker.core.domain.usecase.AddToCartUseCase
 import com.kturker.core.domain.usecase.GetCartTotalPriceUseCase
 import com.kturker.core.domain.usecase.RemoveFromCartUseCase
+import com.kturker.core.presentation.progresscentricnotification.ProgressCentricNotificationManager
 import com.kturker.feature.cart.domain.usecase.ClearCartUseCase
 import com.kturker.feature.cart.domain.usecase.GetCartProductsUseCase
 import com.kturker.feature.cart.domain.usecase.GetSuggestedProductUseCase
 import com.kturker.feature.cart.presentation.navigation.CartNavigation
-import com.kturker.language.StringResourceManager
-import com.kturker.language.StringResourcesUiModel
 import io.mockk.MockKAnnotations
 import io.mockk.coVerify
 import io.mockk.every
@@ -25,7 +24,6 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
-import kotlin.reflect.KProperty1
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
@@ -44,9 +42,6 @@ internal class CartViewModelTest {
     private lateinit var mockRemoveFromCart: RemoveFromCartUseCase
 
     @MockK
-    private lateinit var mockStringResourceManager: StringResourceManager
-
-    @MockK
     private lateinit var mockGetSuggestedProduct: GetSuggestedProductUseCase
 
     @MockK
@@ -55,16 +50,14 @@ internal class CartViewModelTest {
     @MockK
     private lateinit var mockGetCartProducts: GetCartProductsUseCase
 
-    private lateinit var viewModel: CartViewModel
+    @MockK
+    private lateinit var progressCentricNotificationManager: ProgressCentricNotificationManager
 
+    private lateinit var viewModel: CartViewModel
 
     @BeforeEach
     fun setUp() {
         MockKAnnotations.init(this, relaxUnitFun = true)
-
-        every {
-            mockStringResourceManager[any<KProperty1<StringResourcesUiModel, String>>()]
-        } answers { firstArg<KProperty1<StringResourcesUiModel, String>>().toString() }
 
         every {
             mockGetCartTotalPrice.invoke()
@@ -83,10 +76,10 @@ internal class CartViewModelTest {
             clearCart = mockClearCart,
             addToCart = mockAddToCart,
             removeFromCart = mockRemoveFromCart,
-            stringResourceManager = mockStringResourceManager,
             getSuggestedProduct = mockGetSuggestedProduct,
             getCartTotalPrice = mockGetCartTotalPrice,
-            getCartProducts = mockGetCartProducts
+            getCartProducts = mockGetCartProducts,
+            progressCentricNotificationManager = progressCentricNotificationManager
         )
     }
 

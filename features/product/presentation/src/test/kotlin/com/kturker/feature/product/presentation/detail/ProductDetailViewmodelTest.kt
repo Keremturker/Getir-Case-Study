@@ -42,9 +42,6 @@ internal class ProductDetailViewmodelTest {
     @MockK
     private lateinit var mockGetQuantityById: GetQuantityByIdUseCase
 
-    @MockK
-    private lateinit var mockStringResourceManager: StringResourceManager
-
     private lateinit var viewModel: ProductDetailViewModel
 
     private val args = ProductDetailArgs(
@@ -64,10 +61,6 @@ internal class ProductDetailViewmodelTest {
         val savedStateHandle = createSavedStateHandleWithArgs(args = args)
 
         every {
-            mockStringResourceManager[any<KProperty1<StringResourcesUiModel, String>>()]
-        } answers { firstArg<KProperty1<StringResourcesUiModel, String>>().toString() }
-
-        every {
             mockGetCartTotalPrice.invoke()
         } returns flowOf()
 
@@ -81,8 +74,7 @@ internal class ProductDetailViewmodelTest {
             addToCart = mockAddToCart,
             removeFromCart = mockRemoveFromCart,
             getCartTotalPrice = mockGetCartTotalPrice,
-            getQuantityById = mockGetQuantityById,
-            stringResourceManager = mockStringResourceManager
+            getQuantityById = mockGetQuantityById
         )
     }
 

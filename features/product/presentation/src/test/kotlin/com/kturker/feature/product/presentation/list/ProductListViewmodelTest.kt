@@ -9,8 +9,6 @@ import com.kturker.feature.product.domain.usecase.ProductPagingUseCase
 import com.kturker.feature.product.domain.usecase.RefreshProductsUseCase
 import com.kturker.feature.product.domain.usecase.SuggestedProductPagingUseCase
 import com.kturker.feature.product.presentation.navigation.ProductNavigation
-import com.kturker.language.StringResourceManager
-import com.kturker.language.StringResourcesUiModel
 import io.mockk.MockKAnnotations
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
@@ -27,7 +25,6 @@ import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
-import kotlin.reflect.KProperty1
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
@@ -46,9 +43,6 @@ internal class ProductListViewmodelTest {
     private lateinit var mockNavigation: ProductNavigation
 
     @MockK
-    private lateinit var mockStringResourceManager: StringResourceManager
-
-    @MockK
     private lateinit var mockProductPaging: ProductPagingUseCase
 
     @MockK
@@ -62,10 +56,6 @@ internal class ProductListViewmodelTest {
     @BeforeEach
     fun setUp() {
         MockKAnnotations.init(this, relaxUnitFun = true)
-
-        every {
-            mockStringResourceManager[any<KProperty1<StringResourcesUiModel, String>>()]
-        } answers { firstArg<KProperty1<StringResourcesUiModel, String>>().toString() }
 
         every {
             mockProductPaging.invoke()
@@ -84,7 +74,6 @@ internal class ProductListViewmodelTest {
             addToCart = mockAddToCart,
             removeFromCart = mockRemoveFromCart,
             navigation = mockNavigation,
-            stringResourceManager = mockStringResourceManager,
             productPaging = mockProductPaging,
             suggestedProductPaging = mockSuggestedProductPaging,
             getCartTotalPrice = mockGetCartTotalPrice
