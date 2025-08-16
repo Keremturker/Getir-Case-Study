@@ -7,7 +7,7 @@ It also includes built-in support for multi-language localization with resources
 - Minimum SDK level 24+
 - Architecture: MVVM + Clean Architecture + Single Activity
 - UI Framework: [Jetpack Compose](https://developer.android.com/compose) (100%)
-- Navigation: [Compose Navigation](https://developer.android.com/develop/ui/compose/navigation)
+- Navigation: [Nav3](https://developer.android.com/guide/navigation/navigation-3)
 - State Management: [StateFlow & SharedFlow](https://developer.android.com/kotlin/flow/stateflow-and-sharedflow)
 - Animations: [Lottie](https://github.com/airbnb/lottie-android)
 - Networking: [Retrofit](https://square.github.io/retrofit/)
