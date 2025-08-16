@@ -7,7 +7,9 @@ import com.kturker.core.domain.usecase.AddToCartUseCase
 import com.kturker.core.domain.usecase.GetCartTotalPriceUseCase
 import com.kturker.core.domain.usecase.RemoveFromCartUseCase
 import com.kturker.core.presentation.CoreViewModel
-import com.kturker.core.presentation.getTypedArg
+import com.kturker.core.presentation.KEY_ARGS
+import com.kturker.core.presentation.getJson
+import com.kturker.core.presentation.putJson
 import com.kturker.feature.product.contract.ProductDetailArgs
 import com.kturker.feature.product.domain.usecase.GetQuantityByIdUseCase
 import com.kturker.feature.product.presentation.navigation.ProductNavigation
@@ -15,6 +17,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -25,25 +28,41 @@ internal class ProductDetailViewModel @Inject constructor(
     private val navigation: ProductNavigation,
     private val addToCart: AddToCartUseCase,
     private val removeFromCart: RemoveFromCartUseCase,
-    getCartTotalPrice: GetCartTotalPriceUseCase,
-    getQuantityById: GetQuantityByIdUseCase
+    private val getQuantityById: GetQuantityByIdUseCase,
+    getCartTotalPrice: GetCartTotalPriceUseCase
 ) : CoreViewModel(), ProductDetailAction {
 
-    val args: ProductDetailArgs by lazy { savedStateHandle.getTypedArg<ProductDetailArgs>() }
+    val args: ProductDetailArgs by lazy {
+        savedStateHandle.getJson<ProductDetailArgs>(KEY_ARGS)
+    }
 
-    private val _uiState = MutableStateFlow(
-        value = ProductDetailUiState(
-            imageUrl = args.imageUrl,
-            description = args.description,
-            priceText = args.priceText,
-            name = args.name
-        )
-    )
+    private val _uiState = MutableStateFlow(value = ProductDetailUiState())
     val uiState: StateFlow<ProductDetailUiState> = _uiState.asStateFlow()
 
     val cartTotalPrice = getCartTotalPrice()
 
-    val quantityById = getQuantityById(args.id)
+    var quantityById = flowOf<Int>()
+
+    fun setArgs(newArgs: ProductDetailArgs) {
+        if (savedStateHandle.contains(KEY_ARGS).not()) {
+            savedStateHandle.putJson(KEY_ARGS, newArgs)
+        }
+
+        initUiState()
+    }
+
+    fun initUiState() {
+        quantityById = getQuantityById(args.id)
+
+        _uiState.update {
+            it.copy(
+                imageUrl = args.imageUrl,
+                description = args.description,
+                priceText = args.priceText,
+                name = args.name
+            )
+        }
+    }
 
     override fun navigateUp() {
         navigation.navigateUp()

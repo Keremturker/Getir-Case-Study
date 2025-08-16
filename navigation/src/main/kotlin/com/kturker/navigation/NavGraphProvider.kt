@@ -1,7 +1,8 @@
 package com.kturker.navigation
 
-import androidx.navigation.NavGraphBuilder
+import androidx.navigation3.runtime.EntryProviderBuilder
+import androidx.navigation3.runtime.NavKey
 
 fun interface NavGraphProvider {
-    fun registerGraph(navGraphBuilder: NavGraphBuilder)
+    fun registerGraph(provider: EntryProviderBuilder<NavKey>)
 }

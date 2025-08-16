@@ -18,4 +18,5 @@ dependencies {
 
     implementation(libs.kotlin.serialization.json)
     detektPlugins(libs.bundles.detekt)
+    implementation(libs.androidx.navigation3.ui)
 }

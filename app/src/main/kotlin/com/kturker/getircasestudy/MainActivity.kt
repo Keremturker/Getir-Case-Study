@@ -7,9 +7,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
-import androidx.navigation.compose.rememberNavController
+import androidx.navigation3.runtime.rememberNavBackStack
 import com.kturker.core.presentation.progresscentricnotification.ProgressCentricNotificationManager
 import com.kturker.feature.cart.contract.CartScreenDestination
+import com.kturker.feature.product.contract.ProductListScreenDestination
 import com.kturker.language.StringResourceManager
 import com.kturker.navigation.NavGraphProvider
 import com.kturker.navigation.NavigationManager
@@ -42,17 +43,17 @@ internal class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
-            val navController = rememberNavController()
+            val backStack = rememberNavBackStack(ProductListScreenDestination)
 
             AppRouteScreen(
-                navController = navController,
+                backStack = backStack,
                 navGraphProviders = navGraphProviders,
                 stringResourceManager = stringResourceManager
             )
 
             NavigationLaunchedEffect(
                 navigationManager = navigationManager,
-                navController = navController
+                backStack = backStack
             )
 
             ProgressCentricLaunchedEffect(

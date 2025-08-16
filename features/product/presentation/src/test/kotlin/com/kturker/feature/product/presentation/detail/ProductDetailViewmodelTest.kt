@@ -1,16 +1,16 @@
 package com.kturker.feature.product.presentation.detail
 
+import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
 import com.kturker.core.domain.model.ProductItem
 import com.kturker.core.domain.usecase.AddToCartUseCase
 import com.kturker.core.domain.usecase.GetCartTotalPriceUseCase
 import com.kturker.core.domain.usecase.RemoveFromCartUseCase
-import com.kturker.core.presentation.createSavedStateHandleWithArgs
+import com.kturker.core.presentation.KEY_ARGS
+import com.kturker.core.presentation.putJson
 import com.kturker.feature.product.contract.ProductDetailArgs
 import com.kturker.feature.product.domain.usecase.GetQuantityByIdUseCase
 import com.kturker.feature.product.presentation.navigation.ProductNavigation
-import com.kturker.language.StringResourceManager
-import com.kturker.language.StringResourcesUiModel
 import io.mockk.MockKAnnotations
 import io.mockk.coVerify
 import io.mockk.every
@@ -22,7 +22,6 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
-import kotlin.reflect.KProperty1
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 internal class ProductDetailViewmodelTest {
@@ -58,7 +57,8 @@ internal class ProductDetailViewmodelTest {
     fun setUp() {
         MockKAnnotations.init(this, relaxUnitFun = true)
 
-        val savedStateHandle = createSavedStateHandleWithArgs(args = args)
+        val handle = SavedStateHandle()
+        handle.putJson(KEY_ARGS, args)
 
         every {
             mockGetCartTotalPrice.invoke()
@@ -69,7 +69,7 @@ internal class ProductDetailViewmodelTest {
         } returns flowOf()
 
         viewModel = ProductDetailViewModel(
-            savedStateHandle = savedStateHandle,
+            savedStateHandle = handle,
             navigation = mockNavigation,
             addToCart = mockAddToCart,
             removeFromCart = mockRemoveFromCart,

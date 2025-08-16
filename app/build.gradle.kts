@@ -106,10 +106,11 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     debugImplementation(libs.androidx.ui.tooling)
-    implementation(libs.androidx.navigation.compose)
-    implementation(libs.accompanist.permissions)
+     implementation(libs.accompanist.permissions)
     debugImplementation(libs.leakcanary.android)
     detektPlugins(libs.bundles.detekt)
+    implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.androidx.navigation3.ui)
 
     //Dagger - Hilt
     implementation(libs.hilt.android)

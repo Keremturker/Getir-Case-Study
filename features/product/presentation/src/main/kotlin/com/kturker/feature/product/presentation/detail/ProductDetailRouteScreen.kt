@@ -5,11 +5,19 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.kturker.feature.product.contract.ProductDetailArgs
 import kotlinx.coroutines.flow.distinctUntilChanged
 
 @Composable
-internal fun ProductDetailRouteScreen(viewmodel: ProductDetailViewModel = hiltViewModel()) {
+internal fun ProductDetailRouteScreen(
+    args: ProductDetailArgs,
+    viewmodel: ProductDetailViewModel = hiltViewModel()
+) {
     val uiState by viewmodel.uiState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(key1 = Unit) {
+        viewmodel.setArgs(args)
+    }
 
     LaunchedEffect(key1 = Unit) {
         viewmodel.cartTotalPrice

@@ -57,8 +57,8 @@ dependencies {
     implementation(libs.androidx.compose.ui.ui)
     implementation(libs.ui.graphics)
     debugImplementation(libs.ui.tooling)
-    implementation(libs.androidx.navigation.compose)
-
+    implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.androidx.navigation3.ui)
     testImplementation(libs.bundles.test.all)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

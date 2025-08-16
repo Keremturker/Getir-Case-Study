@@ -53,6 +53,7 @@ dependencies {
     debugImplementation(libs.ui.tooling)
 
     implementation(libs.kotlin.serialization.json)
+    implementation(libs.androidx.hilt.navigation.compose)
 
     detektPlugins(libs.bundles.detekt)
 }
